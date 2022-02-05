@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/05 22:54:02 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/05 22:59:28 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/time.h>
-# include <sys/resource.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <sys/stat.h>
-# include <dirent.h>
-# include <string.h>
-# include <sys/ioctl.h>
-# include <termios.h>
-# include <get_next_line.h>
-
-#endif
+int	main(int argc, char const *argv[])
+{
+	return (0);
+}

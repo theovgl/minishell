@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/05 22:54:02 by tvogel           ###   ########.fr       */
+/*   Created: 2020/12/01 13:08:25 by tvogel            #+#    #+#             */
+/*   Updated: 2021/01/17 13:22:04 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
-# include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <sys/types.h>
-# include <sys/time.h>
-# include <sys/resource.h>
-# include <sys/wait.h>
-# include <signal.h>
 # include <sys/stat.h>
-# include <dirent.h>
-# include <string.h>
-# include <sys/ioctl.h>
-# include <termios.h>
-# include <get_next_line.h>
+# include <fcntl.h>
+# include <stdio.h>
+
+int		get_next_line(int fd, char **line);
+size_t	ft_strlen(const char *src);
+int		isendline(char *src);
+char	*ft_join(char *s1, char *s2);
 
 #endif

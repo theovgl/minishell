@@ -6,9 +6,9 @@
   - `fix:` correction d'un bug
   - `refactor:` code retravaillé, mais sans nouvelles fonctionnalités ni correction de bug
 ### Branches
-> ⚠️ La branche main ne doit contenir que du code **propre** et **fonctionnel**
+> ⚠️ La branche main ne doit contenir que du code **propre**, **fonctionnel** et **à la norme**
 
-Chaque fonctionnalité doit etre codé dans une branche dédié
+Chaque fonctionnalité doit etre codé dans une branche dédiée
 #### Exemple :
 ```
 * main
