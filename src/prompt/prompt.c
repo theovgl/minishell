@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/08 19:19:28 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/08 18:05:07 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/08 19:19:58 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char const *argv[])
+void	write_prompt(int backspace)
 {
-	handle_signal();
-	while (readline("$> ") != NULL)
-	{
-		/* code */
-	}
-	return (0);
+	write(1, "$> ", 3);
+	if (backspace)
+		write(1, "\n", 1);
 }

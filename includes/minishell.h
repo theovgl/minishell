@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/05 22:54:02 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/08 19:21:22 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # include <string.h>
 # include <sys/ioctl.h>
 # include <termios.h>
-# include <get_next_line.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "get_next_line.h"
+
+void	write_prompt(int backspace);
+void	handle_signal(void);
 
 #endif
