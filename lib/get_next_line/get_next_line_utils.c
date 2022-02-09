@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 13:08:10 by tvogel            #+#    #+#             */
-/*   Updated: 2021/05/20 14:01:00 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/09 17:22:00 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ int	isendline(char *src)
 		i++;
 	}
 	return (-1);
-}
-
-size_t	ft_strlen(const char *src)
-{
-	int	i;
-
-	i = 0;
-	if (!src)
-		return (0);
-	while (src[i])
-	{
-		i++;
-	}
-	return (i);
 }
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
