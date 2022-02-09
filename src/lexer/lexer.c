@@ -40,12 +40,12 @@ int	ft_iscotepipe(t_config *c, int i)
 	}
 	if (c->command_line[i] == '\'')
 	{
-		if (add_token(c, i, i++, SCOTE) == FAILURE)
+		if (add_token(c, i, i++, SQUOTE) == FAILURE)
 			return (clean_exit(ERR_ADD_TOKEN));
 	}
 	if (c->command_line[i] == '\"')
 	{
-		if (add_token(c, i, i++, DCOTE) == FAILURE)
+		if (add_token(c, i, i++, DQUOTE) == FAILURE)
 			return (clean_exit(ERR_ADD_TOKEN));
 	}
 	return (i);

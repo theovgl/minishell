@@ -58,8 +58,8 @@ enum {
 		LLESS,
 		PIPE,
 		ARG,
-		SCOTE,
-		DCOTE,
+		SQUOTE,
+		DQUOTE,
 		DOLLAR,
 		QMARK,
 		ERR_ADD_TOKEN
