@@ -30,7 +30,6 @@
 # include <readline/history.h>
 # include "get_next_line.h"
 
-void	write_prompt(int backspace);
 void	handle_signal(void);
 
 #endif
