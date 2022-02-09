@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 11:08:01 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/09 17:28:25 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int	main(void)
 {
+	char		*buffer;
+	t_config	c;
+
 	handle_signal();
-	while (readline("$> ") != NULL)
+	buffer = readline("minishell$> ");
+	while (buffer != NULL)
 	{
+		parser(&c);
+		buffer = readline("minishell$> ");
 	}
+	free(buffer);
 	return (0);
 }
