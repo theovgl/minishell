@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 11:08:01 by tvogel           ###   ########.fr       */
+/*   Created: 2020/11/24 13:44:02 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/09 12:05:51 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	ft_lstadd_front(t_list **alst, t_list *new)
 {
-	t_config	c;
-	handle_signal();
-	while (readline("$> ") != NULL)
-	{
-	}
-	return (0);
+	if (alst == NULL || new == NULL)
+		return ;
+	new->next = *alst;
+	*alst = new;
 }
