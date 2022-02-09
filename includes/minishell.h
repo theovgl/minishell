@@ -28,4 +28,38 @@
 # include <termios.h>
 # include <get_next_line.h>
 
+enum {
+		WORD = 1,
+		GREAT,
+		GGREAT,
+		LESS,
+		LLESS,
+		PIPE,
+		ARG
+};
+
+typedef struct s_list
+{
+	void	*data;
+	int		type;
+	t_list	*next;
+	t_list	*prev;
+}	t_list;
+
+
+typedef struct	s_config
+{
+	char	*command_line;
+	
+}	t_config;
+
+// LEXER
+void lexer(t_config *c);
+
+// UTILS
+int	ft_isalnum(int c);
+
+
+
+
 #endif

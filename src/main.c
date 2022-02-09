@@ -14,5 +14,6 @@
 
 int	main(int argc, char const *argv[])
 {
+	t_config	c;
 	return (0);
 }
