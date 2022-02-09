@@ -12,6 +12,8 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define SUCCESS 0
+# define FAILURE 1
 
 # include <stdio.h>
 # include <unistd.h>
@@ -55,12 +57,17 @@ enum {
 		LESS,
 		LLESS,
 		PIPE,
-		ARG
+		ARG,
+		SCOTE,
+		DCOTE,
+		DOLLAR,
+		QMARK,
+		ERR_ADD_TOKEN
 };
 
 typedef struct s_list
 {
-	void	*data;
+	char	*content;
 	int		type;
 	t_list	*next;
 	t_list	*prev;
@@ -73,8 +80,12 @@ typedef struct	s_config
 	
 }	t_config;
 
+// SRC
+int	clean_exit(int code);
+
 // LEXER
 void lexer(t_config *c);
+int add_token(t_config *c, int start, int end, int type);
 
 // UTILS
 int	ft_isalnum(int c);

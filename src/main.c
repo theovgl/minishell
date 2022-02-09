@@ -19,5 +19,5 @@ int	main(void)
 	while (readline("$> ") != NULL)
 	{
 	}
-	return (0);
+	return (clean_exit(SUCCESS));
 }
