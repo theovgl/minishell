@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 17:27:23 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/10 15:46:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,25 @@ struct s_list
 	t_list	*prev;
 };
 
+typedef struct s_io
+{
+	int		i_fd;
+	int		o_fd;
+}	t_io;
+
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	*path;
+	t_io	io;
+}	t_cmd;
+
 typedef struct s_config
 {
 	t_list	tokens;
 	char	**env;
+	char	*cmd_path;
+	t_list	*cmd_list;
 }	t_config;
 
 void	handle_signal(void);
@@ -75,5 +90,6 @@ enum {
 // PARSER
 
 int		parser(t_config *c);
+int		parse_env(t_config *c);
 
 #endif

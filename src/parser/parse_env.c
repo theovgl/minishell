@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 09:22:57 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/10 10:40:13 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/10 14:41:12 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/10 14:41:30 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+/**
+ * @brief Check if the PATH variable is present in the env
+ * If the variable exist the function split all the different paths in a char**
+ *
+ * @param c
+ * @return int
+ */
+int	parse_env(t_config *c)
 {
-	int		i;
-	int		j;
-	char	*dest;
+	char	*ret;
 
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!dest)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		dest[i] = s2[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	ret = ft_strdup(getenv("PATH"));
+	if (ret == NULL)
+		return (1);
+	c->env = ft_split(ret, ':');
+	format_path(c);
+	return (0);
 }
