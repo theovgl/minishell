@@ -6,12 +6,18 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:19:02 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 12:05:29 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/11 12:12:28 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Ajoute l’élément ’new’ à la fin de la liste.
+ *
+ * @param alst
+ * @param new
+ */
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
 	t_list	*temp;
