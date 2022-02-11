@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/10 15:46:55 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/11 12:02:36 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_list	t_list;
 
 struct s_list
 {
-	char	*content;
+	void	*content;
 	int		type;
 	t_list	*next;
 	t_list	*prev;

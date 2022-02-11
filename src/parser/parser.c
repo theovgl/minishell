@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/10 17:51:08 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/11 16:54:58 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,44 +76,59 @@ int	check_path(t_config *c, char *cmd)
 	return (0);
 }
 
-void	parse_word(t_config *c)
+t_cmd	parse_word(t_config *c, t_list *list)
 {
-	// t_list	*current;
+	t_list	*current;
+	t_cmd	new_cmd;
 
-	// current = list;
-	// while (current)
-	// {
-	// 	/* code */
-	// }
+	current = list;
+	new_cmd.cmd = NULL;
+	while (current && current->type == WORD)
+	{
+		if (new_cmd.cmd == NULL)
+			new_cmd.cmd = ft_strdup(current->content);
+		else
+		{
+			new_cmd.cmd = ft_strjoin(new_cmd.cmd, " ");
+			new_cmd.cmd = ft_strjoin(new_cmd.cmd, current->content);
+		}
+		current = current->next;
+	}
+	return (new_cmd);
+}
 
+void	add_cmd_to_list(t_config *c, t_cmd *cmd)
+{
+	t_list	*to_add;
+
+	to_add = ft_lstnew(cmd);
+	if (c->cmd_list == NULL)
+	{
+		c->cmd_list = ft_lstnew(cmd);
+	}
+	else
+		ft_lstadd_back(&c->cmd_list, to_add);
+	printf("%s\n", ((t_cmd *)to_add->content)->cmd);
 }
 
 void	parse_tokens(t_config *c)
 {
 	t_list	*current;
-	t_list	*new_cmd;
 	t_cmd	cmd;
 
 	current = &c->tokens;
-	cmd.cmd = NULL;
 	while (current)
 	{
-		while (current && current->type == WORD)
+		if (current->type == WORD)
 		{
-			if (cmd.cmd == NULL)
-				cmd.cmd = ft_strdup(current->content);
-			else
-			{
-				cmd.cmd = ft_strjoin(cmd.cmd, " ");
-				cmd.cmd = ft_strjoin(cmd.cmd, current->content);
-			}
-			current = current->next;
+			cmd = parse_word(c, current);
+			while (current && current->type == WORD)
+				current = current->next;
+			add_cmd_to_list(c, &cmd);
 		}
-		if (current && current->next != NULL)
+		else
 			current = current->next;
 	}
-	new_cmd = ft_lstnew(&cmd);
-	printf("%s\n", cmd.cmd);
 }
 
 int	parser(t_config *c)
@@ -122,6 +137,7 @@ int	parser(t_config *c)
 
 	i = 0;
 	init_list(c);
+	c->cmd_list = NULL;
 	if (parse_env(c))
 	{
 		printf("PATH not found\n");
