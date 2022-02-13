@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/11 12:02:36 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/13 15:07:32 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ enum {
 
 int		parser(t_config *c);
 int		parse_env(t_config *c);
+void	parse_tokens(t_config *c);
 
 #endif
