@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/13 16:33:12 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/14 17:26:56 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,47 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		free(temp);
 		i++;
 	}
-	if (to_check == NULL && !to_check[0])
+	if (to_check != NULL)
 		cmd->path = ft_strdup(to_check);
 	else
 		cmd->path = NULL;
 	return (0);
 }
 
-static t_cmd	parse_word(t_config *c, t_list *list)
+int	get_cmd_size(t_list *node)
 {
 	t_list	*current;
-	t_cmd	new_cmd;
+	int		i;
 
-	current = list;
-	new_cmd.cmd = NULL;
-	while (current && current->type == WORD && current->content)
+	i = 0;
+	current = node;
+	while (current != NULL && current->type == WORD)
 	{
-		if (new_cmd.cmd == NULL)
-		{
-			new_cmd.cmd = ft_strdup(current->content);
-			get_cmd_path(c, &new_cmd, current->content);
-		}
-		else
-		{
-			new_cmd.cmd = ft_strjoin(new_cmd.cmd, " ");
-			new_cmd.cmd = ft_strjoin(new_cmd.cmd, current->content);
-		}
+		i++;
 		current = current->next;
 	}
-	return (new_cmd);
+	return (i);
+}
+
+static t_cmd	parse_word(t_config *c, t_list *list, int size)
+{
+	t_list	*current;
+	t_cmd	new;
+	int		i;
+
+	i = 0;
+	current = list;
+	new.cmd = malloc(sizeof(char *) * (size + 1));
+	// if (new.cmd == NULL)
+	// 	return ;
+	while (current && current->type == WORD && current->content)
+	{
+		new.cmd[i++] = ft_strdup(current->content);
+		current = current->next;
+	}
+	new.cmd[i] = NULL;
+	get_cmd_path(c, &new, new.cmd[0]);
+	return (new);
 }
 
 /**
@@ -80,9 +92,7 @@ static void	add_cmd_to_list(t_config *c, t_cmd *cmd)
 
 	to_add = ft_lstnew(cmd);
 	if (c->cmd_list == NULL)
-	{
 		c->cmd_list = ft_lstnew(cmd);
-	}
 	else
 		ft_lstadd_back(&c->cmd_list, to_add);
 }
@@ -96,13 +106,15 @@ void	parse_tokens(t_config *c)
 {
 	t_list	*current;
 	t_cmd	cmd;
+	int		size;
 
 	current = &c->tokens;
 	while (current)
 	{
 		if (current->type == WORD)
 		{
-			cmd = parse_word(c, current);
+			size = get_cmd_size(current);
+			cmd = parse_word(c, current, size);
 			while (current && current->type == WORD)
 				current = current->next;
 			add_cmd_to_list(c, &cmd);

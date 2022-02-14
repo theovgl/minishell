@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/13 15:07:32 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/14 16:16:14 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_io
 
 typedef struct s_cmd
 {
-	char	*cmd;
+	char	**cmd;
 	char	*path;
 	t_io	io;
 }	t_cmd;
