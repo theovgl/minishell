@@ -12,8 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define SUCCESS 0
-# define FAILURE 1
 
 # include <stdio.h>
 # include <unistd.h>
@@ -32,14 +30,61 @@
 # include <readline/history.h>
 # include "get_next_line.h"
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
+enum {
+		SUCCESS = 0,
+		FAILURE,
+		WORD,
+		GREAT,
+		GGREAT,
+		LESS,
+		LLESS,
+		PIPE,
+		SQUOTE,
+		DQUOTE,
+		DOLLAR,
+		QMARK,
+		ERR_ADD_TOKEN,
+		ERR_INIT,
+		ERR_MALLOC,
+		ERR_LEXER
+};
 
+typedef struct s_list t_list;
+
+struct s_list
+{
+	void	*content;
+	int		type;
+	t_list	*next;
+	t_list	*prev;
+};
+
+
+
+
+
+typedef struct	s_config
+{
+	char	*command_line;
+	t_list	*first_node;
+	
+}	t_config;
+
+// SIGNAL
 void	handle_signal(void);
 
+// SRC
+int	clean_exit(int code);
+
+// INIT
+int	init(t_config *c);
+
+// LEXER
+int lexer(t_config *c);
+int add_token(t_config *c, int start, int end, int type);
+
+// UTILS
+int	ft_isalnum(int c);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstadd_front(t_list **alst, t_list *new);
@@ -49,46 +94,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 int		ft_lstsize(t_list *lst);
-
-enum {
-		WORD = 1,
-		GREAT,
-		GGREAT,
-		LESS,
-		LLESS,
-		PIPE,
-		ARG,
-		SQUOTE,
-		DQUOTE,
-		DOLLAR,
-		QMARK,
-		ERR_ADD_TOKEN
-};
-
-typedef struct s_list
-{
-	char	*content;
-	int		type;
-	t_list	*next;
-	t_list	*prev;
-}	t_list;
-
-
-typedef struct	s_config
-{
-	char	*command_line;
-	
-}	t_config;
-
-// SRC
-int	clean_exit(int code);
-
-// LEXER
-void lexer(t_config *c);
-int add_token(t_config *c, int start, int end, int type);
-
-// UTILS
-int	ft_isalnum(int c);
 
 
 

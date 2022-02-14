@@ -14,10 +14,24 @@
 
 int	main(void)
 {
+	// char *buff;
 	t_config	c;
+	if (init(&c) == FAILURE)
+		return (clean_exit(ERR_INIT));
 	handle_signal();
-	while (readline("$> ") != NULL)
+	c.command_line = readline("$> ");
+	while (c.command_line != NULL)
 	{
+printf("COMMAND LINE IS: %s\n", c.command_line);
+		if (lexer(&c) != SUCCESS)
+			return (clean_exit(ERR_LEXER));
+while (c.first_node)
+{
+	printf("content: %s\n", (char *)c.first_node->content);
+	printf("type: %d\n", c.first_node->type);
+	c.first_node = c.first_node->next;
+}
+		c.command_line = readline("$> ");
 	}
 	return (clean_exit(SUCCESS));
 }
