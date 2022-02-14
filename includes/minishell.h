@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 12:08:22 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/14 11:39:33 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,25 @@
 # include "get_next_line.h"
 
 enum {
-		SUCCESS = 0,
-		FAILURE,
-		WORD,
-		GREAT,
-		GGREAT,
-		LESS,
-		LLESS,
-		PIPE,
-		SQUOTE,
-		DQUOTE,
-		DOLLAR,
-		QMARK,
-		ERR_ADD_TOKEN,
-		ERR_INIT,
-		ERR_MALLOC,
-		ERR_LEXER
+	SUCCESS = 0,
+	FAILURE,
+	WORD,
+	GREAT,
+	GGREAT,
+	LESS,
+	LLESS,
+	PIPE,
+	SQUOTE,
+	DQUOTE,
+	DOLLAR,
+	QMARK,
+	ERR_ADD_TOKEN,
+	ERR_INIT,
+	ERR_MALLOC,
+	ERR_LEXER
 };
 
-typedef struct s_list t_list;
+typedef struct s_list	t_list;
 
 struct s_list
 {
@@ -59,32 +59,28 @@ struct s_list
 	t_list	*prev;
 };
 
-
-
-
-
-typedef struct	s_config
+typedef struct s_config
 {
 	char	*command_line;
 	t_list	*first_node;
-	
+
 }	t_config;
 
 // SIGNAL
 void	handle_signal(void);
 
 // SRC
-int	clean_exit(int code);
+int		clean_exit(int code);
 
 // INIT
-int	init(t_config *c);
+int		init(t_config *c);
 
 // LEXER
-int lexer(t_config *c);
-int add_token(t_config *c, int start, int end, int type);
+int		lexer(t_config *c);
+int		add_token(t_config *c, int start, int end, int type);
 
 // UTILS
-int	ft_isalnum(int c);
+int		ft_isalnum(int c);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstadd_front(t_list **alst, t_list *new);
@@ -94,8 +90,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 int		ft_lstsize(t_list *lst);
-
-
-
+int		ft_isspace(const char c);
 
 #endif
