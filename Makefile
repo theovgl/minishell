@@ -9,7 +9,7 @@ SRCS	= main.c \
 OBJS	= $(SRCS:.c=.o)
 INCL	= -I includes
 CC		= clang
-CFLAGS	= -Wall -Wextra -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra #-g3 -fsanitize=address
 LIBS	= -lreadline
 RM		= rm -f
 

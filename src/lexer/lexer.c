@@ -49,7 +49,7 @@ int	ft_islessgreat(t_config *c, int i)
 // Returns the new position 'i'.
 int	ft_isquote(t_config *c, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (c->command_line[i] == '\'')
@@ -59,9 +59,14 @@ int	ft_isquote(t_config *c, int i)
 		i++;
 		while (c->command_line[i + j] != '\'' && c->command_line[i + j])
 			j++;
-		if (add_token(c, i, j, WORD) == FAILURE)
+		if (!j)
+			return (i);
+		if (add_token(c, i, i + j - 1, WORD) == FAILURE)
 			return (-1);
 		i += j;
+		if (add_token(c, i, i, SQUOTE) == FAILURE)
+			return (-1);
+		i++;
 	}
 	if (c->command_line[i] == '\"')
 	{
@@ -70,7 +75,12 @@ int	ft_isquote(t_config *c, int i)
 		i++;
 		while (c->command_line[i + j] != '\"' && c->command_line[i + j])
 			j++;
-		if (add_token(c, i, j, WORD) == FAILURE)
+		if (!j)
+			return (i);
+		if (add_token(c, i, i + j - 1, WORD) == FAILURE)
+			return (-1);
+		i += j;
+		if (add_token(c, i, i, DQUOTE) == FAILURE)
 			return (-1);
 		i++;
 	}
@@ -122,22 +132,24 @@ int	ft_isword(t_config *c, int i)
 	c->command_line[i + j] != '|' && \
 	!ft_isspace(c->command_line[i + j]))
 		j++;
-	if (add_token(c, i, i + j, WORD) == FAILURE)
+	if (!j)
+		return (i);
+	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
 		return (clean_exit(ERR_ADD_TOKEN));
 	return (i + j);
 }
 
 // The lexer takes the char* resulting of the readline.
 // It suposedly contains the commands that minishell has to execute.
-// The lexer set apart every part of the command list and save them as tokens in a linked chain.
-int lexer(t_config *c)
+// The lexer set apart every part of the command list 
+// and save them as tokens in a linked chain.
+int	lexer(t_config *c)
 {
 	int	i;
 
 	i = 0;
 	while (c->command_line[i])
 	{
-		printf("c->command_line[%d] == %c\n", i, c->command_line[i]);
 		while (c->command_line[i] && \
 		c->command_line[i] == '\f' && \
 		c->command_line[i] == ' ' && \
@@ -145,7 +157,7 @@ int lexer(t_config *c)
 		c->command_line[i] == '\r' && \
 		c->command_line[i] == '\t' && \
 		c->command_line[i] == '\v')
-		i++;
+			i++;
 		if (c->command_line[i])
 			i = ft_isword(c, i);
 		if (i == -1)
@@ -162,8 +174,6 @@ int lexer(t_config *c)
 			i = ft_isdollar_qmark_pipe(c, i);
 		if (i == -1)
 			return (FAILURE);
-		if (c->command_line[i])
-			i++;
 	}
 	return (SUCCESS);
 }
@@ -171,7 +181,7 @@ int lexer(t_config *c)
 // add_token takes a portion of the command line and a type of token.
 // add_token save the portion in the chained list.
 // add_token fill c.type accordingly.
-int add_token(t_config *c, int start, int end, int type)
+int	add_token(t_config *c, int start, int end, int type)
 {
 	int		i;
 	char	*content;
