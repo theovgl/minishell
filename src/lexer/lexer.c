@@ -49,42 +49,31 @@ int	ft_islessgreat(t_config *c, int i)
 // Returns the new position 'i'.
 int	ft_isquote(t_config *c, int i)
 {
-	int	j;
+	int		j;
+	char	q;
+	int		type;
 
 	j = 0;
-	if (c->command_line[i] == '\'')
-	{
-		if (add_token(c, i, i, SQUOTE) == FAILURE)
-			return (-1);
-		i++;
-		while (c->command_line[i + j] != '\'' && c->command_line[i + j])
-			j++;
-		if (!j)
-			return (i);
-		if (add_token(c, i, i + j - 1, WORD) == FAILURE)
-			return (-1);
-		i += j;
-		if (add_token(c, i, i, SQUOTE) == FAILURE)
-			return (-1);
-		i++;
-	}
-	if (c->command_line[i] == '\"')
-	{
-		if (add_token(c, i, i, DQUOTE) == FAILURE)
-			return (-1);
-		i++;
-		while (c->command_line[i + j] != '\"' && c->command_line[i + j])
-			j++;
-		if (!j)
-			return (i);
-		if (add_token(c, i, i + j - 1, WORD) == FAILURE)
-			return (-1);
-		i += j;
-		if (add_token(c, i, i, DQUOTE) == FAILURE)
-			return (-1);
-		i++;
-	}
-	return (i);
+	q = c->command_line[i];
+	if (q == '\"')
+		type = DQUOTE;
+	else if (q == '\'')
+		type = SQUOTE;
+	else
+		return (i);
+	if (add_token(c, i, i, type) == FAILURE)
+		return (-1);
+	i++;
+	while (c->command_line[i + j] != q && c->command_line[i + j])
+		j++;
+	if (!j)
+		return (i);
+	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
+		return (-1);
+	i += j;
+	if (add_token(c, i, i, type) == FAILURE)
+		return (-1);
+	return (++i);
 }
 
 // Takes the position 'i' of the command line.
@@ -150,13 +139,7 @@ int	lexer(t_config *c)
 	i = 0;
 	while (c->command_line[i])
 	{
-		while (c->command_line[i] && \
-		c->command_line[i] == '\f' && \
-		c->command_line[i] == ' ' && \
-		c->command_line[i] == '\n' && \
-		c->command_line[i] == '\r' && \
-		c->command_line[i] == '\t' && \
-		c->command_line[i] == '\v')
+		while (ft_isspace(c->command_line[i]))
 			i++;
 		if (c->command_line[i])
 			i = ft_isword(c, i);
@@ -174,37 +157,6 @@ int	lexer(t_config *c)
 			i = ft_isdollar_qmark_pipe(c, i);
 		if (i == -1)
 			return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
-// add_token takes a portion of the command line and a type of token.
-// add_token save the portion in the chained list.
-// add_token fill c.type accordingly.
-int	add_token(t_config *c, int start, int end, int type)
-{
-	int		i;
-	char	*content;
-	t_list	*new_node;
-
-	i = 0;
-	content = malloc(sizeof(char) * (end - start + 2));
-	if (content == NULL)
-		return (FAILURE);
-	while (start + i <= end)
-		content[i] = c->command_line[start + i++];
-	content[i] = '\0';
-	new_node = ft_lstnew(content);
-	new_node->type = type;
-	if (c->first_node == NULL)
-	{
-		c->first_node = ft_lstnew(content);
-		c->first_node->type = type;
-	}
-	else
-	{
-		ft_lstadd_back(&c->first_node, new_node);
-		ft_lstlast(c->first_node)->type = type;
 	}
 	return (SUCCESS);
 }
