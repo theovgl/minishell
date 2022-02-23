@@ -42,8 +42,8 @@ int	parse_env(t_config *c)
 
 	ret = ft_strdup(getenv("PATH"));
 	if (ret == NULL)
-		return (1);
+		return (FAILURE);
 	c->env = ft_split(ret, ':');
 	format_path(c);
-	return (0);
+	return (SUCCESS);
 }

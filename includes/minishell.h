@@ -78,13 +78,22 @@ size_t	ft_strlen(const char *src);
 char	*ft_strjoin(const char *s1, const char *s2);
 
 enum {
-	WORD = 1,
+	SUCCESS = 0,
+	FAILURE,
+	WORD,
 	GREAT,
 	GGREAT,
 	LESS,
 	LLESS,
 	PIPE,
-	ARG
+	SQUOTE,
+	DQUOTE,
+	DOLLAR,
+	QMARK,
+	ERR_ADD_TOKEN,
+	ERR_INIT,
+	ERR_MALLOC,
+	ERR_LEXER
 };
 
 // PARSER

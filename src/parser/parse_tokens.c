@@ -32,7 +32,7 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		{
 			cmd->path = ft_strdup(temp);
 			free(temp);
-			return (1);
+			return (FAILURE);
 		}
 		free(temp);
 		i++;
@@ -41,7 +41,7 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		cmd->path = ft_strdup(to_check);
 	else
 		cmd->path = NULL;
-	return (0);
+	return (SUCCESS);
 }
 
 int	get_cmd_size(t_list *node)
