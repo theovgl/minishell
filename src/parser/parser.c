@@ -33,11 +33,11 @@ int	parser(t_config *c)
 	i = 0;
 	init_list(c);
 	c->cmd_list = NULL;
-	if (parse_env(c))
+	if (parse_env(c) == FAILURE)
 	{
 		printf("PATH not found\n");
-		return (1);
+		return (FAILURE);
 	}
 	parse_tokens(c);
-	return (0);
+	return (SUCCESS);
 }
