@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/14 12:18:29 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/14 11:31:43 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/14 11:39:09 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	ft_isspace(const char c)
 {
-	// char *buff;
-	t_config	c;
-	if (init(&c) == FAILURE)
-		return (clean_exit(ERR_INIT));
-	handle_signal();
-	c.command_line = readline("$> ");
-	while (c.command_line != NULL)
-	{
-		if (lexer(&c) != SUCCESS)
-			return (clean_exit(ERR_LEXER));
-		c.command_line = readline("$> ");
-	}
-	return (clean_exit(SUCCESS));
+	if (c >= 9 && c <= 13)
+		return (1);
+	return (0);
 }
