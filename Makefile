@@ -3,6 +3,8 @@ SRCS	= main.c \
 			handle_signal.c \
 			ft_lstnew.c ft_lstsize.c ft_lstmap.c ft_lstlast.c ft_lstiter.c ft_lstdelone.c ft_lstclear.c ft_lstadd_front.c ft_lstadd_back.c \
 			get_next_line.c get_next_line_utils.c parser.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlen.c \
+			clean_exit.c init.c \
+			lexer.c token.c \
 			parse_env.c parse_tokens.c
 OBJS	= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 OBJSDIR	= objs
@@ -12,7 +14,7 @@ CFLAGS	= -Wall -Wextra -g3 #-fsanitize=address
 LIBS	= -lreadline
 RM		= rm -f
 
-vpath %.c src/ src/utils/ src/signal/ lib/get_next_line src/parser/
+vpath %.c src/ src/utils/ src/signal/ lib/get_next_line src/parser/ src/lexer
 
 $(OBJSDIR)/%.o:	%.c
 		$(CC) $(CFLAGS) $(INCL) -c $< -o $@

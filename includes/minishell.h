@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/14 16:16:14 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:17:36 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "get_next_line.h"
+
+enum {
+	SUCCESS = 0,
+	FAILURE,
+	WORD,
+	GREAT,
+	GGREAT,
+	LESS,
+	LLESS,
+	PIPE,
+	SQUOTE,
+	DQUOTE,
+	DOLLAR,
+	QMARK,
+	ERR_ADD_TOKEN,
+	ERR_INIT,
+	ERR_MALLOC,
+	ERR_LEXER
+};
 
 typedef struct s_list	t_list;
 
@@ -55,14 +74,28 @@ typedef struct s_cmd
 
 typedef struct s_config
 {
-	t_list	tokens;
+	t_list	*tokens;
 	char	**env;
 	char	*cmd_path;
 	t_list	*cmd_list;
+	char	*command_line;
 }	t_config;
 
+// SIGNAL
 void	handle_signal(void);
 
+// SRC
+int		clean_exit(int code);
+
+// INIT
+int		init(t_config *c);
+
+// LEXER
+int		lexer(t_config *c);
+int		add_token(t_config *c, int start, int end, int type);
+
+// UTILS
+int		ft_isalnum(int c);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstadd_front(t_list **alst, t_list *new);
@@ -76,25 +109,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *src);
 size_t	ft_strlen(const char *src);
 char	*ft_strjoin(const char *s1, const char *s2);
-
-enum {
-	SUCCESS = 0,
-	FAILURE,
-	WORD,
-	GREAT,
-	GGREAT,
-	LESS,
-	LLESS,
-	PIPE,
-	SQUOTE,
-	DQUOTE,
-	DOLLAR,
-	QMARK,
-	ERR_ADD_TOKEN,
-	ERR_INIT,
-	ERR_MALLOC,
-	ERR_LEXER
-};
+int		ft_isspace(const char c);
 
 // PARSER
 
