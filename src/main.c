@@ -22,42 +22,8 @@ int	main(void)
 	c.command_line = readline("$> ");
 	while (c.command_line != NULL)
 	{
-		printf("COMMAND LINE IS: %s\n", c.command_line);
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(ERR_LEXER));
-		while (c.first_node)
-		{
-			printf("content: '%s'\n", (char *)c.first_node->content);
-
-			if (c.first_node->type == SUCCESS)
-			printf("type: SUCCESS\n");
-			if (c.first_node->type == FAILURE)
-			printf("type: FAILURE\n");
-			if (c.first_node->type == WORD)
-			printf("type: WORD\n");
-			if (c.first_node->type == GREAT)
-			printf("type: GREAT\n");
-			if (c.first_node->type == GGREAT)
-			printf("type: GGREAT\n");
-			if (c.first_node->type == SUCCESS)
-			printf("type: SUCCESS\n");
-			if (c.first_node->type == LESS)
-			printf("type: LESS\n");
-			if (c.first_node->type == LLESS)
-			printf("type: LLESS\n");
-			if (c.first_node->type == PIPE)
-			printf("type: PIPE\n");
-			if (c.first_node->type == SQUOTE)
-			printf("type: SQUOTE\n");
-			if (c.first_node->type == DQUOTE)
-			printf("type: DQUOTE\n");
-			if (c.first_node->type == DOLLAR)
-			printf("type: DOLLAR\n");
-			if (c.first_node->type == QMARK)
-			printf("type: QMARK\n");
-
-			c.first_node = c.first_node->next;
-		}
 		c.command_line = readline("$> ");
 	}
 	return (clean_exit(SUCCESS));
