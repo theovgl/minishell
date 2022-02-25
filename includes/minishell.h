@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/24 16:17:36 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/25 15:30:39 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_config
 {
 	t_list	*tokens;
 	char	**env;
-	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
 }	t_config;
@@ -110,6 +109,9 @@ char	*ft_strdup(const char *src);
 size_t	ft_strlen(const char *src);
 char	*ft_strjoin(const char *s1, const char *s2);
 int		ft_isspace(const char c);
+void	*ft_memdup(void *src, int size);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // PARSER
 

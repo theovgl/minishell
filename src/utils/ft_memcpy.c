@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 13:42:10 by tvogel           ###   ########.fr       */
+/*   Created: 2020/11/17 08:42:43 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/25 12:46:30 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(t_config *c)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	if (parse_env(c) == FAILURE)
+	int		i;
+	char	*destchar;
+	char	*srcchar;
+
+	destchar = (char *)dest;
+	srcchar = (char *)src;
+	i = 0;
+	if ((!dest && !src))
+		return (NULL);
+	while (n > 0)
 	{
-		printf("PATH not found\n");
-		return (FAILURE);
+		destchar[i] = srcchar[i];
+		i++;
+		n--;
 	}
-	parse_tokens(c);
-	return (SUCCESS);
+	return (dest);
 }

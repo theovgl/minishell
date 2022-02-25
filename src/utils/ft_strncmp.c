@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 13:42:10 by tvogel           ###   ########.fr       */
+/*   Created: 2020/07/06 21:48:20 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/25 15:33:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(t_config *c)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (parse_env(c) == FAILURE)
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((str1[i] || str2[i]) && i < n)
 	{
-		printf("PATH not found\n");
-		return (FAILURE);
+		if (str1[i] != str2[i])
+		{
+			if (str1[i] < str2[i])
+				return (str1[i] - str2[i]);
+			else
+				return (str1[i] - str2[i]);
+		}
+		i++;
 	}
-	parse_tokens(c);
-	return (SUCCESS);
+	return (0);
 }

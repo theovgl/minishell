@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:36 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/24 16:11:14 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:22:23 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	add_token(t_config *c, int start, int end, int type)
 {
 	int		i;
 	char	*content;
-	t_list	*new_node;
 
 	i = 0;
 	content = malloc(sizeof(char) * (end - start + 2));

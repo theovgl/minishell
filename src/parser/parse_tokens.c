@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/14 17:26:56 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/25 14:45:13 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 /**
  * @brief Save the command path in the cmd structure
- *
- * @param c
- * @param cmd
+
  * @return int
  */
 static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
@@ -44,6 +42,10 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 	return (SUCCESS);
 }
 
+/**
+ * @brief Return the number of arguments for each command
+ * @return int
+*/
 int	get_cmd_size(t_list *node)
 {
 	t_list	*current;
@@ -59,32 +61,32 @@ int	get_cmd_size(t_list *node)
 	return (i);
 }
 
-static t_cmd	parse_word(t_config *c, t_list *list, int size)
+/**
+ * @brief Add each WORD token in a new t_cmd
+ * @return t_cmd *
+*/
+static t_cmd	*parse_word(t_config *c, t_list *list, int size)
 {
 	t_list	*current;
-	t_cmd	new;
+	t_cmd	*new;
 	int		i;
 
 	i = 0;
 	current = list;
-	new.cmd = malloc(sizeof(char *) * (size + 1));
-	// if (new.cmd == NULL)
-	// 	return ;
+	new = malloc(sizeof(t_cmd));
+	new->cmd = malloc(sizeof(char *) * (size + 1));
 	while (current && current->type == WORD && current->content)
 	{
-		new.cmd[i++] = ft_strdup(current->content);
+		new->cmd[i++] = ft_strdup(current->content);
 		current = current->next;
 	}
-	new.cmd[i] = NULL;
-	get_cmd_path(c, &new, new.cmd[0]);
+	new->cmd[i] = NULL;
+	get_cmd_path(c, new, new->cmd[0]);
 	return (new);
 }
 
 /**
  * @brief Add command and arguments to the commands list
- *
- * @param c
- * @param cmd
  */
 static void	add_cmd_to_list(t_config *c, t_cmd *cmd)
 {
@@ -97,18 +99,39 @@ static void	add_cmd_to_list(t_config *c, t_cmd *cmd)
 		ft_lstadd_back(&c->cmd_list, to_add);
 }
 
+//void	print_cmd(t_config *c)
+//{
+//	int	i;
+//	int	j;
+//	t_list	*current;
+
+//	j = 0;
+//	i = 0;
+//	current = c->cmd_list;
+//	while (current)
+//	{
+//		i = 0;
+//		while (((t_cmd *)(current->content))->cmd[i])
+//		{
+//			printf("%s\n", ((t_cmd *)(current->content))->cmd[i]);
+//			i++;
+//		}
+//		j++;
+//		current = current->next;
+//	}
+//}
+
 /**
  * @brief Parse each token comming from the lexer
- *
- * @param c
  */
 void	parse_tokens(t_config *c)
 {
 	t_list	*current;
-	t_cmd	cmd;
+	t_cmd	*cmd;
 	int		size;
 
-	current = &c->tokens;
+	current = c->tokens;
+	c->cmd_list = NULL;
 	while (current)
 	{
 		if (current->type == WORD)
@@ -117,7 +140,7 @@ void	parse_tokens(t_config *c)
 			cmd = parse_word(c, current, size);
 			while (current && current->type == WORD)
 				current = current->next;
-			add_cmd_to_list(c, &cmd);
+			add_cmd_to_list(c, cmd);
 		}
 		else
 			current = current->next;
