@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 15:33:36 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:12:34 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(ERR_LEXER));
 		parser(&c);
+		exec(&c, envp);
 		c.command_line = readline("minishell$> ");
 	}
 	return (clean_exit(SUCCESS));

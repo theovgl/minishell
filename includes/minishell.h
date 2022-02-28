@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 15:30:39 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:58:53 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ enum {
 	DQUOTE,
 	DOLLAR,
 	QMARK,
+	BUILTIN,
+	NOT_BUILTIN,
 	ERR_ADD_TOKEN,
 	ERR_INIT,
 	ERR_MALLOC,
@@ -92,6 +94,9 @@ int		init(t_config *c);
 // LEXER
 int		lexer(t_config *c);
 int		add_token(t_config *c, int start, int end, int type);
+
+//EXEC
+int		exec(t_config *c, char *envp[]);
 
 // UTILS
 int		ft_isalnum(int c);
