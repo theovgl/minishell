@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/01 19:24:05 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/01 22:33:51 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,9 @@ int		ft_env(t_config *c, char *ep[]);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
+void	print_env(t_config *c);
+
+// UNSET
+void	unset(t_config *c, char *word[]);
 
 #endif
