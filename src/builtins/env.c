@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/01 18:38:18 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/01 23:08:32 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ int	ft_env(t_config *c, char *ep[])
 	int		i;
 	t_list	*tmp;		
 
+	i = 0;
 	if (!ep[i])
 		return (FAILURE);
-	i = 0;
+	c->env = ft_lstnew(ep[i++]);
 	while (ep[i])
 	{
 		tmp = malloc(sizeof(t_list));
@@ -57,6 +58,18 @@ int	ft_env(t_config *c, char *ep[])
 		i++;
 	}
 	return (SUCCESS);
+}
+
+void	print_env(t_config *c)
+{
+	t_list	*current;
+
+	current = c->env;
+	while (current)
+	{
+		printf("%s\n", (char *)(current->content));
+		current = current->next;
+	}
 }
 
 // int main(int ac, char *av[], char *ev[])

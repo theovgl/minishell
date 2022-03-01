@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/01 18:24:22 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/01 23:36:34 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,17 +152,16 @@ int	export(t_config *c, char *s)
 
 // int main(int ac, char *av[], char *ep[])
 // {
-// 	char *s = "TEST=nouveau";
-// 	t_list *current;
 // 	t_config	c;
+// 	char 		*s1 = "TEST=vieux";
+// 	char 		*s2[] = {"PWD", "TEST", NULL};
 //
+// 	(void)ac;
+// 	(void)av;
 // 	ft_env(&c, ep);
-// 	export(&c, s);
-// 	current = c.env;
-// 	while (current)
-// 	{
-// 	printf("%s\n", (char *)(current->content));
-// 	current = current->next;
-// 	}
+// 	export(&c, s1);
+// 	print_env(&c);
+// 	unset(&c, s2);
+// 	print_env(&c);
 // 	return 0;
 // }
