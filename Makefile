@@ -6,12 +6,12 @@ SRCS	= main.c \
 			get_next_line.c get_next_line_utils.c parser.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlen.c \
 			clean_exit.c init.c \
 			lexer.c token.c \
-			parse_env.c parse_tokens.c
+			parse_env.c parse_tokens.c parse_word.c parse_redirect.c
 OBJS	= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 OBJSDIR	= objs
 INCL	= -I includes
 CC		= clang
-CFLAGS	= -Wall -Wextra -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -g3 #-fsanitize=address
 LIBS	= -lreadline
 RM		= rm -f
 
