@@ -1,8 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
+/*   Updated: 2022/03/01 18:24:22 by abiju-du         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int find_eq(char *s)
+/**
+ * @brief return the position of '='
+ * if '=' is not found '-1' is returned
+ * 
+ * @param s 
+ * @return int 
+ */
+int	find_eq(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -15,9 +34,17 @@ int find_eq(char *s)
 	return (-1);
 }
 
+/**
+ * @brief Get the word object malloc it and return it as a string 
+ * 
+ * @param s 
+ * @param word 
+ * @param i 
+ * @return char* 
+ */
 char	*get_word(char *s, char *word, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	word = malloc(sizeof(char *) * i + 1);
@@ -32,9 +59,17 @@ char	*get_word(char *s, char *word, int i)
 	return (word);
 }
 
+/**
+ * @brief Get the def object malloc it and return it as a string
+ * 
+ * @param s 
+ * @param def 
+ * @param i 
+ * @return char* 
+ */
 char	*get_def(char *s, char *def, int i)
 {
-	int j;
+	int	j;
 
 	j = i;
 	while (s[j])
@@ -53,7 +88,49 @@ char	*get_def(char *s, char *def, int i)
 	return (def);
 }
 
-int	export(char *s)
+/**
+ * @brief modify the definition of the word
+ * if the word is not found nothing happens and FAILURE is returned
+ * 
+ * @param c 
+ * @param word 
+ * @param def 
+ * @return int 
+ */
+int	modify_in_env(t_config *c, char *word, char *def)
+{
+	t_list	*current;
+	char	*tmp;
+	int		i;
+
+	current = c->env;
+	while (current)
+	{
+		i = 0;
+		while (word && current->content \
+			&& word[i] == ((char *)(current->content))[i])
+			i++;
+		if (((char *)(current->content))[i] == '=')
+		{
+			free(current->content);
+			tmp = ft_strjoin(word, "=");
+			current->content = ft_strjoin(tmp, def);
+			free(tmp);
+			return (SUCCESS);
+		}
+		current = current->next;
+	}
+	return (FAILURE);
+}
+
+/**
+ * @brief export() set a new or existing variable in the env list
+ * 
+ * @param c 
+ * @param s 
+ * @return int 
+ */
+int	export(t_config *c, char *s)
 {
 	int		i;
 	char	*word;
@@ -68,12 +145,24 @@ int	export(char *s)
 	if (!word)
 		return (FAILURE);
 	def = get_def(s, def, i + 1);
-printf("word == %s\ndef == %s\n", word, def);
+	if (modify_in_env(c, word, def) == FAILURE)
+		add_in_env(c, word, def);
 	return (SUCCESS);
 }
 
-int main()
-{
-	char *s = "TEST=ok!";
-	export(s);
-}
+// int main(int ac, char *av[], char *ep[])
+// {
+// 	char *s = "TEST=nouveau";
+// 	t_list *current;
+// 	t_config	c;
+//
+// 	ft_env(&c, ep);
+// 	export(&c, s);
+// 	current = c.env;
+// 	while (current)
+// 	{
+// 	printf("%s\n", (char *)(current->content));
+// 	current = current->next;
+// 	}
+// 	return 0;
+// }

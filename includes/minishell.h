@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/28 17:12:22 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:24:05 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,11 @@ enum {
 int		parser(t_config *c);
 int		parse_env(t_config *c);
 void	parse_tokens(t_config *c);
+
+// BUILTINS
+int		ft_env(t_config *c, char *ep[]);
+
+// ENV
+void	add_in_env(t_config *c, char *word, char *def);
 
 #endif
