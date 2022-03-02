@@ -5,7 +5,7 @@ SRCS	= main.c \
 			ft_memdup.c ft_memcpy.c ft_strncmp.c\
 			get_next_line.c get_next_line_utils.c parser.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlen.c \
       echo.c cd.c pwd.c export.c env.c unset.c \
-			lexer.c token.c \
+			lexer.c token.c var_env.c \
 			parse_env.c parse_tokens.c parse_word.c parse_redirect.c \
       clean_exit.c init.c
 OBJS	= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
