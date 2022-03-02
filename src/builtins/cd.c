@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:41:49 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/23 18:49:46 by abiju-du          #+#    #+#             */
+/*   Updated: 2022/02/23 18:57:33 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(t_config *c)
+int	cd(char *path)
 {
-	c->cmd_list = NULL;
-	if (parse_env(c) == FAILURE)
-	{
-		printf("PATH not found\n");
+	if (chdir(path) == -1)
 		return (FAILURE);
-	}
-	parse_tokens(c);
 	return (SUCCESS);
 }

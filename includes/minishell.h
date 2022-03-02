@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/28 16:58:53 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:38:39 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ struct s_list
 
 typedef struct s_io
 {
-	int		i_fd;
-	int		o_fd;
+	int	in;
+	int	out;
 }	t_io;
 
 typedef struct s_cmd
@@ -77,7 +77,9 @@ typedef struct s_cmd
 typedef struct s_config
 {
 	t_list	*tokens;
-	char	**env;
+	t_list	*env;
+	char	**path;
+	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
 }	t_config;
@@ -89,7 +91,7 @@ void	handle_signal(void);
 int		clean_exit(int code);
 
 // INIT
-int		init(t_config *c);
+int		init(t_config *c, char *ep[]);
 
 // LEXER
 int		lexer(t_config *c);
@@ -123,5 +125,25 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		parser(t_config *c);
 int		parse_env(t_config *c);
 void	parse_tokens(t_config *c);
+int		get_cmd_size(t_list *node);
+void	parse_word(t_config *c, t_list *list, t_cmd *to_fill);
+void	add_cmd_to_list(t_config *c, t_cmd *cmd);
+void	parse_redirect(t_list *list, t_cmd *cmd);
+
+// PARSER
+
+int		parser(t_config *c);
+int		parse_env(t_config *c);
+void	parse_tokens(t_config *c);
+
+// BUILTINS
+int		ft_env(t_config *c, char *ep[]);
+
+// ENV
+void	add_in_env(t_config *c, char *word, char *def);
+void	print_env(t_config *c);
+
+// UNSET
+void	unset(t_config *c, char *word[]);
 
 #endif
