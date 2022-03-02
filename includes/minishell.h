@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 14:52:04 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 21:33:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 enum {
 	SUCCESS = 0,
@@ -70,6 +71,7 @@ typedef struct s_cmd
 {
 	char	**cmd;
 	char	*path;
+	int		builtin;
 	t_io	io;
 }	t_cmd;
 
@@ -138,6 +140,11 @@ void	parse_tokens(t_config *c);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
+int		echo(char *av[]);
+int		export(t_config *c, char *s);
+int		pwd(void);
+void	unset(t_config *c, char *word[]);
+int		cd(char *path);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);

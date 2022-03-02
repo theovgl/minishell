@@ -6,13 +6,13 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:55:22 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/02 17:47:50 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 21:30:42 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_option(char *av[], int *pos)
+static int	check_option(char *av[], int *pos)
 {
 	int	i;
 	int	j;
@@ -48,7 +48,6 @@ int	check_option(char *av[], int *pos)
 int	echo(char *av[])
 {
 	int	i;
-	int	j;
 	int	nl;
 
 	i = 1;
