@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/01 20:25:12 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 11:59:17 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 	char	*temp;
 
 	i = 0;
-	while (c->env[i] && to_check != NULL && to_check[0] != '\0')
+	while (c->path[i] && to_check != NULL && to_check[0] != '\0')
 	{
-		temp = ft_strjoin(c->env[i], to_check);
+		temp = ft_strjoin(c->path[i], to_check);
 		if (access(temp, F_OK) == 0)
 		{
 			cmd->path = ft_strdup(temp);

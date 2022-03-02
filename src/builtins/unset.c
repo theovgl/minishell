@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/01 23:35:53 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:01:46 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief unset the list of variables *word[]
  * nothing happens if one of the words is not in env
- * 
- * @param c 
- * @param word 
- * @return int 
+ *
+ * @param c
+ * @param word
+ * @return int
  */
 void	unset(t_config *c, char *word[])
 {

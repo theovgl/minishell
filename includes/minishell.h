@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/01 20:35:08 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 12:05:10 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ typedef struct s_cmd
 
 typedef struct s_config
 {
-	t_list	tokens;
+	t_list	*tokens;
 	t_list	*env;
+	char	**path;
 	char	*cmd_path;
 	t_list	*cmd_list;
-  char  *command_line;
+	char	*command_line;
 }	t_config;
 
 // SIGNAL
@@ -88,7 +89,7 @@ void	handle_signal(void);
 int		clean_exit(int code);
 
 // INIT
-int		init(t_config *c);
+int		init(t_config *c, char *ep[]);
 
 // LEXER
 int		lexer(t_config *c);
