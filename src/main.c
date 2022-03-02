@@ -28,5 +28,6 @@ int	main(int argc, char **argv, char **envp)
 		parser(&c);
 		c.command_line = readline("minishell$> ");
 	}
-	return (clean_exit(SUCCESS));
+	free(buffer);
+	return (SUCCESS);
 }
