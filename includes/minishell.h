@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:38:39 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 14:52:04 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "get_next_line.h"
 
 enum {
 	SUCCESS = 0,
@@ -129,6 +128,7 @@ int		get_cmd_size(t_list *node);
 void	parse_word(t_config *c, t_list *list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 void	parse_redirect(t_list *list, t_cmd *cmd);
+int		is_builtin(char *to_check);
 
 // PARSER
 
