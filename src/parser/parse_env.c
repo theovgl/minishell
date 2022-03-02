@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:41:12 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/13 15:05:29 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/25 15:16:13 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	parse_env(t_config *c)
 	if (ret == NULL)
 		return (FAILURE);
 	c->env = ft_split(ret, ':');
+	free(ret);
 	format_path(c);
 	return (SUCCESS);
 }

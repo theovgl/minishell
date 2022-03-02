@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:36 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/24 15:24:37 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:22:23 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int	create_node(t_config *c, char *content, int type)
 
 	new_node = ft_lstnew(content);
 	new_node->type = type;
-	if (c->first_node == NULL)
+	if (c->tokens == NULL)
 	{
-		c->first_node = ft_lstnew(content);
-		c->first_node->type = type;
+		c->tokens = ft_lstnew(content);
+		c->tokens->type = type;
 	}
 	else
 	{
-		ft_lstadd_back(&c->first_node, new_node);
-		ft_lstlast(c->first_node)->type = type;
+		ft_lstadd_back(&c->tokens, new_node);
+		ft_lstlast(c->tokens)->type = type;
 	}
 	return (SUCCESS);
 }
@@ -38,7 +38,6 @@ int	add_token(t_config *c, int start, int end, int type)
 {
 	int		i;
 	char	*content;
-	t_list	*new_node;
 
 	i = 0;
 	content = malloc(sizeof(char) * (end - start + 2));

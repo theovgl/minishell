@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 16:04:51 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/24 16:16:20 by tvogel           ###   ########.fr       */
+/*   Created: 2020/11/17 08:42:43 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/25 12:46:30 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	init(t_config *c)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	c->command_line = NULL;
-	c->tokens = NULL;
-	return (SUCCESS);
+	int		i;
+	char	*destchar;
+	char	*srcchar;
+
+	destchar = (char *)dest;
+	srcchar = (char *)src;
+	i = 0;
+	if ((!dest && !src))
+		return (NULL);
+	while (n > 0)
+	{
+		destchar[i] = srcchar[i];
+		i++;
+		n--;
+	}
+	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:08:26 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/14 15:10:09 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/25 13:42:06 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	ft_isword(t_config *c, int i)
 
 // The lexer takes the char* resulting of the readline.
 // It suposedly contains the commands that minishell has to execute.
-// The lexer set apart every part of the command list 
+// The lexer set apart every part of the command list
 // and save them as tokens in a linked chain.
 int	lexer(t_config *c)
 {
