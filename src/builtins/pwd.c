@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/13 16:30:20 by tvogel           ###   ########.fr       */
+/*   Created: 2022/03/01 23:36:16 by abiju-du          #+#    #+#             */
+/*   Updated: 2022/03/01 23:36:42 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	pwd(void)
 {
-	char		*buffer;
-	t_config	c;
+	char	buff[256];
 
-	handle_signal();
-	buffer = readline("minishell$> ");
-	while (buffer != NULL)
-	{
-		add_history(buffer);
-		parser(&c);
-		buffer = readline("minishell$> ");
-	}
-	free(buffer);
+	if (getcwd(buff, 256) == NULL)
+		return (FAILURE);
+	printf("%s\n", buff);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/14 11:39:33 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/01 22:33:51 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,25 @@ struct s_list
 	t_list	*prev;
 };
 
+typedef struct s_io
+{
+	int		i_fd;
+	int		o_fd;
+}	t_io;
+
+typedef struct s_cmd
+{
+	char	**cmd;
+	char	*path;
+	t_io	io;
+}	t_cmd;
+
 typedef struct s_config
 {
-	char	*command_line;
-	t_list	*first_node;
-
+	t_list	tokens;
+	t_list	*env;
+	char	*cmd_path;
+	t_list	*cmd_list;
 }	t_config;
 
 // SIGNAL
@@ -90,6 +104,26 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 int		ft_lstsize(t_list *lst);
+char	**ft_split(char const *s, char c);
+char	*ft_strdup(const char *src);
+size_t	ft_strlen(const char *src);
+char	*ft_strjoin(const char *s1, const char *s2);
 int		ft_isspace(const char c);
+
+// PARSER
+
+int		parser(t_config *c);
+int		parse_env(t_config *c);
+void	parse_tokens(t_config *c);
+
+// BUILTINS
+int		ft_env(t_config *c, char *ep[]);
+
+// ENV
+void	add_in_env(t_config *c, char *word, char *def);
+void	print_env(t_config *c);
+
+// UNSET
+void	unset(t_config *c, char *word[]);
 
 #endif

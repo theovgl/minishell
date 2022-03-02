@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 13:08:25 by tvogel            #+#    #+#             */
-/*   Updated: 2021/01/17 13:22:04 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/02/09 17:22:37 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include "minishell.h"
 
 int		get_next_line(int fd, char **line);
-size_t	ft_strlen(const char *src);
 int		isendline(char *src);
 char	*ft_join(char *s1, char *s2);
 

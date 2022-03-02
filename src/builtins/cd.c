@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/13 16:30:20 by tvogel           ###   ########.fr       */
+/*   Created: 2022/02/23 18:49:46 by abiju-du          #+#    #+#             */
+/*   Updated: 2022/02/23 18:57:33 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	cd(char *path)
 {
-	char		*buffer;
-	t_config	c;
-
-	handle_signal();
-	buffer = readline("minishell$> ");
-	while (buffer != NULL)
-	{
-		add_history(buffer);
-		parser(&c);
-		buffer = readline("minishell$> ");
-	}
-	free(buffer);
+	if (chdir(path) == -1)
+		return (FAILURE);
 	return (SUCCESS);
 }

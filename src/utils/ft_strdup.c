@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 19:27:47 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/11 12:14:08 by tvogel           ###   ########.fr       */
+/*   Created: 2020/07/14 15:11:30 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/09 17:06:09 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Itère sur la liste ’lst’ et applique la fonction
-’f’ au contenu chaque élément.
- *
- * @param lst
- * @param f
- */
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+char	*ft_strdup(const char *src)
 {
-	if (lst != NULL && f != NULL)
+	char	*str;
+	char	*s;
+	int		i;
+
+	i = 0;
+	s = (char *)src;
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (src[i])
 	{
-		while (lst != NULL)
-		{
-			f(lst->content);
-			lst = lst->next;
-		}
+		str[i] = src[i];
+		i++;
 	}
+	str[i] = '\0';
+	return (str);
 }

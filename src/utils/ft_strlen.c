@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 19:27:47 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/11 12:14:08 by tvogel           ###   ########.fr       */
+/*   Created: 2020/11/16 17:55:21 by tvogel            #+#    #+#             */
+/*   Updated: 2022/02/09 17:20:54 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Itère sur la liste ’lst’ et applique la fonction
-’f’ au contenu chaque élément.
- *
- * @param lst
- * @param f
- */
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+size_t	ft_strlen(const char *src)
 {
-	if (lst != NULL && f != NULL)
+	int	i;
+
+	i = 0;
+	while (src[i])
 	{
-		while (lst != NULL)
-		{
-			f(lst->content);
-			lst = lst->next;
-		}
+		i++;
 	}
+	return (i);
 }
