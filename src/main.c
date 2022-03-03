@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 12:02:26 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/03 19:39:43 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	main(int argc, char **argv, char **envp)
 		return (clean_exit(ERR_INIT));
 	handle_signal();
 	c.command_line = readline("minishell$> ");
+	c.command_line = translator(&c, c.command_line);
+	if (c.command_line == NULL)
+		printf("exit\n");
 	while (c.command_line != NULL)
 	{
 		add_history(c.command_line);
