@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_translate.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
+/*   Updated: 2022/03/03 20:50:07 by abiju-du         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*is_var(t_config *c, char *line)
@@ -47,13 +59,36 @@ char	*find_def(t_config *c, char *line)
 	return (def);
 }
 
+char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
+{
+	int		j;
+	char	*def;
+	char	*tmp;
+
+	def = find_def(c, &line[*i]);
+	j = 0;
+	while (ft_isalnum(line[*i + j]))
+		j++;
+	if (def)
+	{
+		tmp = ft_strjoin(def, &line[*i + j]);
+		free(def);
+	}
+	else
+		tmp = ft_strdup(&line[*i + j]);
+	line[--*i] = 0;
+	if (new_line)
+		free(new_line);
+	new_line = ft_strjoin(line, tmp);
+	free(tmp);
+	free(line);
+	return (new_line);
+}
+
 char	*translator(t_config *c, char *line)
 {
 	int		i;
-	int		j;
-	char	*def;
 	char	*new_line;
-	char	*tmp;
 
 	if (!line)
 		return (NULL);
@@ -70,25 +105,7 @@ char	*translator(t_config *c, char *line)
 		if (line[i] == '$' && line[i + 1] && !ft_isspace(line[i + 1]))
 		{
 			i++;
-			def = find_def(c, &line[i]);
-			j = 0;
-			while (ft_isalnum(line[i + j]))
-				j++;
-			if (def)
-			{
-				tmp = ft_strjoin(def, &line[i + j]);
-				free(def);
-			}
-			else{
-				tmp = ft_strdup(&line[i + j]);
-
-			}
-			line[--i] = 0;
-			if (new_line)
-				free(new_line);
-			new_line = ft_strjoin(line, tmp);
-			free(tmp);
-			free(line);
+			new_line = dollar_handler(c, &i, line, new_line);
 			return (translator(c, new_line));
 		}
 		i++;
