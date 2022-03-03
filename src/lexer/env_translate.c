@@ -6,12 +6,19 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/03 20:50:07 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/03 21:04:49 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief is_var find and return the line where the variable is define in env
+ * 
+ * @param c 
+ * @param line 
+ * @return char* 
+ */
 char	*is_var(t_config *c, char *line)
 {
 	t_list	*current;
@@ -33,6 +40,13 @@ char	*is_var(t_config *c, char *line)
 	return (NULL);
 }
 
+/**
+ * @brief for a given name find_def return the definition found in env
+ * 
+ * @param c 
+ * @param line 
+ * @return char* 
+ */
 char	*find_def(t_config *c, char *line)
 {
 	int		i;
@@ -59,7 +73,17 @@ char	*find_def(t_config *c, char *line)
 	return (def);
 }
 
-char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
+/**
+ * @brief dollar handler replace the current variable to its definition
+ * and return an expanded new_line
+ * 
+ * @param c 
+ * @param i 
+ * @param line 
+ * @param new_line 
+ * @return char* 
+ */
+static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 {
 	int		j;
 	char	*def;
@@ -85,6 +109,13 @@ char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 	return (new_line);
 }
 
+/**
+ * @brief translator replace all the local variables with their value
+ * 
+ * @param c 
+ * @param line 
+ * @return char* 
+ */
 char	*translator(t_config *c, char *line)
 {
 	int		i;
