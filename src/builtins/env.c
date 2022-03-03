@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/02 12:04:38 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/03 04:52:15 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_env(t_config *c, char *ep[])
 	c->env = ft_lstnew(ep[i++]);
 	while (ep[i])
 	{
-		tmp = malloc(sizeof(t_list));
+		tmp = ft_lstnew(ep[i]);
 		tmp->content = ft_strdup(ep[i]);
 		ft_lstadd_back(&c->env, tmp);
 		i++;
