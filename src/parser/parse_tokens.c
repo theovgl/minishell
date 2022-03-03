@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:41:35 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/03 16:04:49 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,13 @@ void	parse_tokens(t_config *c)
 		}
 		else if (current->type == LESS || current->type == GREAT)
 		{
-			parse_redirect(current, cmd);
-			current = current->next->next;
+			if(parse_redirect(current, cmd) == SUCCESS)
+				current = current->next->next;
+			else
+				return ;
 		}
 		else if (current->type == PIPE)
 			current = current->next;
 	}
 	add_cmd_to_list(c, cmd);
-	print_cmd(c);
 }
