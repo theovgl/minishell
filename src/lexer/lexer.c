@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:08:26 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 13:42:06 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 21:17:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	ft_isword(t_config *c, int i)
 	if (!j)
 		return (i);
 	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
-		return (clean_exit(ERR_ADD_TOKEN));
+		return (clean_exit(c, ERR_ADD_TOKEN));
 	return (i + j);
 }
 
