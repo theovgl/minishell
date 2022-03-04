@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:08:26 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/25 13:42:06 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 23:58:35 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,37 @@ int	ft_islessgreat(t_config *c, int i)
 int	ft_isquote(t_config *c, int i)
 {
 	int		j;
+	int		k;
 	char	q;
 	int		type;
 
 	j = 0;
 	q = c->command_line[i];
-	if (q == '\"')
-		type = DQUOTE;
-	else if (q == '\'')
-		type = SQUOTE;
+	if (q == '\"' || q == '\'')
+	{
+		while (c->command_line[i + j + 1])
+		{
+			c->command_line[i + j] = c->command_line[i + j + 1];
+			j++;
+		}
+		c->command_line[i + j] = 0;
+	}
 	else
 		return (i);
-	if (add_token(c, i, i, type) == FAILURE)
-		return (-1);
-	i++;
+	j = 0;
 	while (c->command_line[i + j] != q && c->command_line[i + j])
 		j++;
 	if (!j)
 		return (i);
-	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
-		return (-1);
+	k = 0;
+	while (c->command_line[i + j + k + 1])
+	{
+		c->command_line[i + j + k] = c->command_line[i + j + k + 1];
+		k++;
+	}
+	c->command_line[i + j + k] = 0;
 	i += j;
-	if (add_token(c, i, i, type) == FAILURE)
-		return (-1);
-	return (++i);
+	return (i);
 }
 
 // Takes the position 'i' of the command line.
@@ -109,18 +116,23 @@ int	ft_isdollar_qmark_pipe(t_config *c, int i)
 int	ft_isword(t_config *c, int i)
 {
 	int	j;
+	int	k;
 
 	j = 0;
 	while (c->command_line[i + j] && \
-	c->command_line[i + j] != '\"' && \
-	c->command_line[i + j] != '\'' && \
 	c->command_line[i + j] != '?' && \
 	c->command_line[i + j] != '$' && \
 	c->command_line[i + j] != '<' && \
 	c->command_line[i + j] != '>' && \
 	c->command_line[i + j] != '|' && \
 	!ft_isspace(c->command_line[i + j]))
-		j++;
+	{
+		k = ft_isquote(c, i + j) - i - j;
+		if (!k)
+			j++;
+		else
+			j += k;
+	}
 	if (!j)
 		return (i);
 	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
@@ -143,10 +155,6 @@ int	lexer(t_config *c)
 			i++;
 		if (c->command_line[i])
 			i = ft_isword(c, i);
-		if (i == -1)
-			return (FAILURE);
-		if (c->command_line[i])
-			i = ft_isquote(c, i);
 		if (i == -1)
 			return (FAILURE);
 		if (c->command_line[i])

@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/03 21:04:49 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/04 23:09:39 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char	*translator(t_config *c, char *line)
 			i++;
 			while (line[i] && line[i] != '\'')
 				i++;
+			i--;
 		}
 		if (line[i] == '$' && line[i + 1] && !ft_isspace(line[i + 1]))
 		{
@@ -139,7 +140,8 @@ char	*translator(t_config *c, char *line)
 			new_line = dollar_handler(c, &i, line, new_line);
 			return (translator(c, new_line));
 		}
-		i++;
+		else
+			i++;
 	}
 	free(line);
 	return (new_line);
