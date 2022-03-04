@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 11:59:17 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/02 23:04:23 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void	parse_word(t_config *c, t_list *list, t_cmd *to_fill)
 	i = 0;
 	size = get_cmd_size(list);
 	current = list;
+	if (is_builtin((char *)current->content))
+		to_fill->builtin = 1;
+	else
+		to_fill->builtin = 0;
 	to_fill->cmd = malloc(sizeof(char *) * (size + 1));
 	while (current && current->type == WORD && current->content)
 	{

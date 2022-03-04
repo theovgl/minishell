@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/02 12:06:05 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/03 04:49:34 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_word(char *s, char *word, int i)
 		word[j] = s[j];
 		j++;
 	}
-	word[i] = 0;
+	word[i] = '\0';
 	return (word);
 }
 
@@ -84,7 +84,7 @@ char	*get_def(char *s, char *def, int i)
 		i++;
 		j++;
 	}
-	def[i] = 0;
+	def[j] = '\0';
 	return (def);
 }
 

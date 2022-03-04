@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/03 11:43:01 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:33:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "get_next_line.h"
+# include <fcntl.h>
 
 enum {
 	SUCCESS = 0,
@@ -43,6 +43,8 @@ enum {
 	DQUOTE,
 	DOLLAR,
 	QMARK,
+	BUILTIN,
+	NOT_BUILTIN,
 	ERR_ADD_TOKEN,
 	ERR_INIT,
 	ERR_MALLOC,
@@ -69,6 +71,7 @@ typedef struct s_cmd
 {
 	char	**cmd;
 	char	*path;
+	int		builtin;
 	t_io	io;
 }	t_cmd;
 
@@ -96,6 +99,9 @@ int		init(t_config *c, char *ep[]);
 int		lexer(t_config *c);
 int		add_token(t_config *c, int start, int end, int type);
 char	*translator(t_config *c, char *line);
+
+//EXEC
+int		exec(t_config *c, char *envp[]);
 
 // UTILS
 int		ft_isalnum(int c);
@@ -126,9 +132,17 @@ int		get_cmd_size(t_list *node);
 void	parse_word(t_config *c, t_list *list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 void	parse_redirect(t_list *list, t_cmd *cmd);
+int		is_builtin(char *to_check);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
+int		echo(char *av[]);
+int		export(t_config *c, char *s);
+int		pwd(void);
+void	unset(t_config *c, char *word[]);
+int		cd(char *path);
+
+// ENV
 void	add_in_env(t_config *c, char *word, char *def);
 void	print_env(t_config *c);
 

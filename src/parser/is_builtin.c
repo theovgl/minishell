@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:41:49 by tvogel           ###   ########.fr       */
+/*   Created: 2022/03/02 13:46:23 by tvogel            #+#    #+#             */
+/*   Updated: 2022/03/02 15:40:25 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(t_config *c)
+int	is_builtin(char *to_check)
 {
-	c->cmd_list = NULL;
-	if (parse_env(c) == FAILURE)
+	if (!to_check)
+		return (0);
+	if (ft_strncmp("echo", to_check, 4) == 0
+		|| ft_strncmp("cd", to_check, 2) == 0
+		|| ft_strncmp("pwd", to_check, 3) == 0
+		|| ft_strncmp("export", to_check, 6) == 0
+		|| ft_strncmp("unset", to_check, 5) == 0
+		|| ft_strncmp("env", to_check, 3) == 0
+		|| ft_strncmp("exit", to_check, 4) == 0)
 	{
-		printf("PATH not found\n");
-		return (FAILURE);
+		return (1);
 	}
-	parse_tokens(c);
-	return (SUCCESS);
+	return (0);
 }
