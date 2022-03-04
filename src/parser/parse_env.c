@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:41:12 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:40:19 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:16:11 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@
  */
 static void	format_path(t_config *c)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (c->path[i])
 	{
-		c->path[i] = ft_strjoin(c->path[i], "/");
+		tmp = ft_strjoin(c->path[i], "/");
+		free(c->path[i]);
+		c->path[i] = tmp;
 		i++;
 	}
 }
@@ -43,7 +46,8 @@ int	parse_env(t_config *c)
 	ret = ft_strdup(getenv("PATH"));
 	if (ret == NULL)
 		return (FAILURE);
-	c->path = ft_split(ret, ':');
+	if (!c->path)
+		c->path = ft_split(ret, ':');
 	free(ret);
 	format_path(c);
 	return (SUCCESS);

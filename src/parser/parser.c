@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 13:41:49 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 14:53:02 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	free_path(t_config *c)
+{
+	int	i;
+
+	i = 0;
+	while (c->path[i])
+	{
+		printf("%s\n", c->path[i]);
+		free(c->path[i]);
+		i++;
+	}
+	free(c->path);
+	c->path = NULL;
+}
 
 int	parser(t_config *c)
 {
@@ -21,5 +36,6 @@ int	parser(t_config *c)
 		return (FAILURE);
 	}
 	parse_tokens(c);
+	free_path(c);
 	return (SUCCESS);
 }

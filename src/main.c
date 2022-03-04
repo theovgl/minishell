@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 23:01:31 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:15:43 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	clean_on_success(t_config *c)
 	}
 	ft_lstclear(&c->cmd_list, free);
 	ft_lstclear(&c->tokens, free);
+	free(c->command_line);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -45,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	c.command_line = readline("minishell$> ");
 	while (c.command_line != NULL)
 	{
-    c.command_line = translator(&c, c.command_line);
+		c.command_line = translator(&c, c.command_line);
 		add_history(c.command_line);
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(ERR_LEXER));
@@ -54,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		clean_on_success(&c);
 		c.command_line = readline("minishell$> ");
 	}
+	ft_lstclear(&c.env, free);
 	free(c.command_line);
 	return (SUCCESS);
 }

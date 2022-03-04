@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/03 16:04:49 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:16:38 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ void	add_cmd_to_list(t_config *c, t_cmd *cmd)
 {
 	t_list	*to_add;
 
-	to_add = ft_lstnew(cmd);
 	if (c->cmd_list == NULL)
 		c->cmd_list = ft_lstnew(cmd);
 	else
+	{
+		to_add = ft_lstnew(cmd);
 		ft_lstadd_back(&c->cmd_list, to_add);
+	}
 }
 
 void	print_cmd(t_config *c)
@@ -83,7 +85,7 @@ void	parse_tokens(t_config *c)
 		}
 		else if (current->type == LESS || current->type == GREAT)
 		{
-			if(parse_redirect(current, cmd) == SUCCESS)
+			if (parse_redirect(current, cmd) == SUCCESS)
 				current = current->next->next;
 			else
 				return ;

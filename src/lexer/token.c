@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:36 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/24 16:22:23 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 15:19:19 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	create_node(t_config *c, char *content, int type)
 {
 	t_list	*new_node;
 
-	new_node = ft_lstnew(content);
-	new_node->type = type;
 	if (c->tokens == NULL)
 	{
 		c->tokens = ft_lstnew(content);
@@ -25,6 +23,8 @@ int	create_node(t_config *c, char *content, int type)
 	}
 	else
 	{
+		new_node = ft_lstnew(content);
+		new_node->type = type;
 		ft_lstadd_back(&c->tokens, new_node);
 		ft_lstlast(c->tokens)->type = type;
 	}
