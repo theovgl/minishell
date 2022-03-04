@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/02 12:05:10 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/03 11:43:01 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_config
 	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
+	int		last_return;
 }	t_config;
 
 // SIGNAL
@@ -94,6 +95,7 @@ int		init(t_config *c, char *ep[]);
 // LEXER
 int		lexer(t_config *c);
 int		add_token(t_config *c, int start, int end, int type);
+char	*translator(t_config *c, char *line);
 
 // UTILS
 int		ft_isalnum(int c);
@@ -125,16 +127,8 @@ void	parse_word(t_config *c, t_list *list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 void	parse_redirect(t_list *list, t_cmd *cmd);
 
-// PARSER
-
-int		parser(t_config *c);
-int		parse_env(t_config *c);
-void	parse_tokens(t_config *c);
-
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
-
-// ENV
 void	add_in_env(t_config *c, char *word, char *def);
 void	print_env(t_config *c);
 
