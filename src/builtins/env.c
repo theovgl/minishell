@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/04 18:17:06 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:44:19 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	add_in_env(t_config *c, char *word, char *def)
 	tofree = ft_strjoin(word, "=");
 	free(word);
 	tmp = ft_lstnew(tofree);
-	free(tofree);
 	tmp->content = ft_strjoin(tmp->content, def);
+	free(tofree);
 	free(def);
 	ft_lstadd_back(&c->env, tmp);
 }

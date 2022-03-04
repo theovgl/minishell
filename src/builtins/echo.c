@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:55:22 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/02 21:30:42 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/04 18:31:33 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	check_option(char *av[], int *pos)
 	int	nl;
 
 	i = 1;
+	nl = 0;
 	while (av[i])
 	{
 		j = 1;

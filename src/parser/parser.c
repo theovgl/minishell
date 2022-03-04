@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 14:53:02 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:35:44 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	free_path(t_config *c)
 	i = 0;
 	while (c->path[i])
 	{
-		printf("%s\n", c->path[i]);
 		free(c->path[i]);
 		i++;
 	}

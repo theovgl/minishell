@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 18:15:43 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:31:41 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(ERR_LEXER));
 		parser(&c);
+printf("OK\n");
 		exec(&c, envp);
 		clean_on_success(&c);
 		c.command_line = readline("minishell$> ");
