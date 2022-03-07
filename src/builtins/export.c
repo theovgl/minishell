@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 16:46:36 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:13:24 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*get_word(char *s, char *word, int i)
 		return (NULL);
 	while (j < i)
 	{
+		if (!ft_isalnum(s[j]))
+			return (NULL);
 		word[j] = s[j];
 		j++;
 	}
@@ -139,6 +141,11 @@ int	export(t_config *c, char *s)
 
 	word = NULL;
 	def = NULL;
+	if (!s)
+	{
+		print_env(c, 1);
+		return (SUCCESS);
+	}
 	i = find_eq(s);
 	if (i == -1)
 		return (FAILURE);

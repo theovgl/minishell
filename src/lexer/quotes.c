@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:31:00 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 13:56:20 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:23:28 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_isquote(t_config *c, int i)
 {
 	int		j;
 	char	q;
-	int		type;
 
 	j = 0;
 	q = c->command_line[i];
@@ -43,7 +42,7 @@ int	ft_isquote(t_config *c, int i)
 	j = 0;
 	while (c->command_line[i + j] != q && c->command_line[i + j])
 		j++;
-	if (!j)
+	if (!j && c->command_line[i + j] != q)
 		return (i);
 	overwrite_quotes(c, i + j);
 	i += j;
