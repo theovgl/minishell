@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 19:49:53 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:13:55 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int		init(t_config *c, char *ep[]);
 int		lexer(t_config *c);
 int		add_token(t_config *c, int start, int end, int type);
 char	*translator(t_config *c, char *line);
+int		ft_isquote(t_config *c, int i);
 
 //EXEC
 int		exec(t_config *c, char *envp[]);

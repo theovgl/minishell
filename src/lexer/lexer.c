@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:08:26 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 23:58:35 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:14:22 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,45 +41,6 @@ int	ft_islessgreat(t_config *c, int i)
 			return (-1);
 		i += 2;
 	}
-	return (i);
-}
-
-// Takes the position 'i' of the command line.
-// Put |, ' and " in the chained list.
-// Returns the new position 'i'.
-int	ft_isquote(t_config *c, int i)
-{
-	int		j;
-	int		k;
-	char	q;
-	int		type;
-
-	j = 0;
-	q = c->command_line[i];
-	if (q == '\"' || q == '\'')
-	{
-		while (c->command_line[i + j + 1])
-		{
-			c->command_line[i + j] = c->command_line[i + j + 1];
-			j++;
-		}
-		c->command_line[i + j] = 0;
-	}
-	else
-		return (i);
-	j = 0;
-	while (c->command_line[i + j] != q && c->command_line[i + j])
-		j++;
-	if (!j)
-		return (i);
-	k = 0;
-	while (c->command_line[i + j + k + 1])
-	{
-		c->command_line[i + j + k] = c->command_line[i + j + k + 1];
-		k++;
-	}
-	c->command_line[i + j + k] = 0;
-	i += j;
 	return (i);
 }
 
