@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:45 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 21:33:13 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:11:17 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,26 @@ void	clean_cmd_list(t_list *cmd_list)
 	ft_lstclear(&cmd_list, free);
 }
 
+void	close_fds(t_config *c)
+{
+	t_list	*current;
+	t_cmd	*cmd;
+
+	current = c->cmd_list;
+	while (current)
+	{
+		cmd = current->content;
+		if (cmd->io.in != STDIN_FILENO && cmd->io.in > -1)
+			close(cmd->io.in);
+		if (cmd->io.out != STDOUT_FILENO && cmd->io.out > -1)
+			close(cmd->io.out);
+		current = current->next;
+	}
+}
+
 void	clean_on_success(t_config *c)
 {
+	close_fds(c);
 	clean_cmd_list(c->cmd_list);
 	ft_lstclear(&c->tokens, free);
 	free(c->command_line);
