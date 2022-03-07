@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/04 19:19:20 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:58:18 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	modify_in_env(t_config *c, char *word, char *def)
 	t_list	*current;
 	char	*tmp;
 	int		i;
-
 	current = c->env;
 	while (current)
 	{
@@ -110,7 +109,7 @@ int	modify_in_env(t_config *c, char *word, char *def)
 		while (word && current->content \
 			&& word[i] == ((char *)(current->content))[i])
 			i++;
-		if (((char *)(current->content))[i] == '=')
+		if (!word[i] && ((char *)(current->content))[i] == '=')
 		{
 			free(current->content);
 			tmp = ft_strjoin(word, "=");
