@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 21:56:15 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:58:36 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,10 @@ int	parse_tokens(t_config *c)
 	while (current)
 	{
 		if (current->type == WORD)
-		{
-			parse_word(c, current, cmd);
-			while (current && current->type == WORD)
-				current = current->next;
-		}
+			parse_word(c, &current, cmd);
 		else if (current->type == LESS || current->type == GREAT)
 		{
-			if (parse_redirect(current, cmd) == SUCCESS)
-				current = current->next->next;
-			else
+			if (parse_redirect(&current, cmd) != SUCCESS)
 			{
 				free(cmd);
 				return (FAILURE);
