@@ -106,6 +106,7 @@ int	modify_in_env(t_config *c, char *word, char *def)
 	t_list	*current;
 	char	*tmp;
 	int		i;
+
 	current = c->env;
 	while (current)
 	{
