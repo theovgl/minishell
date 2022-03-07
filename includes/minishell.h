@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 14:05:00 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 17:03:07 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ typedef struct s_config
 void	handle_signal(void);
 
 // SRC
-int		clean_exit(int code);
+int		clean_exit(t_config *c, int code);
+void	clean_on_success(t_config *c);
 
 // INIT
 int		init(t_config *c, char *ep[]);
@@ -122,16 +123,18 @@ int		ft_isspace(const char c);
 void	*ft_memdup(void *src, int size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
 
 // PARSER
 
 int		parser(t_config *c);
 int		parse_env(t_config *c);
-void	parse_tokens(t_config *c);
+int		parse_tokens(t_config *c);
 int		get_cmd_size(t_list *node);
-void	parse_word(t_config *c, t_list *list, t_cmd *to_fill);
+void	parse_word(t_config *c, t_list **list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
-int		parse_redirect(t_list *list, t_cmd *cmd);
+int		parse_redirect(t_list **list, t_cmd *cmd);
 int		is_builtin(char *to_check);
 
 // BUILTINS
@@ -139,14 +142,11 @@ int		ft_env(t_config *c, char *ep[]);
 int		echo(char *av[]);
 int		export(t_config *c, char *s);
 int		pwd(void);
-void	unset(t_config *c, char *word[]);
 int		cd(char *path);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
 void	print_env(t_config *c);
-
-// UNSET
 void	unset(t_config *c, char *word[]);
 
 #endif

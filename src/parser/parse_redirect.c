@@ -6,13 +6,13 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/03 16:09:56 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 16:53:19 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_redirection(t_list *list)
+static int	check_token(t_list *list)
 {
 	t_list	*current;
 
@@ -27,30 +27,29 @@ int	check_redirection(t_list *list)
 	return (SUCCESS);
 }
 
-int	parse_redirect(t_list *list, t_cmd *cmd)
+int	parse_redirect(t_list **list, t_cmd *cmd)
 {
-	t_list	*current;
-
-	current = list;
-	if (check_redirection(current) == FAILURE)
+	if (check_token(*list) == FAILURE)
 		return (FAILURE);
 	else
 	{
-		if (current->type == LESS)
+		if ((*list)->type == LESS)
 		{
-			current = current->next;
-			cmd->io.in = open((char *)current->content, O_RDONLY);
-			if (cmd->io.in < 0)
-				return (FAILURE);
+			(*list) = (*list)->next;
+			cmd->io.in = open((char *)(*list)->content, O_RDONLY);
 		}
-		else if (current->type == GREAT)
+		else if ((*list)->type == GREAT)
 		{
-			current = current->next;
-			cmd->io.out = open((char *)current->content,
+			(*list) = (*list)->next;
+			cmd->io.out = open((char *)(*list)->content,
 					O_TRUNC | O_RDWR | O_CREAT, 00644);
-			if (cmd->io.out < 0)
-				return (FAILURE);
+		}
+		if (cmd->io.in < 0 || cmd->io.out < 0)
+		{
+			perror((*list)->content);
+			return (FAILURE);
 		}
 	}
+	(*list) = (*list)->next;
 	return (SUCCESS);
 }
