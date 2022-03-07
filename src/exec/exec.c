@@ -38,7 +38,6 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 int	exec(t_config *c, char *envp[])
 {
 	int		pid;
-	int		fd_tmp;
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)(c->cmd_list->content);
@@ -53,6 +52,7 @@ int	exec(t_config *c, char *envp[])
 			dup2(cmd->io.out, STDOUT_FILENO);
 			execve(cmd->path, cmd->cmd, envp);
 			perror(cmd->cmd[0]);
+			exit(pid);
 			return (SUCCESS);
 		}
 		wait(NULL);

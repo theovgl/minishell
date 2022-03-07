@@ -97,7 +97,7 @@ int	ft_isword(t_config *c, int i)
 	if (!j)
 		return (i);
 	if (add_token(c, i, i + j - 1, WORD) == FAILURE)
-		return (clean_exit(ERR_ADD_TOKEN));
+		return (clean_exit(c, ERR_ADD_TOKEN));
 	return (i + j);
 }
 

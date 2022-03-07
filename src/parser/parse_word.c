@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 14:32:27 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:54:56 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,26 @@ int	get_cmd_size(t_list *node)
  * @brief Add each WORD token in a new t_cmd
  * @return t_cmd *
 */
-void	parse_word(t_config *c, t_list *list, t_cmd *to_fill)
+void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 {
-	t_list	*current;
 	int		i;
 	int		size;
 
 	i = 0;
-	size = get_cmd_size(list);
-	current = list;
-	if (is_builtin((char *)current->content))
+	size = get_cmd_size(*list);
+	if (is_builtin((*list)->content))
 		to_fill->builtin = 1;
 	else
 		to_fill->builtin = 0;
 	to_fill->cmd = malloc(sizeof(char *) * (size + 1));
-	while (current && current->type == WORD && current->content)
+	while (*list && (*list)->type == WORD && (*list)->content)
 	{
-		to_fill->cmd[i] = ft_strdup(current->content);
-		current = current->next;
+		to_fill->cmd[i] = ft_strdup((*list)->content);
+		*list = (*list)->next;
 		i++;
 	}
 	to_fill->cmd[i] = NULL;
 	get_cmd_path(c, to_fill, to_fill->cmd[0]);
+	while (*list && (*list)->type == WORD)
+				*list = (*list)->next;
 }

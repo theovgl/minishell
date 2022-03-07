@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
 /*   Updated: 2022/03/04 20:48:22 by abiju-du         ###   ########.fr       */
@@ -67,31 +67,28 @@ static t_cmd	*init_cmd(void)
 /**
  * @brief Parse each token comming from the lexer
  */
-void	parse_tokens(t_config *c)
+int	parse_tokens(t_config *c)
 {
 	t_list	*current;
 	t_cmd	*cmd;
 
 	current = c->tokens;
-	c->cmd_list = NULL;
 	cmd = init_cmd();
 	while (current)
 	{
 		if (current->type == WORD)
-		{
-			parse_word(c, current, cmd);
-			while (current && current->type == WORD)
-				current = current->next;
-		}
+			parse_word(c, &current, cmd);
 		else if (current->type == LESS || current->type == GREAT)
 		{
-			if (parse_redirect(current, cmd) == SUCCESS)
-				current = current->next->next;
-			else
-				return ;
+			if (parse_redirect(&current, cmd) != SUCCESS)
+			{
+				free(cmd);
+				return (FAILURE);
+			}
 		}
-		else if (current->type == PIPE)
+		else
 			current = current->next;
 	}
 	add_cmd_to_list(c, cmd);
+	return (SUCCESS);
 }
