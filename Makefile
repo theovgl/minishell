@@ -5,7 +5,7 @@ SRCS	= main.c \
 			ft_memdup.c ft_memcpy.c ft_strncmp.c ft_putstr_fd.c ft_putchar_fd.c\
 			parser.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlen.c \
 			echo.c cd.c pwd.c export.c env.c unset.c \
-			lexer.c token.c env_translate.c \
+			lexer.c token.c env_translate.c quotes.c \
 			parse_env.c parse_tokens.c parse_word.c parse_redirect.c is_builtin.c\
 			exec.c \
 			clean_exit.c init.c

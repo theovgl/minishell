@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/02 12:01:46 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 13:51:35 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	unset(t_config *c, char *word[])
 			i = 0;
 			while (word[j][i] == ((char *)(current->content))[i])
 				i++;
-			if (((char *)(current->content))[i] == '=')
+			if (!word[j][i] && ((char *)(current->content))[i] == '=')
 			{
 				tmp = current;
 				current = current->prev;

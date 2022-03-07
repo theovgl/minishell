@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:19:02 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/03 19:50:25 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 13:47:59 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 			temp = temp->next;
 		}
 		temp->next = new;
+		new->prev = temp;
 	}
 }

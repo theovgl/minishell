@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/07 17:03:07 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 17:44:34 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		init(t_config *c, char *ep[]);
 int		lexer(t_config *c);
 int		add_token(t_config *c, int start, int end, int type);
 char	*translator(t_config *c, char *line);
+int		ft_isquote(t_config *c, int i);
 
 //EXEC
 int		exec(t_config *c, char *envp[]);
@@ -146,7 +147,7 @@ int		cd(char *path);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
-void	print_env(t_config *c);
+void	print_env(t_config *c, int export);
 void	unset(t_config *c, char *word[]);
 
 #endif

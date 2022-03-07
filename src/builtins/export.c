@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/04 19:19:20 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:13:24 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	find_eq(char *s)
 {
 	int	i;
 
+	if (!s)
+		return (-1);
 	i = 0;
 	while (s[i])
 	{
@@ -52,6 +54,8 @@ char	*get_word(char *s, char *word, int i)
 		return (NULL);
 	while (j < i)
 	{
+		if (!ft_isalnum(s[j]))
+			return (NULL);
 		word[j] = s[j];
 		j++;
 	}
@@ -110,7 +114,7 @@ int	modify_in_env(t_config *c, char *word, char *def)
 		while (word && current->content \
 			&& word[i] == ((char *)(current->content))[i])
 			i++;
-		if (((char *)(current->content))[i] == '=')
+		if (!word[i] && ((char *)(current->content))[i] == '=')
 		{
 			free(current->content);
 			tmp = ft_strjoin(word, "=");
@@ -138,6 +142,11 @@ int	export(t_config *c, char *s)
 
 	word = NULL;
 	def = NULL;
+	if (!s)
+	{
+		print_env(c, 1);
+		return (SUCCESS);
+	}
 	i = find_eq(s);
 	if (i == -1)
 		return (FAILURE);
