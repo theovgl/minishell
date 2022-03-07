@@ -22,4 +22,3 @@ int	init(t_config *c, char **ep)
 	c->tokens = NULL;
 	return (SUCCESS);
 }
-
