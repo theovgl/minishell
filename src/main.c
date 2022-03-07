@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 21:31:55 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 17:32:47 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		clean_on_success(&c);
 		c.command_line = readline("minishell$> ");
 	}
+	printf("exit\n");
 	ft_lstclear(&c.env, free);
 	free(c.command_line);
 	return (SUCCESS);

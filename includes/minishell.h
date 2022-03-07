@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/07 16:53:00 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 17:03:07 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int		ft_isspace(const char c);
 void	*ft_memdup(void *src, int size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
 
 // PARSER
 

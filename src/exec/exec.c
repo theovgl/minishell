@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 16:49:58 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/07 17:02:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 int	exec(t_config *c, char *envp[])
 {
 	int		pid;
-	int		fd_tmp;
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)(c->cmd_list->content);
