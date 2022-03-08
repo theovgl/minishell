@@ -6,11 +6,13 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 17:32:31 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:55:21 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 /**
  * @brief is_var find and return the line where the variable is define in env
@@ -37,6 +39,8 @@ char	*is_var(t_config *c, char *line)
 			return (current->content);
 		current = current->next;
 	}
+	if (line[0] == '?')
+		return (ft_itoa(c->last_return));
 	return (NULL);
 }
 
@@ -55,8 +59,8 @@ char	*find_def(t_config *c, char *line)
 	char	*env_line;
 
 	env_line = is_var(c, line);
-	if (env_line == NULL)
-		return (NULL);
+	if (env_line == NULL || line[0] == '?')
+		return (env_line);
 	i = 0;
 	while (env_line[i] != '=')
 		i++;
@@ -91,8 +95,13 @@ static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 
 	def = find_def(c, &line[*i]);
 	j = 0;
-	while (ft_isalnum(line[*i + j]))
+	if (line[*i + j] == '?')
 		j++;
+	else
+	{
+		while (ft_isalnum(line[*i + j]))
+			j++;
+	}
 	if (def)
 	{
 		tmp = ft_strjoin(def, &line[*i + j]);
@@ -143,6 +152,8 @@ char	*translator(t_config *c, char *line)
 		if (line[i] == '$' && line[i + 1] && !ft_isspace(line[i + 1]))
 		{
 			i++;
+			// if (line[i] == '?')
+			// 	i++;
 			new_line = dollar_handler(c, &i, line, new_line);
 			return (translator(c, new_line));
 		}

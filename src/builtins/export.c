@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 18:13:24 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/08 13:57:02 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ char	*get_word(char *s, char *word, int i)
 	while (j < i)
 	{
 		if (!ft_isalnum(s[j]))
+		{
+			printf("%s : not a valid identifier\n", s);
+			free(s);
 			return (NULL);
+		}
 		word[j] = s[j];
 		j++;
 	}
