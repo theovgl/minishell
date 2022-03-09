@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 13:31:55 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 14:20:43 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(int argc, char **argv, char **envp)
 		c.command_line = readline("minishell$> ");
 		if (c.command_line == NULL)
 			break ;
-		c.command_line = translator(&c, c.command_line);
 		add_history(c.command_line);
+		c.command_line = translator(&c, c.command_line);
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(&c, ERR_LEXER));
 		else if (parser(&c) == SUCCESS)
