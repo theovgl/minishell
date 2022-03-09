@@ -15,20 +15,22 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_config	c;
+  
 	if (init(&c, envp) == FAILURE)
 		return (clean_exit(&c, ERR_INIT));
 	handle_signal();
-	c.command_line = readline("minishell$> ");
-	while (c.command_line != NULL)
+	while (1)
 	{
-		c.command_line = translator(&c, c.command_line);
+		c.command_line = readline("minishell$> ");
+		if (c.command_line == NULL)
+			break ;
 		add_history(c.command_line);
+		c.command_line = translator(&c, c.command_line);
 		if (lexer(&c) != SUCCESS)
 			return (clean_exit(&c, ERR_LEXER));
 		else if (parser(&c) == SUCCESS)
 			exec(&c, envp);
 		clean_on_success(&c);
-		c.command_line = readline("minishell$> ");
 	}
 	printf("exit\n");
 	ft_lstclear(&c.env, free);
