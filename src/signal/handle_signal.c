@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:13:47 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 11:51:43 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 18:30:13 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@
 */
 static void	handle_sigint(int sig)
 {
+	(void)sig;
 	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", sig);
-	rl_redisplay();
+	if (g_pid == 0)
+	{
+		rl_on_new_line();
+		rl_replace_line("", sig);
+		rl_redisplay();
+	}
 }
 
 /**
