@@ -29,6 +29,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <errno.h>
+
+extern int	g_errno;
+extern int	g_pid;
 
 enum {
 	SUCCESS = 0,
@@ -127,6 +131,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_itoa(int n);
+int		ft_atoi(const char *nptr);
 
 // PARSER
 
@@ -146,7 +151,7 @@ int		export(t_config *c, char *s);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
-void	ft_exit(t_config *c);
+void	ft_exit(t_config *c, t_cmd *cmd);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
