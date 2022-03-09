@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:41:12 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 18:16:11 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:11:10 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ static void	format_path(t_config *c)
 int	parse_env(t_config *c)
 {
 	char	*ret;
+	char	*tmp;
 
-	ret = ft_strdup(getenv("PATH"));
-	if (ret == NULL)
-		return (FAILURE);
+	tmp = getpath(c);
+	ret = ft_strdup(tmp);
+	free(tmp);
 	if (!c->path)
 		c->path = ft_split(ret, ':');
 	free(ret);
