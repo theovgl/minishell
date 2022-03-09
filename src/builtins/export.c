@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/08 13:57:02 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 19:02:16 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,6 @@ int	export(t_config *c, char *s)
 
 	word = NULL;
 	def = NULL;
-	if (!s)
-	{
-		print_env(c, 1);
-		return (SUCCESS);
-	}
 	i = find_eq(s);
 	if (i == -1)
 		return (FAILURE);
@@ -160,5 +155,25 @@ int	export(t_config *c, char *s)
 	def = get_def(s, def, i + 1);
 	if (modify_in_env(c, word, def) == FAILURE)
 		add_in_env(c, word, def);
+	free(word);
+	free(def);
+	return (SUCCESS);
+}
+
+int	ft_export(t_config *c, char *tmp[])
+{
+	int	i;
+
+	i = 1;
+	if (!tmp[i])
+	{
+		print_env(c, 1);
+		return (SUCCESS);
+	}
+	while (tmp[i])
+	{
+		export(c, tmp[i]);
+		i++;
+	}
 	return (SUCCESS);
 }
