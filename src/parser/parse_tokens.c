@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 20:48:22 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:53:40 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,29 @@ static t_cmd	*init_cmd(void)
 	return (new_cmd);
 }
 
+static void	handle_error(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd)
+	{
+		if (cmd->path)
+			free(cmd->path);
+		if (cmd->cmd)
+		{
+			if (cmd->cmd[i])
+			{
+				while (cmd->cmd[i])
+					free(cmd->cmd[i++]);
+			}
+			free(cmd->cmd);
+		}
+		if (cmd)
+			free(cmd);
+	}
+}
+
 /**
  * @brief Parse each token comming from the lexer
  */
@@ -78,11 +101,12 @@ int	parse_tokens(t_config *c)
 	{
 		if (current->type == WORD)
 			parse_word(c, &current, cmd);
-		else if (current->type == LESS || current->type == GREAT)
+		else if (current->type == LESS || current->type == GREAT
+			|| current->type == LLESS || current->type == GGREAT)
 		{
-			if (parse_redirect(&current, cmd) != SUCCESS)
+			if (parse_redirect(&current, cmd) == FAILURE)
 			{
-				free(cmd);
+				handle_error(cmd);
 				return (FAILURE);
 			}
 		}
