@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 17:39:33 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:45:22 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,26 @@ void	print_env(t_config *c, int export)
 			printf("%s\n", (char *)(current->content));
 		current = current->next;
 	}
+}
+
+char	*getpath(t_config *c)
+{
+	int		i;
+	char	*word;
+	char	*def;
+	t_list	*current;
+
+	word = "PATH";
+	def = NULL;
+	current = c->env;
+	while (current)
+	{
+		i = 0;
+		while (current->content && word[i] == ((char *)(current->content))[i])
+			i++;
+		if (!word[i] && ((char *)(current->content))[i] == '=')
+			return (get_def(current->content, def, i + 1));
+		current = current->next;
+	}
+	return (NULL);
 }

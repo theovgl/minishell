@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 17:55:21 by tvogel            #+#    #+#             */
-/*   Updated: 2022/02/09 17:20:54 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 12:01:31 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *src)
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		i++;
 	}

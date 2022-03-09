@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/08 14:46:39 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:48:32 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,13 @@ int		echo(char *av[]);
 int		export(t_config *c, char *s);
 int		pwd(void);
 int		cd(char *path);
+char	*get_def(char *s, char *def, int i);
+void	ft_exit(t_config *c);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
 void	print_env(t_config *c, int export);
 void	unset(t_config *c, char *word[]);
+char	*getpath(t_config *c);
 
 #endif

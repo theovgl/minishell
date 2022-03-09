@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 13:51:35 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:13:24 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	unset(t_config *c, char *word[])
 				tmp = current;
 				current = current->prev;
 				current->next = tmp->next;
+				free(tmp->content);
 				free(tmp);
 			}
 			current = current->next;
