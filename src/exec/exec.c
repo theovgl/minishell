@@ -21,7 +21,7 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 	else if (ft_strncmp("pwd", cmd->cmd[0], 3) == 0)
 		pwd();
 	else if (ft_strncmp("export", cmd->cmd[0], 6) == 0)
-		export(c, cmd->cmd[1]);
+		ft_export(c, cmd->cmd);
 	else if (ft_strncmp("unset", cmd->cmd[0], 5) == 0)
 		unset(c, cmd->cmd);
 	else if (ft_strncmp("env", cmd->cmd[0], 3) == 0)
