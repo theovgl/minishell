@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 13:48:53 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:38:14 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 	else if (ft_strncmp("env", cmd->cmd[0], 3) == 0)
 		print_env(c, 0);
 	else if (ft_strncmp("exit", cmd->cmd[0], 4) == 0)
-		ft_exit(c);
+		ft_exit(c, cmd);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 13:48:32 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:28:14 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_itoa(int n);
+int		ft_atoi(const char *nptr);
 
 // PARSER
 
@@ -146,7 +147,7 @@ int		export(t_config *c, char *s);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
-void	ft_exit(t_config *c);
+void	ft_exit(t_config *c, t_cmd *cmd);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
