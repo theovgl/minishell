@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:45 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 20:48:24 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:20:35 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	close_fds(t_config *c)
 	}
 }
 
-void	clean_on_success(t_config *c)
+void	clean(t_config *c)
 {
 	close_fds(c);
 	clean_cmd_list(c->cmd_list);
@@ -59,10 +59,12 @@ void	clean_on_success(t_config *c)
 	free(c->command_line);
 }
 
-int	clean_exit(t_config *c, int code)
+void	exit_failure(t_config *c, char *err_string, int is_errno)
 {
-	clean_on_success(c);
-	if (code == ERR_ADD_TOKEN)
-		printf("an error occured while trying to add a new token\n");
-	return (code);
+	if (is_errno)
+		perror(err_string);
+	else
+		ft_putstr_fd(err_string, 2);
+	clean(c);
+	exit(errno);
 }

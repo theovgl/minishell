@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/07 16:54:56 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:33:47 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		{
 			cmd->path = ft_strdup(temp);
 			free(temp);
-			return (FAILURE);
+			return (SUCCESS);
 		}
 		free(temp);
 		i++;
@@ -77,6 +77,8 @@ void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 	else
 		to_fill->builtin = 0;
 	to_fill->cmd = malloc(sizeof(char *) * (size + 1));
+	if (!to_fill->cmd)
+		exit_failure(c, "Malloc failed", 1);
 	while (*list && (*list)->type == WORD && (*list)->content)
 	{
 		to_fill->cmd[i] = ft_strdup((*list)->content);

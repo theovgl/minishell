@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 18:38:18 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 22:58:47 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	g_pid;
 int	main(int argc, char **argv, char **envp)
 {
 	t_config	c;
+
 	if (init(&c, envp) == FAILURE)
-		return (clean_exit(&c, ERR_INIT));
+		exit_failure(&c, "Init failed\n", 0);
 	handle_signal();
 	while (1)
 	{
@@ -29,10 +30,10 @@ int	main(int argc, char **argv, char **envp)
 		add_history(c.command_line);
 		c.command_line = translator(&c, c.command_line);
 		if (lexer(&c) != SUCCESS)
-			return (clean_exit(&c, ERR_LEXER));
+			exit_failure(&c, "Lexer failed\n", 0);
 		else if (parser(&c) == SUCCESS)
 			exec(&c, envp);
-		clean_on_success(&c);
+		clean(&c);
 	}
 	printf("exit\n");
 	ft_lstclear(&c.env, free);

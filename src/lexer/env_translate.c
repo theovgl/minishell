@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_translate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/08 17:55:21 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:37:42 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 /**
  * @brief is_var find and return the line where the variable is define in env
- * 
- * @param c 
- * @param line 
- * @return char* 
+ *
+ * @param c
+ * @param line
+ * @return char*
  */
 char	*is_var(t_config *c, char *line)
 {
@@ -40,16 +40,16 @@ char	*is_var(t_config *c, char *line)
 		current = current->next;
 	}
 	if (line[0] == '?')
-		return (ft_itoa(c->last_return));
+		return (ft_itoa(g_errno));
 	return (NULL);
 }
 
 /**
  * @brief for a given name find_def return the definition found in env
- * 
- * @param c 
- * @param line 
- * @return char* 
+ *
+ * @param c
+ * @param line
+ * @return char*
  */
 char	*find_def(t_config *c, char *line)
 {
@@ -66,6 +66,8 @@ char	*find_def(t_config *c, char *line)
 		i++;
 	i++;
 	def = malloc(sizeof(char *) * ft_strlen(env_line) + 1);
+	if (def == NULL)
+		exit_failure(c, "Malloc failed", 1);
 	j = 0;
 	while (env_line[i])
 	{
@@ -80,12 +82,12 @@ char	*find_def(t_config *c, char *line)
 /**
  * @brief dollar handler replace the current variable to its definition
  * and return an expanded new_line
- * 
- * @param c 
- * @param i 
- * @param line 
- * @param new_line 
- * @return char* 
+ *
+ * @param c
+ * @param i
+ * @param line
+ * @param new_line
+ * @return char*
  */
 static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 {
@@ -132,10 +134,10 @@ static int	single_quote(char *line, int i)
 
 /**
  * @brief translator replace all the local variables with their value
- * 
- * @param c 
- * @param line 
- * @return char* 
+ *
+ * @param c
+ * @param line
+ * @return char*
  */
 char	*translator(t_config *c, char *line)
 {
@@ -152,8 +154,6 @@ char	*translator(t_config *c, char *line)
 		if (line[i] == '$' && line[i + 1] && !ft_isspace(line[i + 1]))
 		{
 			i++;
-			// if (line[i] == '?')
-			// 	i++;
 			new_line = dollar_handler(c, &i, line, new_line);
 			return (translator(c, new_line));
 		}

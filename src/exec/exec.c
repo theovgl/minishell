@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 18:24:45 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 23:23:00 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	exec(t_config *c, char *envp[])
 	if (!cmd->builtin)
 	{
 		g_pid = fork();
+		if (g_pid < 0)
+			exit_failure(c, "Fork", 1);
 		if (g_pid == 0)
 		{
 			dup2(cmd->io.in, STDIN_FILENO);
@@ -54,7 +56,6 @@ int	exec(t_config *c, char *envp[])
 			execve(cmd->path, cmd->cmd, envp);
 			perror(cmd->cmd[0]);
 			exit(errno);
-			return (SUCCESS);
 		}
 		wait(&g_errno);
 	}

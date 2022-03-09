@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 13:48:32 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 22:55:06 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,14 @@ typedef struct s_config
 	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
-	int		last_return;
 }	t_config;
 
 // SIGNAL
 void	handle_signal(void);
 
 // SRC
-int		clean_exit(t_config *c, int code);
-void	clean_on_success(t_config *c);
+void	clean(t_config *c);
+void	exit_failure(t_config *c, char *err_string, int is_errno);
 
 // INIT
 int		init(t_config *c, char *ep[]);
