@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 23:23:00 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/10 16:59:49 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,40 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 int	exec(t_config *c, char *envp[])
 {
 	t_cmd	*cmd;
+	int		status;
 
 	cmd = (t_cmd *)(c->cmd_list->content);
 	if (cmd->cmd == NULL)
 		return (SUCCESS);
-	if (!cmd->builtin)
+	else if (!cmd->builtin)
 	{
 		g_pid = fork();
+		if (!cmd->path)
+		{
+			printf("command not found\n");
+			exit(127);
+		}
+		g_child = 1;
 		if (g_pid < 0)
 			exit_failure(c, "Fork", 1);
 		if (g_pid == 0)
 		{
-			dup2(cmd->io.in, STDIN_FILENO);
+ 			dup2(cmd->io.in, STDIN_FILENO);
 			dup2(cmd->io.out, STDOUT_FILENO);
 			execve(cmd->path, cmd->cmd, envp);
-			perror(cmd->cmd[0]);
-			exit(errno);
+			exit_failure(c, cmd->cmd[0], 1);
 		}
-		wait(&g_errno);
+		wait(&status);
+		if (WIFEXITED(status))
+		{
+			g_errno = WEXITSTATUS(status);
+			return(g_errno);
+		}
+		else
+		{
+			g_errno = WSTOPSIG(status);
+			return (g_errno);
+		}
 	}
 	else if (cmd->builtin)
 	{

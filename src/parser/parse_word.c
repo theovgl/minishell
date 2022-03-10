@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 23:33:47 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/10 16:51:24 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		free(temp);
 		i++;
 	}
-	if (to_check != NULL)
-		cmd->path = ft_strdup(to_check);
-	else
-		cmd->path = NULL;
+	cmd->path = NULL;
 	return (SUCCESS);
 }
 
@@ -86,7 +83,10 @@ void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 		i++;
 	}
 	to_fill->cmd[i] = NULL;
-	get_cmd_path(c, to_fill, to_fill->cmd[0]);
-	while (*list && (*list)->type == WORD)
-				*list = (*list)->next;
+	if (ft_strchr(to_fill->cmd[0], '/') == NULL)
+		get_cmd_path(c, to_fill, to_fill->cmd[0]);
+	else
+		to_fill->path = ft_strdup(to_fill->cmd[0]);
+	// while (*list && (*list)->type == WORD)
+	// 			*list = (*list)->next;
 }
