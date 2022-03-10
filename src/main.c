@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 22:58:47 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/10 15:13:22 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	g_errno;
 int	g_pid;
+int g_child;
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)), char **envp)
 {
 	t_config	c;
 
@@ -24,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	handle_signal();
 	while (1)
 	{
+		g_child = 0;
 		c.command_line = readline("minimichel$> ");
 		if (c.command_line == NULL)
 			break ;
@@ -32,7 +34,9 @@ int	main(int argc, char **argv, char **envp)
 		if (lexer(&c) != SUCCESS)
 			exit_failure(&c, "Lexer failed\n", 0);
 		else if (parser(&c) == SUCCESS)
+		{
 			exec(&c, envp);
+		}
 		clean(&c);
 	}
 	printf("exit\n");
