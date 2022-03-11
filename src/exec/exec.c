@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 18:24:45 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/10 16:06:03 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	exec(t_config *c, char *envp[])
 			execve(cmd->path, cmd->cmd, envp);
 			perror(cmd->cmd[0]);
 			exit(errno);
-			return (SUCCESS);
 		}
 		wait(&g_errno);
 	}

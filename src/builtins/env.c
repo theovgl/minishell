@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 19:01:43 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:10:00 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,39 @@ char	*getpath(t_config *c)
 		current = current->next;
 	}
 	return (NULL);
+}
+
+/**
+ * @brief modify the definition of the word
+ * if the word is not found nothing happens and FAILURE is returned
+ *
+ * @param c
+ * @param word
+ * @param def
+ * @return int
+ */
+int	modify_in_env(t_config *c, char *word, char *def)
+{
+	t_list	*current;
+	char	*tmp;
+	int		i;
+
+	current = c->env;
+	while (current)
+	{
+		i = 0;
+		while (word && current->content \
+			&& word[i] == ((char *)(current->content))[i])
+			i++;
+		if (!word[i] && ((char *)(current->content))[i] == '=')
+		{
+			free(current->content);
+			tmp = ft_strjoin(word, "=");
+			current->content = ft_strjoin(tmp, def);
+			free(tmp);
+			return (SUCCESS);
+		}
+		current = current->next;
+	}
+	return (FAILURE);
 }
