@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/11 14:36:02 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:52:58 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exec(t_config *c, char *envp[])
 			exit_failure(c, "Fork", 1);
 		if (g_pid == 0)
 		{
- 			dup2(cmd->io.in, STDIN_FILENO);
+			dup2(cmd->io.in, STDIN_FILENO);
 			dup2(cmd->io.out, STDOUT_FILENO);
 			execve(cmd->path, cmd->cmd, envp);
 			check_cmd_not_found(c, cmd->path);
@@ -64,7 +64,7 @@ int	exec(t_config *c, char *envp[])
 		if (WIFEXITED(status))
 		{
 			g_return = WEXITSTATUS(status);
-			return(g_return);
+			return (g_return);
 		}
 	}
 	else if (cmd->builtin)
