@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 14:48:22 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:51:43 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		is_builtin(char *to_check);
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
 int		echo(char *av[]);
-int		export(t_config *c, char *s);
+int		ft_export(t_config *c, char *tmp[]);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
