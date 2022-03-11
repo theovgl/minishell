@@ -6,17 +6,19 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:03:02 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 15:51:27 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:32:51 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_args(t_cmd *cmd)
+static u_int8_t	check_args(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
+	if (cmd->cmd[1] && cmd->cmd[1][0] == '-' && cmd->cmd[1][1])
+		i++;
 	while (cmd->cmd[1][i])
 	{
 		if (!ft_isdigit(cmd->cmd[1][i]))
@@ -39,10 +41,14 @@ static int	check_args(t_cmd *cmd)
 
 void	ft_exit(t_config *c, t_cmd *cmd)
 {
-	int	exit_status;
+	u_int8_t	exit_status;
 
 	printf("exit\n");
-	exit_status = check_args(cmd);
+	exit_status = 0;
+	if (cmd->cmd[1])
+	{
+		exit_status = check_args(cmd);
+	}
 	if (exit_status == 1)
 	{
 		g_return = 1;

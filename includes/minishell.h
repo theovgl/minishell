@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 15:08:56 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:36:10 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <fcntl.h>
 # include <errno.h>
 
-extern int				g_return;
+extern u_int8_t			g_return;
 extern int				g_pid;
 extern int				g_child;
 
