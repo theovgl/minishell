@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 12:15:16 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:48:22 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int		ft_isquote(t_config *c, int i);
 
 //EXEC
 int		exec(t_config *c, char *envp[]);
+void	check_cmd_not_found(t_config *c, char *cmd_path);
+void	check_permission_denied(t_config *c, t_cmd *cmd);
 
 // UTILS
 int		ft_isalnum(int c);

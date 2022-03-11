@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/11 12:14:37 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:36:02 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,11 @@ int	exec(t_config *c, char *envp[])
 			exit_failure(c, "Fork", 1);
 		if (g_pid == 0)
 		{
-			if (!cmd->path)
-			{
-				g_return = 127;
-				exit_failure(c, "command not found\n", 0);
-			}
  			dup2(cmd->io.in, STDIN_FILENO);
 			dup2(cmd->io.out, STDOUT_FILENO);
 			execve(cmd->path, cmd->cmd, envp);
+			check_cmd_not_found(c, cmd->path);
+			check_permission_denied(c, cmd);
 			exit_failure(c, cmd->cmd[0], 1);
 		}
 		wait(&status);

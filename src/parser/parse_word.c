@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/10 16:51:24 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:10:45 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	get_cmd_size(t_list *node)
 
 /**
  * @brief Add each WORD token in a new t_cmd
- * @return t_cmd *
 */
 void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 {
@@ -87,6 +86,4 @@ void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 		get_cmd_path(c, to_fill, to_fill->cmd[0]);
 	else
 		to_fill->path = ft_strdup(to_fill->cmd[0]);
-	// while (*list && (*list)->type == WORD)
-	// 			*list = (*list)->next;
 }
