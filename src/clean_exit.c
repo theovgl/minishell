@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:45 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 23:20:35 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 12:14:25 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void	exit_failure(t_config *c, char *err_string, int is_errno)
 	else
 		ft_putstr_fd(err_string, 2);
 	clean(c);
-	exit(errno);
+	exit(g_return);
 }

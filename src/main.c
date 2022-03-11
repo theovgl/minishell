@@ -6,13 +6,13 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/10 15:13:22 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 12:14:56 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_errno;
+int	g_return;
 int	g_pid;
 int g_child;
 
@@ -42,5 +42,5 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
 	printf("exit\n");
 	ft_lstclear(&c.env, free);
 	free(c.command_line);
-	return (g_errno);
+	return (g_return);
 }

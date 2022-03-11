@@ -6,13 +6,11 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 23:37:42 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 12:14:51 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 /**
  * @brief is_var find and return the line where the variable is define in env
@@ -40,7 +38,7 @@ char	*is_var(t_config *c, char *line)
 		current = current->next;
 	}
 	if (line[0] == '?')
-		return (ft_itoa(g_errno));
+		return (ft_itoa(g_return));
 	return (NULL);
 }
 
