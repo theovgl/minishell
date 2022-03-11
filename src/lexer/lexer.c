@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:08:26 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/07 11:14:22 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:39:03 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,16 @@ int	ft_isword(t_config *c, int i)
 	j = 0;
 	while (c->command_line[i + j] && \
 	c->command_line[i + j] != '?' && \
-	c->command_line[i + j] != '$' && \
 	c->command_line[i + j] != '<' && \
 	c->command_line[i + j] != '>' && \
 	c->command_line[i + j] != '|' && \
 	!ft_isspace(c->command_line[i + j]))
 	{
-		k = ft_isquote(c, i + j) - i - j;
-		if (!k)
+		k = ft_isquote(c, i + j);
+		if (k == -1)
 			j++;
-		else
-			j += k;
+		else if (k != i + j)
+			j += k - i - j;
 	}
 	if (!j)
 		return (i);

@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 13:48:32 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:24:25 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ enum {
 
 typedef struct s_list	t_list;
 
-struct s_list
+struct	s_list
 {
 	void	*content;
 	int		type;
@@ -132,6 +132,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *nptr);
+int		ft_isalpha(int c);
 
 // PARSER
 
@@ -158,5 +159,6 @@ void	add_in_env(t_config *c, char *word, char *def);
 void	print_env(t_config *c, int export);
 void	unset(t_config *c, char *word[]);
 char	*getpath(t_config *c);
+int		modify_in_env(t_config *c, char *word, char *def);
 
 #endif

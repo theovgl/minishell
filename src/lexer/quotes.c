@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:31:00 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/07 18:23:28 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:35:49 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int	ft_isquote(t_config *c, int i)
 		j += overwrite_quotes(c, i + j);
 	}
 	else
-		return (i);
+		return (-1);
 	j = 0;
-	while (c->command_line[i + j] != q && c->command_line[i + j])
+	while (c->command_line[i + j] && c->command_line[i + j] != q)
 		j++;
-	if (!j && c->command_line[i + j] != q)
+	if ((!c->command_line[i + j]) || (!j && c->command_line[i + j] != q))
 		return (i);
 	overwrite_quotes(c, i + j);
 	i += j;
+
 	return (i);
 }

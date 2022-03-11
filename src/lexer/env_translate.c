@@ -6,13 +6,11 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/08 17:55:21 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:24:41 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 /**
  * @brief is_var find and return the line where the variable is define in env
@@ -98,10 +96,8 @@ static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 	if (line[*i + j] == '?')
 		j++;
 	else
-	{
 		while (ft_isalnum(line[*i + j]))
 			j++;
-	}
 	if (def)
 	{
 		tmp = ft_strjoin(def, &line[*i + j]);
@@ -149,11 +145,9 @@ char	*translator(t_config *c, char *line)
 	while (line[i])
 	{
 		i = single_quote(line, i);
-		if (line[i] == '$' && line[i + 1] && !ft_isspace(line[i + 1]))
+		if (line[i] == '$' && line[i + 1] && ft_isalpha(line[i + 1]))
 		{
 			i++;
-			// if (line[i] == '?')
-			// 	i++;
 			new_line = dollar_handler(c, &i, line, new_line);
 			return (translator(c, new_line));
 		}
