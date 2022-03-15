@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/15 21:40:41 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 21:42:38 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		ft_isquote(t_config *c, int i);
 int		exec(t_config *c, char *envp[]);
 void	check_cmd_not_found(t_config *c, char *cmd_path);
 void	check_permission_denied(t_config *c, t_cmd *cmd);
-static int	exec_builtin(t_config *c, t_cmd *cmd);
+int		exec_builtin(t_config *c, t_cmd *cmd);
 
 // UTILS
 int		ft_isalnum(int c);
