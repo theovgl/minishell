@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/10 15:02:53 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/14 14:32:48 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	print_env(t_config *c, int export)
 			printf("%s\n", (char *)(current->content));
 		current = current->next;
 	}
+	g_return = 0;
 }
 
 char	*getpath(t_config *c)
@@ -105,5 +106,6 @@ char	*getpath(t_config *c)
 			return (get_def(current->content, def, i + 1));
 		current = current->next;
 	}
+	g_return = 0;
 	return (NULL);
 }

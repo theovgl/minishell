@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/11 14:52:58 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/14 20:11:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 static int	exec_builtin(t_config *c, t_cmd *cmd)
 {
-	if (ft_strncmp("echo", cmd->cmd[0], 4) == 0)
+	int	size;
+
+	size = ft_strlen(cmd->cmd[0]);
+	if (ft_strncmp("echo", cmd->cmd[0], size) == 0)
 		echo(cmd->cmd);
-	else if (ft_strncmp("cd", cmd->cmd[0], 2) == 0)
+	else if (ft_strncmp("cd", cmd->cmd[0], size) == 0)
 		cd(cmd->cmd[1]);
-	else if (ft_strncmp("pwd", cmd->cmd[0], 3) == 0)
+	else if (ft_strncmp("pwd", cmd->cmd[0], size) == 0)
 		pwd();
-	else if (ft_strncmp("export", cmd->cmd[0], 6) == 0)
+	else if (ft_strncmp("export", cmd->cmd[0], size) == 0)
 		ft_export(c, cmd->cmd);
-	else if (ft_strncmp("unset", cmd->cmd[0], 5) == 0)
+	else if (ft_strncmp("unset", cmd->cmd[0], size) == 0)
 		unset(c, cmd->cmd);
-	else if (ft_strncmp("env", cmd->cmd[0], 3) == 0)
+	else if (ft_strncmp("env", cmd->cmd[0], size) == 0)
 		print_env(c, 0);
-	else if (ft_strncmp("exit", cmd->cmd[0], 4) == 0)
+	else if (ft_strncmp("exit", cmd->cmd[0], size) == 0)
 		ft_exit(c, cmd);
 }
 
