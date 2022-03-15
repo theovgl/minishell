@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/09 12:13:24 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 11:59:07 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	check_id(t_config *c, char *id)
+{
+	int	i;
+
+	i = 0;
+	while (id[i])
+	{
+		if (i == 0 && ft_isalpha(id[i]) == 0 && id[i] != '_')
+		{
+			printf("unset: '%s': not a valid identifier\n", id);
+			g_return = 1;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 /**
  * @brief unset the list of variables *word[]
@@ -27,8 +45,13 @@ void	unset(t_config *c, char *word[])
 	int		i;
 	int		j;
 
-	j = 0;
-	while (word[j])
+	j = 1;
+	if (!word[j])
+	{
+		g_return = 0;
+		return ;
+	}
+	while (word[j] && check_id(c, word[j]) == 0)
 	{
 		current = c->env;
 		while (current)
@@ -48,4 +71,5 @@ void	unset(t_config *c, char *word[])
 		}
 		j++;
 	}
+	g_return = 0;
 }
