@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 15:27:21 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:55:16 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	unset(t_config *c, char *word[])
 				tmp = current;
 				current = current->prev;
 				current->next = tmp->next;
-				current->next->prev = current;
+				if (current->next)
+					current->next->prev = current;
 				free(tmp->content);
 				free(tmp);
 			}
