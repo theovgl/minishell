@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/15 15:39:40 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 21:19:39 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_config
 	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
+	int		nb_pipe;
 }	t_config;
 
 // SIGNAL
@@ -143,7 +144,8 @@ int		ft_isvariable(char *var);
 
 int		parser(t_config *c);
 int		parse_env(t_config *c);
-int		parse_tokens(t_config *c);
+int		parse_tokens(t_config *c, t_list *tokens_list);
+int		parse_pipe(t_config *c, t_list **list, t_cmd *cmd, int pipe_input);
 int		get_cmd_size(t_list *node);
 void	parse_word(t_config *c, t_list **list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);

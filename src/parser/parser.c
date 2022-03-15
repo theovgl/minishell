@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:35:46 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 21:23:31 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 20:58:16 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	parser(t_config *c)
 		printf("PATH not found\n");
 		return (FAILURE);
 	}
-	if (parse_tokens(c) == FAILURE)
+	if (parse_tokens(c, c->tokens) == FAILURE)
 	{
 		free_path(c);
 		return (FAILURE);
