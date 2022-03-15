@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/14 20:35:12 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:16:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,25 @@ char	*get_word(char *s, char *word, int i)
 {
 	int	j;
 
-	if (i == -1)
-		return (NULL);
 	j = 0;
-	word = malloc(sizeof(char *) * i + 1);
-	if (!word)
-		return (NULL);
+	if (i != -1)
+	{
+		word = malloc(sizeof(char *) * i + 1);
+		if (!word)
+			return (NULL);
 	while (j < i)
 	{
-		if (!ft_isalnum(s[j]))
-		{
-			printf("%s : not a valid identifier\n", s);
-			free(s);
-			return (NULL);
-		}
 		word[j] = s[j];
 		j++;
 	}
 	word[i] = '\0';
+	}
+	if ((word && !ft_isvariable(word)) || i == -1)
+	{
+		printf("export: '%s' : not a valid identifier\n", s);
+		free(word);
+		return (NULL);
+	}
 	return (word);
 }
 
@@ -150,8 +151,6 @@ int	export(t_config *c, char *s)
 	def = NULL;
 	i = find_eq(s);
 	word = get_word(s, word, i);
-	if (i == -1)
-		return (FAILURE);
 	if (!word)
 		return (FAILURE);
 	def = get_def(s, def, i + 1);

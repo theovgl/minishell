@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/11 12:14:51 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:54:38 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 		j++;
 	else
 	{
-		while (ft_isalnum(line[*i + j]))
+		while (ft_isalnum(line[*i + j]) || line[*i + j] == '_' || line[*i + j] == '-')
 			j++;
 	}
 	if (def)

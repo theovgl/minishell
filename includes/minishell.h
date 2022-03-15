@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/14 16:55:51 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 12:33:25 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	ft_putchar_fd(char c, int fd);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *nptr);
 char	*ft_strchr(const char *s, int c);
+int		ft_isvariable(char *var);
 
 // PARSER
 

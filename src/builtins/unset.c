@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 11:59:07 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:27:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ static int	check_id(t_config *c, char *id)
 	int	i;
 
 	i = 0;
-	while (id[i])
+	if (!id)
 	{
-		if (i == 0 && ft_isalpha(id[i]) == 0 && id[i] != '_')
-		{
-			printf("unset: '%s': not a valid identifier\n", id);
-			g_return = 1;
-			return (1);
-		}
-		i++;
+		g_return = 0;
+		return (0);
 	}
+	if (!ft_isvariable(id))
+	{
+		printf("unset: '%s': not a valid identifier\n", id);
+		g_return = 1;
+		return (1);
+	}
+	g_return = 0;
 	return (0);
 }
 
@@ -46,11 +48,6 @@ void	unset(t_config *c, char *word[])
 	int		j;
 
 	j = 1;
-	if (!word[j])
-	{
-		g_return = 0;
-		return ;
-	}
 	while (word[j] && check_id(c, word[j]) == 0)
 	{
 		current = c->env;
@@ -64,6 +61,7 @@ void	unset(t_config *c, char *word[])
 				tmp = current;
 				current = current->prev;
 				current->next = tmp->next;
+				current->next->prev = current;
 				free(tmp->content);
 				free(tmp);
 			}
@@ -71,5 +69,4 @@ void	unset(t_config *c, char *word[])
 		}
 		j++;
 	}
-	g_return = 0;
 }
