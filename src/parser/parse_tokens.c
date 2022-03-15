@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 13:53:40 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/09 21:58:37 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static t_cmd	*init_cmd(void)
 	t_cmd	*new_cmd;
 
 	new_cmd = malloc(sizeof(t_cmd));
+	if (!new_cmd)
+		return (NULL);
 	new_cmd->cmd = NULL;
 	new_cmd->io.in = STDIN_FILENO;
 	new_cmd->io.out = STDOUT_FILENO;
@@ -97,6 +99,8 @@ int	parse_tokens(t_config *c)
 
 	current = c->tokens;
 	cmd = init_cmd();
+	if (!cmd)
+		return (FAILURE);
 	while (current)
 	{
 		if (current->type == WORD)

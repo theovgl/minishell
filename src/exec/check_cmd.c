@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 18:49:46 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 15:40:01 by tvogel           ###   ########.fr       */
+/*   Created: 2022/03/11 14:24:00 by tvogel            #+#    #+#             */
+/*   Updated: 2022/03/11 14:35:44 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd(char *path)
+void	check_cmd_not_found(t_config *c, char *cmd_path)
 {
-	char	*error;
-
-	if (chdir(path) == -1)
+	if (cmd_path == NULL)
 	{
-		error = ft_strjoin("cd: ", path);
-		g_return = 1;
-		perror(error);
-		free(error);
-		return (FAILURE);
+		g_return = 127;
+		exit_failure(c, "command not found\n", 0);
 	}
-	g_return = 0;
-	return (SUCCESS);
+	return ;
+}
+
+void	check_permission_denied(t_config *c, t_cmd *cmd)
+{
+	if (ft_strncmp(cmd->cmd[0], "./", 2) == 0)
+	{
+		g_return = 126;
+		exit_failure(c, cmd->cmd[0], 1);
+	}
+	if (access(cmd->cmd[0], R_OK | W_OK | X_OK) == -1)
+	{
+		g_return = 126;
+		exit_failure(c, cmd->cmd[0], 1);
+	}
+	return ;
 }

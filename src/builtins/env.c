@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/10 16:10:00 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:43:31 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	ft_env(t_config *c, char *ep[])
  * @brief print the env list.
  * if export is not zero it print 'export ' before the line.
  * This feature is used in the export function.
- * 
- * @param c 
- * @param export 
+ *
+ * @param c
+ * @param export
  */
 void	print_env(t_config *c, int export)
 {
@@ -84,6 +84,7 @@ void	print_env(t_config *c, int export)
 			printf("%s\n", (char *)(current->content));
 		current = current->next;
 	}
+	g_return = 0;
 }
 
 char	*getpath(t_config *c)
@@ -105,6 +106,7 @@ char	*getpath(t_config *c)
 			return (get_def(current->content, def, i + 1));
 		current = current->next;
 	}
+	g_return = 0;
 	return (NULL);
 }
 

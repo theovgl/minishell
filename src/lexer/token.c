@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:36 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/04 15:19:19 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:36:53 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	add_token(t_config *c, int start, int end, int type)
 	i = 0;
 	content = malloc(sizeof(char) * (end - start + 2));
 	if (content == NULL)
-		return (FAILURE);
+		exit_failure(c, "Malloc failed", 1);
 	while (start + i <= end)
 	{
 		content[i] = c->command_line[start + i];

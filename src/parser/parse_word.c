@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/07 16:54:56 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:10:45 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,12 @@ static int	get_cmd_path(t_config *c, t_cmd *cmd, char *to_check)
 		{
 			cmd->path = ft_strdup(temp);
 			free(temp);
-			return (FAILURE);
+			return (SUCCESS);
 		}
 		free(temp);
 		i++;
 	}
-	if (to_check != NULL)
-		cmd->path = ft_strdup(to_check);
-	else
-		cmd->path = NULL;
+	cmd->path = NULL;
 	return (SUCCESS);
 }
 
@@ -63,7 +60,6 @@ int	get_cmd_size(t_list *node)
 
 /**
  * @brief Add each WORD token in a new t_cmd
- * @return t_cmd *
 */
 void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 {
@@ -77,6 +73,8 @@ void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 	else
 		to_fill->builtin = 0;
 	to_fill->cmd = malloc(sizeof(char *) * (size + 1));
+	if (!to_fill->cmd)
+		exit_failure(c, "Malloc failed", 1);
 	while (*list && (*list)->type == WORD && (*list)->content)
 	{
 		to_fill->cmd[i] = ft_strdup((*list)->content);
@@ -84,7 +82,8 @@ void	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 		i++;
 	}
 	to_fill->cmd[i] = NULL;
-	get_cmd_path(c, to_fill, to_fill->cmd[0]);
-	while (*list && (*list)->type == WORD)
-				*list = (*list)->next;
+	if (ft_strchr(to_fill->cmd[0], '/') == NULL)
+		get_cmd_path(c, to_fill, to_fill->cmd[0]);
+	else
+		to_fill->path = ft_strdup(to_fill->cmd[0]);
 }

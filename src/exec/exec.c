@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/10 16:06:03 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:41:13 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 static int	exec_builtin(t_config *c, t_cmd *cmd)
 {
-	if (ft_strncmp("echo", cmd->cmd[0], 4) == 0)
+	int	size;
+
+	size = ft_strlen(cmd->cmd[0]);
+	if (ft_strncmp("echo", cmd->cmd[0], size) == 0)
 		echo(cmd->cmd);
-	else if (ft_strncmp("cd", cmd->cmd[0], 2) == 0)
+	else if (ft_strncmp("cd", cmd->cmd[0], size) == 0)
 		cd(cmd->cmd[1]);
-	else if (ft_strncmp("pwd", cmd->cmd[0], 3) == 0)
+	else if (ft_strncmp("pwd", cmd->cmd[0], size) == 0)
 		pwd();
-	else if (ft_strncmp("export", cmd->cmd[0], 6) == 0)
+	else if (ft_strncmp("export", cmd->cmd[0], size) == 0)
 		ft_export(c, cmd->cmd);
-	else if (ft_strncmp("unset", cmd->cmd[0], 5) == 0)
+	else if (ft_strncmp("unset", cmd->cmd[0], size) == 0)
 		unset(c, cmd->cmd);
-	else if (ft_strncmp("env", cmd->cmd[0], 3) == 0)
+	else if (ft_strncmp("env", cmd->cmd[0], size) == 0)
 		print_env(c, 0);
-	else if (ft_strncmp("exit", cmd->cmd[0], 4) == 0)
+	else if (ft_strncmp("exit", cmd->cmd[0], size) == 0)
 		ft_exit(c, cmd);
 }
 
@@ -40,22 +43,32 @@ static int	exec_builtin(t_config *c, t_cmd *cmd)
 int	exec(t_config *c, char *envp[])
 {
 	t_cmd	*cmd;
+	int		status;
 
 	cmd = (t_cmd *)(c->cmd_list->content);
 	if (cmd->cmd == NULL)
 		return (SUCCESS);
-	if (!cmd->builtin)
+	else if (!cmd->builtin)
 	{
 		g_pid = fork();
+		g_child = 1;
+		if (g_pid < 0)
+			exit_failure(c, "Fork", 1);
 		if (g_pid == 0)
 		{
 			dup2(cmd->io.in, STDIN_FILENO);
 			dup2(cmd->io.out, STDOUT_FILENO);
 			execve(cmd->path, cmd->cmd, envp);
-			perror(cmd->cmd[0]);
-			exit(errno);
+			check_cmd_not_found(c, cmd->path);
+			check_permission_denied(c, cmd);
+			exit_failure(c, cmd->cmd[0], 1);
 		}
-		wait(&g_errno);
+		wait(&status);
+		if (WIFEXITED(status))
+		{
+			g_return = WEXITSTATUS(status);
+			return (g_return);
+		}
 	}
 	else if (cmd->builtin)
 	{

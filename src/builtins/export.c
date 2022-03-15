@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/10 16:11:40 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:40:48 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,24 @@ char	*get_word(char *s, char *word, int i)
 	int	j;
 
 	j = 0;
-	word = malloc(sizeof(char *) * i + 1);
-	if (!word)
-		return (NULL);
+	if (i != -1)
+	{
+		word = malloc(sizeof(char *) * i + 1);
+		if (!word)
+			return (NULL);
 	while (j < i)
 	{
-		if (!ft_isalnum(s[j]))
-		{
-			printf("%s : not a valid identifier\n", s);
-			free(s);
-			return (NULL);
-		}
 		word[j] = s[j];
 		j++;
 	}
 	word[i] = '\0';
+	}
+	if ((word && !ft_isvariable(word)) || i == -1)
+	{
+		printf("export: '%s' : not a valid identifier\n", s);
+		free(word);
+		return (NULL);
+	}
 	return (word);
 }
 
@@ -112,8 +115,6 @@ int	export(t_config *c, char *s)
 	word = NULL;
 	def = NULL;
 	i = find_eq(s);
-	if (i == -1)
-		return (FAILURE);
 	word = get_word(s, word, i);
 	if (!word)
 		return (FAILURE);
@@ -137,7 +138,11 @@ int	ft_export(t_config *c, char *tmp[])
 	}
 	while (tmp[i])
 	{
-		export(c, tmp[i]);
+		if(export(c, tmp[i]) == FAILURE)
+		{
+			g_return = 1;
+			return (FAILURE);
+		}
 		i++;
 	}
 	return (SUCCESS);

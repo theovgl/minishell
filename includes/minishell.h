@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 16:24:25 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:39:40 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@
 # include <fcntl.h>
 # include <errno.h>
 
-extern int	g_errno;
-extern int	g_pid;
+extern u_int8_t			g_return;
+extern int				g_pid;
+extern int				g_child;
 
 enum {
 	SUCCESS = 0,
@@ -87,15 +88,14 @@ typedef struct s_config
 	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
-	int		last_return;
 }	t_config;
 
 // SIGNAL
 void	handle_signal(void);
 
 // SRC
-int		clean_exit(t_config *c, int code);
-void	clean_on_success(t_config *c);
+void	clean(t_config *c);
+void	exit_failure(t_config *c, char *err_string, int is_errno);
 
 // INIT
 int		init(t_config *c, char *ep[]);
@@ -108,9 +108,13 @@ int		ft_isquote(t_config *c, int i);
 
 //EXEC
 int		exec(t_config *c, char *envp[]);
+void	check_cmd_not_found(t_config *c, char *cmd_path);
+void	check_permission_denied(t_config *c, t_cmd *cmd);
 
 // UTILS
 int		ft_isalnum(int c);
+int		ft_isdigit(int c);
+int		ft_isalpha(int c);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstadd_front(t_list **alst, t_list *new);
@@ -132,7 +136,8 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *nptr);
-int		ft_isalpha(int c);
+char	*ft_strchr(const char *s, int c);
+int		ft_isvariable(char *var);
 
 // PARSER
 
@@ -148,7 +153,7 @@ int		is_builtin(char *to_check);
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
 int		echo(char *av[]);
-int		export(t_config *c, char *s);
+int		ft_export(t_config *c, char *tmp[]);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
