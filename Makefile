@@ -6,7 +6,7 @@ SRCS	= main.c \
 			parser.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlen.c ft_strchr.c ft_isvariable.c\
 			echo.c cd.c pwd.c export.c env.c unset.c exit.c\
 			lexer.c token.c env_translate.c quotes.c \
-			parse_env.c parse_tokens.c parse_word.c parse_redirect.c is_builtin.c\
+			parse_env.c parse_tokens.c parse_word.c parse_redirect.c is_builtin.c parse_pipe.c \
 			exec.c check_cmd.c pipes.c\
 			clean_exit.c init.c
 OBJS	= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
