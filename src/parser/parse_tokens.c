@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/09 21:58:37 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 14:34:35 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	parse_tokens(t_config *c)
 		else if (current->type == LESS || current->type == GREAT
 			|| current->type == LLESS || current->type == GGREAT)
 		{
-			if (parse_redirect(&current, cmd) == FAILURE)
+			if (parse_redirect(c, &current, cmd) == FAILURE)
 			{
 				handle_error(cmd);
 				return (FAILURE);
