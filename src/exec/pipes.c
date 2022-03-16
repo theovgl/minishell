@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/16 19:02:19 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/16 23:19:33 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ int	exec_pipes(t_config *c, char *envp[])
 	int		i;
 	int		status;
 
-	i = 1;
-	current = c->cmd_list;
+	io.in = 0;
+	io.out = 1;
 	i = 0;
+	current = c->cmd_list;
 	while (current)
 	{
 		last_pid = fork();
@@ -56,11 +57,6 @@ int	exec_pipes(t_config *c, char *envp[])
 		{
 // printf("------------------------------------------\n");
 			
-			if (((t_cmd *)(current->content))->builtin)
-			{
-				exec_builtin(c, ((t_cmd *)(current->content)));
-				return (SUCCESS);
-			}
 			closer(c, ((t_cmd *)(current->content))->io);
 			if (((t_cmd *)(current->content))->io.in != STDIN_FILENO)
 			{
@@ -72,13 +68,21 @@ int	exec_pipes(t_config *c, char *envp[])
 				dup2(((t_cmd *)(current->content))->io.out, STDOUT_FILENO);
 				close(((t_cmd *)(current->content))->io.out);
 			}
-			
-			execve(((t_cmd *)(current->content))->path, ((t_cmd *)(current->content))->cmd, envp);
-			check_cmd_not_found(c, ((t_cmd *)(current->content))->path);
-			check_permission_denied(c, ((t_cmd *)(current->content)));
-			close(((t_cmd *)(current->content))->io.in);
-			close(((t_cmd *)(current->content))->io.out);
-			exit_failure(c, ((t_cmd *)(current->content))->cmd[0], 1);
+			if (((t_cmd *)(current->content))->builtin)
+			{
+				// close(((t_cmd *)(current->content))->io.in);
+				exec_builtin(c, ((t_cmd *)(current->content)));
+				exit(0);
+			}
+			else
+			{
+				execve(((t_cmd *)(current->content))->path, ((t_cmd *)(current->content))->cmd, envp);
+				check_cmd_not_found(c, ((t_cmd *)(current->content))->path);
+				check_permission_denied(c, ((t_cmd *)(current->content)));
+				close(((t_cmd *)(current->content))->io.in);
+				close(((t_cmd *)(current->content))->io.out);
+				exit_failure(c, ((t_cmd *)(current->content))->cmd[0], 1);
+			}
 		}
 		tmp = current;
 		current = current->next;
@@ -89,17 +93,13 @@ int	exec_pipes(t_config *c, char *envp[])
 // printf("--closed io.in == %d\n", ((t_cmd *)(current->content))->io.in);
 // 		}
 	}
-	io.in = 0;
-	io.out = 1;
 	closer(c, io);
-			// close(((t_cmd *)(tmp->content))->io.in);
-			// close(((t_cmd *)(tmp->content))->io.out);
-	//waitpid(last_pid, &status, 1);
-	/*if (WIFEXITED(status))
+	waitpid(last_pid, &status, 1);
+	if (WIFEXITED(status))
 	{
 		g_return = WEXITSTATUS(status);
 		return (g_return);
-	}*/
+	}
 	while (wait(NULL) != -1)
 	{}
 	return (SUCCESS);
