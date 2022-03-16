@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/16 21:33:30 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 22:28:44 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	parse_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 
 	if (pipe(doc) < 0)
 		exit_failure(c, "Pipe", 1);
-	*list = (*list)->next;
 	limit = ft_strdup((*list)->content);
 	readline_buf = readline("> ");
-	while (readline_buf && ft_strncmp(readline_buf, limit, ft_strlen(readline_buf)))
+	if (readline_buf == NULL)
+		printf("\n");
+	while (readline_buf && ft_strncmp(readline_buf, limit, ft_strlen(limit)))
 	{
 		if (readline_buf == NULL)
 			break ;
@@ -59,7 +60,10 @@ int	parse_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 int	parse_double_chevrons(t_config *c, t_list **list, t_cmd *cmd)
 {
 	if ((*list)->type == LLESS)
+	{
+		*list = (*list)->next;
 		parse_here_doc(c, list, cmd);
+	}
 	else if ((*list)->type == GGREAT)
 	{
 		(*list) = (*list)->next;
@@ -76,6 +80,28 @@ int	parse_double_chevrons(t_config *c, t_list **list, t_cmd *cmd)
 	return (SUCCESS);
 }
 
+int	parse_single_chevron(t_config *c, t_list **list, t_cmd *cmd)
+{
+	if ((*list)->type == LESS)
+	{
+		(*list) = (*list)->next;
+		cmd->io.in = open((char *)(*list)->content, O_RDONLY);
+	}
+	else if ((*list)->type == GREAT)
+	{
+		(*list) = (*list)->next;
+		cmd->io.out = open((char *)(*list)->content,
+				O_TRUNC | O_RDWR | O_CREAT, 00777);
+	}
+	if (cmd->io.in < 0 || cmd->io.out < 0)
+	{
+		g_return = errno;
+		perror((*list)->content);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 {
 	if (check_token(*list) == FAILURE)
@@ -84,23 +110,8 @@ int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 		return (parse_double_chevrons(c, list, cmd));
 	else
 	{
-		if ((*list)->type == LESS)
-		{
-			(*list) = (*list)->next;
-			cmd->io.in = open((char *)(*list)->content, O_RDONLY);
-		}
-		else if ((*list)->type == GREAT)
-		{
-			(*list) = (*list)->next;
-			cmd->io.out = open((char *)(*list)->content,
-					O_TRUNC | O_RDWR | O_CREAT, 00777);
-		}
-		if (cmd->io.in < 0 || cmd->io.out < 0)
-		{
-			g_return = errno;
-			perror((*list)->content);
+		if (parse_single_chevron(c, list, cmd) == FAILURE)
 			return (FAILURE);
-		}
 	}
 	(*list) = (*list)->next;
 	return (SUCCESS);
