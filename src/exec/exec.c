@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/16 21:12:35 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:52:46 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	exec_builtin(t_config *c, t_cmd *cmd)
 	else if (ft_strncmp("pwd", cmd->cmd[0], size) == 0)
 		pwd();
 	else if (ft_strncmp("export", cmd->cmd[0], size) == 0)
-		ft_export(c, cmd->cmd);
+		ft_export(c, cmd);
 	else if (ft_strncmp("unset", cmd->cmd[0], size) == 0)
 		unset(c, cmd->cmd);
 	else if (ft_strncmp("env", cmd->cmd[0], size) == 0)
-		print_env(c, 0);
+		print_env(c, cmd, 0);
 	else if (ft_strncmp("exit", cmd->cmd[0], size) == 0)
 		ft_exit(c, cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/16 14:17:35 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:54:16 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ int		is_builtin(char *to_check);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
-int		echo(char *av[]);
-int		ft_export(t_config *c, char *tmp[]);
+int		echo(t_cmd *cmd);
+int		ft_export(t_config *c, t_cmd *cmd);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
@@ -167,7 +167,7 @@ void	ft_exit(t_config *c, t_cmd *cmd);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
-void	print_env(t_config *c, int export);
+void	print_env(t_config *c, t_cmd *cmd, int export);
 void	unset(t_config *c, char *word[]);
 char	*getpath(t_config *c);
 int		modify_in_env(t_config *c, char *word, char *def);
