@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/16 14:25:53 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:12:35 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_builtin(t_config *c, t_cmd *cmd)
 
 	size = ft_strlen(cmd->cmd[0]);
 	if (ft_strncmp("echo", cmd->cmd[0], size) == 0)
-		echo(cmd->cmd);
+		echo(cmd);
 	else if (ft_strncmp("cd", cmd->cmd[0], size) == 0)
 		cd(cmd->cmd[1]);
 	else if (ft_strncmp("pwd", cmd->cmd[0], size) == 0)
