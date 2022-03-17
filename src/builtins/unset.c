@@ -6,13 +6,13 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 16:55:16 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/17 11:58:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_id(t_config *c, char *id)
+static int	check_id(char *id)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void	unset(t_config *c, char *word[])
 	int		j;
 
 	j = 1;
-	while (word[j] && check_id(c, word[j]) == 0)
+	while (word[j] && check_id(word[j]) == 0)
 	{
 		current = c->env;
 		while (current)
