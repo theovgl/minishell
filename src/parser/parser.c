@@ -34,7 +34,7 @@ int	parser(t_config *c)
 		printf("PATH not found\n");
 		return (FAILURE);
 	}
-	if (parse_tokens(c) == FAILURE)
+	if (parse_tokens(c, c->tokens) == FAILURE)
 	{
 		free_path(c);
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:45 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 12:14:25 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:55:42 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	close_fds(t_config *c)
 			close(cmd->io.out);
 		current = current->next;
 	}
+	c->nb_pipe = 0;
 }
 
 void	clean(t_config *c)

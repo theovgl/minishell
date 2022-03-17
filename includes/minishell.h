@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
 /*   Updated: 2022/03/17 20:33:11 by tvogel           ###   ########.fr       */
@@ -88,6 +88,7 @@ typedef struct s_config
 	char	*cmd_path;
 	t_list	*cmd_list;
 	char	*command_line;
+	int		nb_pipe;
 }	t_config;
 
 // SIGNAL
@@ -111,6 +112,10 @@ int		ft_isquote(t_config *c, int i);
 int		exec(t_config *c, char *envp[]);
 void	check_cmd_not_found(t_config *c, char *cmd_path);
 void	check_permission_denied(t_config *c, t_cmd *cmd);
+int		exec_builtin(t_config *c, t_cmd *cmd);
+
+// PIPES
+int	exec_pipes(t_config *c, char *envp[]);
 
 // UTILS
 int		ft_isalnum(int c);
@@ -144,7 +149,8 @@ int		ft_isvariable(char *var);
 
 int		parser(t_config *c);
 int		parse_env(t_config *c);
-int		parse_tokens(t_config *c);
+int		parse_tokens(t_config *c, t_list *tokens_list);
+int		parse_pipe(t_config *c, t_list **list, t_cmd *cmd, int pipe_input);
 int		get_cmd_size(t_list *node);
 void	parse_word(t_config *c, t_list **list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
@@ -156,8 +162,8 @@ void	free_path(t_config *c);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
-int		echo(char *av[]);
-int		ft_export(t_config *c, char *tmp[]);
+int		echo(t_cmd *cmd);
+int		ft_export(t_config *c, t_cmd *cmd);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
@@ -165,7 +171,7 @@ void	ft_exit(t_config *c, t_cmd *cmd);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
-void	print_env(t_config *c, int export);
+void	print_env(t_config *c, t_cmd *cmd, int export);
 void	unset(t_config *c, char *word[]);
 char	*getpath(t_config *c);
 int		modify_in_env(t_config *c, char *word, char *def);

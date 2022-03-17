@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
 /*   Updated: 2022/03/17 20:12:43 by tvogel           ###   ########.fr       */
@@ -92,13 +92,15 @@ void	handle_tokens_errors(t_cmd *cmd)
 /**
  * @brief Parse each token comming from the lexer
  */
-int	parse_tokens(t_config *c)
+int	parse_tokens(t_config *c, t_list *tokens_list)
 {
 	t_list	*current;
 	t_cmd	*cmd;
+	int		pipe_input;
 
-	current = c->tokens;
+	current = tokens_list;
 	cmd = init_cmd();
+	pipe_input = 0;
 	if (!cmd)
 		return (FAILURE);
 	while (current)
@@ -114,9 +116,17 @@ int	parse_tokens(t_config *c)
 				return (FAILURE);
 			}
 		}
+		else if (current && current->type == PIPE)
+		{
+			pipe_input = parse_pipe(c, &current, cmd, pipe_input);
+			add_cmd_to_list(c, cmd);
+			cmd = init_cmd();
+		}
 		else
 			current = current->next;
 	}
+	if (pipe_input)
+		cmd->io.in = pipe_input;
 	add_cmd_to_list(c, cmd);
 	return (SUCCESS);
 }

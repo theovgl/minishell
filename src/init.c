@@ -20,6 +20,7 @@ int	init(t_config *c, char **ep)
 	c->command_line = NULL;
 	c->tokens = NULL;
 	c->cmd_list = NULL;
+	c->nb_pipe = 0;
 	if(ft_env(c, ep) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);

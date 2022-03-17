@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   env_translate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
 /*   Updated: 2022/03/17 14:17:48 by tvogel           ###   ########.fr       */
