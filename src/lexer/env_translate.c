@@ -38,7 +38,9 @@ char	*is_var(t_config *c, char *line)
 		current = current->next;
 	}
 	if (line[0] == '?')
+	{
 		return (ft_itoa(g_return));
+	}
 	return (NULL);
 }
 

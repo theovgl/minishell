@@ -93,6 +93,7 @@ typedef struct s_config
 
 // SIGNAL
 void	handle_signal(void);
+void	handle_sigint(int sig);
 
 // SRC
 void	clean(t_config *c);
@@ -153,8 +154,11 @@ int		parse_pipe(t_config *c, t_list **list, t_cmd *cmd, int pipe_input);
 int		get_cmd_size(t_list *node);
 void	parse_word(t_config *c, t_list **list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
-int		parse_redirect(t_list **list, t_cmd *cmd);
+int		parse_redirect(t_config *c, t_list **list, t_cmd *cmd);
 int		is_builtin(char *to_check);
+int		create_here_doc(t_config *c, t_list **list, t_cmd *cmd);
+void	handle_tokens_errors(t_cmd *cmd);
+void	free_path(t_config *c);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);

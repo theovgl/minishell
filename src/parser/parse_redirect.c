@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 12:14:54 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:02:16 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ static int	check_token(t_list *list)
 	return (SUCCESS);
 }
 
-int	parse_double_chevrons(t_list **list, t_cmd *cmd)
+int	parse_double_chevrons(t_config *c, t_list **list, t_cmd *cmd)
 {
-	if ((*list)->type == GGREAT)
+	if ((*list)->type == LLESS)
+	{
+		*list = (*list)->next;
+		if (create_here_doc(c, list, cmd) == FAILURE)
+			return (FAILURE);
+	}
+	else if ((*list)->type == GGREAT)
 	{
 		(*list) = (*list)->next;
 		cmd->io.out = open((char *)(*list)->content,
@@ -46,31 +52,38 @@ int	parse_double_chevrons(t_list **list, t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int	parse_redirect(t_list **list, t_cmd *cmd)
+int	parse_single_chevron(t_list **list, t_cmd *cmd)
+{
+	if ((*list)->type == LESS)
+	{
+		(*list) = (*list)->next;
+		cmd->io.in = open((char *)(*list)->content, O_RDONLY);
+	}
+	else if ((*list)->type == GREAT)
+	{
+		(*list) = (*list)->next;
+		cmd->io.out = open((char *)(*list)->content,
+				O_TRUNC | O_RDWR | O_CREAT, 00777);
+	}
+	if (cmd->io.in < 0 || cmd->io.out < 0)
+	{
+		g_return = errno;
+		perror((*list)->content);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 {
 	if (check_token(*list) == FAILURE)
 		return (FAILURE);
 	if ((*list)->type == LLESS || (*list)->type == GGREAT)
-		return (parse_double_chevrons(list, cmd));
+		return (parse_double_chevrons(c, list, cmd));
 	else
 	{
-		if ((*list)->type == LESS)
-		{
-			(*list) = (*list)->next;
-			cmd->io.in = open((char *)(*list)->content, O_RDONLY);
-		}
-		else if ((*list)->type == GREAT)
-		{
-			(*list) = (*list)->next;
-			cmd->io.out = open((char *)(*list)->content,
-					O_TRUNC | O_RDWR | O_CREAT, 00777);
-		}
-		if (cmd->io.in < 0 || cmd->io.out < 0)
-		{
-			g_return = errno;
-			perror((*list)->content);
+		if (parse_single_chevron(list, cmd) == FAILURE)
 			return (FAILURE);
-		}
 	}
 	(*list) = (*list)->next;
 	return (SUCCESS);

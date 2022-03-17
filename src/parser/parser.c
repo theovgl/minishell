@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	free_path(t_config *c)
+void	free_path(t_config *c)
 {
 	int	i;
 

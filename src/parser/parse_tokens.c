@@ -66,7 +66,7 @@ static t_cmd	*init_cmd(void)
 	return (new_cmd);
 }
 
-static void	handle_error(t_cmd *cmd)
+void	handle_tokens_errors(t_cmd *cmd)
 {
 	int	i;
 
@@ -110,9 +110,9 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 		else if (current->type == LESS || current->type == GREAT
 			|| current->type == LLESS || current->type == GGREAT)
 		{
-			if (parse_redirect(&current, cmd) == FAILURE)
+			if (parse_redirect(c, &current, cmd) == FAILURE)
 			{
-				handle_error(cmd);
+				handle_tokens_errors(cmd);
 				return (FAILURE);
 			}
 		}

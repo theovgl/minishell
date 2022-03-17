@@ -14,6 +14,7 @@
 
 int	init(t_config *c, char **ep)
 {
+	g_return = 0;
 	c->env = NULL;
 	c->path = NULL;
 	c->command_line = NULL;
