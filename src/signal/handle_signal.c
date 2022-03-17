@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:13:47 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/14 16:58:16 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:03:47 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Write \n then replace the line with a new prompt
 */
-static void	handle_sigint(int sig)
+void	handle_sigint(int sig)
 {
 	write(1, "\n", 1);
 	g_return = 130;
