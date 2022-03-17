@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 15:40:48 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 21:53:42 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,16 @@ int	export(t_config *c, char *s)
 	return (SUCCESS);
 }
 
-int	ft_export(t_config *c, char *tmp[])
+int	ft_export(t_config *c, t_cmd *cmd)
 {
 	int	i;
+	char **tmp;
 
 	i = 1;
+	tmp = cmd->cmd;
 	if (!tmp[i])
 	{
-		print_env(c, 1);
+		print_env(c, cmd, 1);
 		return (SUCCESS);
 	}
 	while (tmp[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:55:22 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/14 14:25:51 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 21:21:12 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,24 @@ static int	check_option(char *av[], int *pos)
  * @param av
  * @return int
  */
-int	echo(char *av[])
+int	echo(t_cmd *cmd)
 {
-	int	i;
-	int	nl;
+	int		i;
+	int		nl;
+	char	**av;
 
 	i = 1;
+	av = cmd->cmd;
 	nl = check_option(av, &i);
 	while (av[i])
 	{
-		printf("%s", av[i]);
+		ft_putstr_fd(av[i], cmd->io.out);
 		i++;
 		if (av[i])
-			printf(" ");
+			ft_putchar_fd(' ', cmd->io.out);
 	}
 	if (nl == 0)
-		printf("\n");
+		ft_putchar_fd('\n', cmd->io.out);
 	g_return = 0;
 	return (SUCCESS);
 }

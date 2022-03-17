@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/15 15:43:31 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 21:50:29 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_env(t_config *c, char *ep[])
  * @param c
  * @param export
  */
-void	print_env(t_config *c, int export)
+void	print_env(t_config *c, t_cmd *cmd, int export)
 {
 	t_list	*current;
 
@@ -79,9 +79,9 @@ void	print_env(t_config *c, int export)
 	while (current)
 	{
 		if (export)
-			printf("export %s\n", (char *)(current->content));
-		else
-			printf("%s\n", (char *)(current->content));
+			ft_putstr_fd("export ", cmd->io.out);
+		ft_putstr_fd((char *)(current->content), cmd->io.out);
+		ft_putchar_fd('\n', cmd->io.out);
 		current = current->next;
 	}
 	g_return = 0;

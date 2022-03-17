@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/15 21:19:39 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 21:54:16 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int		ft_isquote(t_config *c, int i);
 int		exec(t_config *c, char *envp[]);
 void	check_cmd_not_found(t_config *c, char *cmd_path);
 void	check_permission_denied(t_config *c, t_cmd *cmd);
+int		exec_builtin(t_config *c, t_cmd *cmd);
+
+// PIPES
+int	exec_pipes(t_config *c, char *envp[]);
 
 // UTILS
 int		ft_isalnum(int c);
@@ -154,8 +158,8 @@ int		is_builtin(char *to_check);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
-int		echo(char *av[]);
-int		ft_export(t_config *c, char *tmp[]);
+int		echo(t_cmd *cmd);
+int		ft_export(t_config *c, t_cmd *cmd);
 int		pwd(void);
 int		cd(char *path);
 char	*get_def(char *s, char *def, int i);
@@ -163,7 +167,7 @@ void	ft_exit(t_config *c, t_cmd *cmd);
 
 // ENV
 void	add_in_env(t_config *c, char *word, char *def);
-void	print_env(t_config *c, int export);
+void	print_env(t_config *c, t_cmd *cmd, int export);
 void	unset(t_config *c, char *word[]);
 char	*getpath(t_config *c);
 int		modify_in_env(t_config *c, char *word, char *def);
