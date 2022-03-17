@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/16 14:34:35 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:12:43 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_cmd	*init_cmd(void)
 	return (new_cmd);
 }
 
-static void	handle_error(t_cmd *cmd)
+void	handle_tokens_errors(t_cmd *cmd)
 {
 	int	i;
 
@@ -110,7 +110,7 @@ int	parse_tokens(t_config *c)
 		{
 			if (parse_redirect(c, &current, cmd) == FAILURE)
 			{
-				handle_error(cmd);
+				handle_tokens_errors(cmd);
 				return (FAILURE);
 			}
 		}

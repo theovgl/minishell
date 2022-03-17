@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:21:55 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:03:04 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:34:01 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ static void	here_doc_sigint(int sig)
 	g_return = 130;
 }
 
+void	chatterton(t_config *c, t_cmd *cmd)
+{
+	handle_tokens_errors(cmd);
+	free_path(c);
+	ft_lstclear(&c->env, free);
+	exit_failure(c, "", 0);
+}
+
 int	create_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 {
 	int		fd[2];
@@ -60,7 +68,7 @@ int	create_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 		close(fd[0]);
 		signal(SIGINT, &here_doc_sigint);
 		parse_here_doc(c, list, fd);
-		exit_failure(c, "", 0);
+		chatterton(c, cmd);
 	}
 	wait(&status);
 	close(fd[1]);

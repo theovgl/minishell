@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:04:04 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 20:33:11 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 int		parse_redirect(t_config *c, t_list **list, t_cmd *cmd);
 int		is_builtin(char *to_check);
 int		create_here_doc(t_config *c, t_list **list, t_cmd *cmd);
+void	handle_tokens_errors(t_cmd *cmd);
+void	free_path(t_config *c);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);
