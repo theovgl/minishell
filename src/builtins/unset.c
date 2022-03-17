@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 14:03:13 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:24:39 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_id(t_config *c, char *id)
 	return (0);
 }
 
-static	t_list *suppr_node(t_list *current)
+static	t_list	*suppr_node(t_list *current)
 {
 	t_list	*tmp;
 
