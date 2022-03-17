@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/16 22:28:44 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 11:58:14 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	parse_double_chevrons(t_config *c, t_list **list, t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int	parse_single_chevron(t_config *c, t_list **list, t_cmd *cmd)
+int	parse_single_chevron(t_list **list, t_cmd *cmd)
 {
 	if ((*list)->type == LESS)
 	{
@@ -110,7 +110,7 @@ int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 		return (parse_double_chevrons(c, list, cmd));
 	else
 	{
-		if (parse_single_chevron(c, list, cmd) == FAILURE)
+		if (parse_single_chevron(list, cmd) == FAILURE)
 			return (FAILURE);
 	}
 	(*list) = (*list)->next;
