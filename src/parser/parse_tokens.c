@@ -128,6 +128,5 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 	if (pipe_input)
 		cmd->io.in = pipe_input;
 	add_cmd_to_list(c, cmd);
-	// print_cmd(c);
 	return (SUCCESS);
 }

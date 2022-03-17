@@ -18,7 +18,6 @@ int	parse_pipe(t_config *c, t_list **list, t_cmd *cmd, int pipe_input)
 
 	if (pipe(fd) == -1)
 		exit_failure(c, "Pipe", 1);
-	// printf("PIPE %i, %i\n", fd[0], fd[1]);
 	if (c->nb_pipe == 0 && cmd->io.out == STDOUT_FILENO)
 	{
 		cmd->io.out = fd[1];
