@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:33:11 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 18:25:46 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	check_permission_denied(t_config *c, t_cmd *cmd);
 int		exec_builtin(t_config *c, t_cmd *cmd);
 
 // PIPES
-int	exec_pipes(t_config *c, char *envp[]);
+int		exec_pipes(t_config *c, char *envp[]);
 
 // UTILS
 int		ft_isalnum(int c);

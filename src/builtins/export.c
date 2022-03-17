@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/16 21:53:42 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:17:59 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ char	*get_word(char *s, char *word, int i)
 		word = malloc(sizeof(char *) * i + 1);
 		if (!word)
 			return (NULL);
-	while (j < i)
-	{
-		word[j] = s[j];
-		j++;
-	}
+		while (j < i)
+		{
+			word[j] = s[j];
+			j++;
+		}
 	word[i] = '\0';
 	}
 	if ((word && !ft_isvariable(word)) || i == -1)
@@ -128,8 +128,8 @@ int	export(t_config *c, char *s)
 
 int	ft_export(t_config *c, t_cmd *cmd)
 {
-	int	i;
-	char **tmp;
+	int		i;
+	char	**tmp;
 
 	i = 1;
 	tmp = cmd->cmd;
@@ -140,7 +140,7 @@ int	ft_export(t_config *c, t_cmd *cmd)
 	}
 	while (tmp[i])
 	{
-		if(export(c, tmp[i]) == FAILURE)
+		if (export(c, tmp[i]) == FAILURE)
 		{
 			g_return = 1;
 			return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:12:43 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/16 18:16:31 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 	if (pipe_input)
 		cmd->io.in = pipe_input;
 	add_cmd_to_list(c, cmd);
+	// print_cmd(c);
 	return (SUCCESS);
 }

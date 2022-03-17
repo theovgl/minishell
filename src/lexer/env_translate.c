@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 14:17:48 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/17 14:27:47 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,19 @@ static char	*dollar_handler(t_config *c, int *i, char *line, char *new_line)
 	char	*tmp;
 
 	def = find_def(c, &line[*i]);
-	j = 0;
-	if (line[*i + j] == '?')
+	j = *i;
+	if (line[j] == '?')
 		j++;
 	else
-	{
-		while (ft_isalnum(line[*i + j]) || line[*i + j] == '_' || line[*i + j] == '-')
+		while (ft_isalnum(line[j]) || line[j] == '_' || line[j] == '-')
 			j++;
-	}
 	if (def)
 	{
-		tmp = ft_strjoin(def, &line[*i + j]);
+		tmp = ft_strjoin(def, &line[j]);
 		free(def);
 	}
 	else
-		tmp = ft_strdup(&line[*i + j]);
+		tmp = ft_strdup(&line[j]);
 	line[--*i] = 0;
 	if (new_line)
 		free(new_line);
@@ -152,7 +150,7 @@ char	*translator(t_config *c, char *line)
 	{
 		i = single_quote(line, i);
 		if (line[i] == '$' && line[i + 1] && (ft_isalpha(line[i + 1])
-			|| line[i + 1] == '?' || line[i + 1] == '_'))
+				|| line[i + 1] == '?' || line[i + 1] == '_'))
 		{
 			i++;
 			new_line = dollar_handler(c, &i, line, new_line);

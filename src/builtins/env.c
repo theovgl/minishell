@@ -6,7 +6,7 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/16 21:50:29 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/17 15:50:41 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	print_env(t_config *c, t_cmd *cmd, int export)
 	while (current)
 	{
 		if (export)
-			ft_putstr_fd("export ", cmd->io.out);
-		ft_putstr_fd((char *)(current->content), cmd->io.out);
-		ft_putchar_fd('\n', cmd->io.out);
+			ft_putstr_fd("export ", 1);
+		ft_putstr_fd((char *)(current->content), 1);
+		ft_putchar_fd('\n', 1);
 		current = current->next;
 	}
 	g_return = 0;
