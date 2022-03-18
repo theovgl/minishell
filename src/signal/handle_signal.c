@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:13:47 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:03:47 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 16:27:26 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ void	handle_sigint(int sig)
 */
 void	handle_signal(void)
 {
-	if (signal(SIGINT, &handle_sigint) == SIG_ERR
-		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	{
+		perror("Signal");
+		exit(g_return);
+	}
+	if (signal(SIGINT, &handle_sigint) == SIG_ERR)
 	{
 		perror("Signal");
 		exit(g_return);

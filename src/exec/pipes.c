@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 18:43:39 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 16:36:15 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	wait_for_children(int last_pid)
 	}
 	while (ret_wait != -1)
 		ret_wait = wait(NULL);
+	signal(SIGQUIT, SIG_IGN);
 	return (SUCCESS);
 }
 
@@ -94,6 +95,7 @@ int	exec_pipes(t_config *c, char *envp[])
 		g_child = 1;
 		if (last_pid < 0)
 			exit_failure(c, "", 1);
+		signal(SIGQUIT, handle_sigquit);
 		if (last_pid == 0)
 			childhood(c, ((t_cmd *)(current->content)), envp);
 		current = current->next;
