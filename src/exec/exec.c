@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 16:35:45 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 16:56:15 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	handle_sigquit(int sig)
 {
+	(void)sig;
 	if (g_pid != 0)
 	{
 		ft_putstr_fd("\n", 1);
@@ -45,7 +46,6 @@ int	exec_builtin(t_config *c, t_cmd *cmd)
 static int	not_builtin(t_config *c, t_cmd *cmd, char **envp)
 {
 	int	status;
-	int	pid;
 
 	g_pid = fork();
 	g_child = 1;
@@ -103,4 +103,3 @@ int	exec(t_config *c, char *envp[])
 			return (FAILURE);
 	}
 }
-
