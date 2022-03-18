@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 22:17:21 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 22:55:49 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,22 @@ int	get_cmd_size(t_list *node)
 	return (i);
 }
 
-void	fill_rest_cmd(t_cmd *to_fill, t_list **list)
+static void	fill_remaining_cmd(t_cmd *to_fill, t_list **list)
 {
 	int	i;
 
 	i = 1;
 	while (*list && (*list)->type == WORD)
+	{
+		to_fill->cmd[i++] = ft_strdup((*list)->content);
+		*list = (*list)->next;
+	}
+	to_fill->cmd[i] = NULL;
+}
+
+void	save_args(t_list **list, t_cmd *to_fill, int i)
+{
+	while (*list && (*list)->type == WORD && (*list)->content)
 	{
 		to_fill->cmd[i++] = ft_strdup((*list)->content);
 		*list = (*list)->next;
@@ -84,7 +94,7 @@ int	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 
 	i = 0;
 	if (to_fill->cmd && to_fill->cmd[0] != NULL)
-		fill_rest_cmd(to_fill, list);
+		fill_remaining_cmd(to_fill, list);
 	else
 	{
 		size = get_cmd_size(*list);
@@ -93,12 +103,7 @@ int	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 		to_fill->cmd = malloc(sizeof(char *) * (size + 1));
 		if (!to_fill->cmd)
 			exit_failure(c, "Malloc failed", 1);
-		while (*list && (*list)->type == WORD && (*list)->content)
-		{
-			to_fill->cmd[i++] = ft_strdup((*list)->content);
-			*list = (*list)->next;
-		}
-		to_fill->cmd[i] = NULL;
+		save_args(list, to_fill, i);
 		if (ft_strchr(to_fill->cmd[0], '/') == NULL)
 			get_cmd_path(c, to_fill, to_fill->cmd[0]);
 		else
