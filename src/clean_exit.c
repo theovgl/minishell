@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:24:45 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/15 16:55:42 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 12:17:23 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ void	clean(t_config *c)
 void	exit_failure(t_config *c, char *err_string, int is_errno)
 {
 	if (is_errno)
-		perror(err_string);
+	{
+		if (errno == ENOEXEC)
+			g_return = 0;
+		else
+			perror(err_string);
+	}	
 	else
 		ft_putstr_fd(err_string, 2);
 	clean(c);
