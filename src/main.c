@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 17:13:42 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 21:09:36 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc __attribute__((unused)),
 	handle_signal();
 	while (1)
 	{
-		g_global.child = 0;
 		c.command_line = readline("minimichel$> ");
 		if (c.command_line == NULL)
 			break ;
