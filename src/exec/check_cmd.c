@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 14:24:00 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/11 14:35:44 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 14:17:23 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_cmd_not_found(t_config *c, char *cmd_path)
 
 void	check_permission_denied(t_config *c, t_cmd *cmd)
 {
-	if (ft_strncmp(cmd->cmd[0], "./", 2) == 0)
+	if (ft_strncmp(cmd->cmd[0], "./", ft_strlen(cmd->cmd[0])) == 0)
 	{
 		g_return = 126;
 		exit_failure(c, cmd->cmd[0], 1);
