@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 17:13:55 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 22:40:06 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_sigquit(int sig)
 	}
 }
 
-int	exec_builtin(t_config *c, t_cmd *cmd)
+void	exec_builtin(t_config *c, t_cmd *cmd)
 {
 	int	size;
 
@@ -38,7 +38,7 @@ int	exec_builtin(t_config *c, t_cmd *cmd)
 	else if (ft_strncmp("unset", cmd->cmd[0], size) == 0)
 		unset(c, cmd->cmd);
 	else if (ft_strncmp("env", cmd->cmd[0], size) == 0)
-		print_env(c, cmd, 0);
+		print_env(c, 0);
 	else if (ft_strncmp("exit", cmd->cmd[0], size) == 0)
 		ft_exit(c, cmd);
 }
@@ -102,4 +102,5 @@ int	exec(t_config *c, char *envp[])
 		else
 			return (FAILURE);
 	}
+	return (SUCCESS);
 }

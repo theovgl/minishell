@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 22:38:33 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_env(t_config *c, char *ep[])
  * @param c
  * @param export
  */
-void	print_env(t_config *c, t_cmd *cmd, int export)
+void	print_env(t_config *c, int export)
 {
 	t_list	*current;
 
