@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 17:03:36 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	ft_export(t_config *c, t_cmd *cmd)
 	{
 		if (export(c, tmp[i]) == FAILURE)
 		{
-			g_return = 1;
+			g_global.ret = 1;
 			return (FAILURE);
 		}
 		i++;

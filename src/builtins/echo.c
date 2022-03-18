@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:55:22 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 12:43:15 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int	echo(t_cmd *cmd)
 	}
 	if (nl == 0)
 		ft_putchar_fd('\n', cmd->io.out);
-	g_return = 0;
+	g_global.ret = 0;
 	return (SUCCESS);
 }

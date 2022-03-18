@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:21:55 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:34:01 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parse_here_doc(t_config *c, t_list **list, int fd[2])
 	char	*tmp;
 	char	*limit;
 
-	g_return = 0;
+	g_global.ret = 0;
 	limit = ft_strdup((*list)->content);
 	readline_buf = readline("> ");
 	while (readline_buf && ft_strncmp(readline_buf, limit, ft_strlen(limit)))
@@ -41,7 +41,7 @@ static void	here_doc_sigint(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	close(STDIN_FILENO);
-	g_return = 130;
+	g_global.ret = 130;
 }
 
 void	chatterton(t_config *c, t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 16:56:15 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	handle_sigquit(int sig)
 {
 	(void)sig;
-	if (g_pid != 0)
+	if (g_global.pid != 0)
 	{
 		ft_putstr_fd("\n", 1);
-		g_return = 131;
+		g_global.ret = 131;
 	}
 }
 
@@ -47,12 +47,12 @@ static int	not_builtin(t_config *c, t_cmd *cmd, char **envp)
 {
 	int	status;
 
-	g_pid = fork();
-	g_child = 1;
-	if (g_pid < 0)
+	g_global.pid = fork();
+	g_global.child = 1;
+	if (g_global.pid < 0)
 		exit_failure(c, "Fork", 1);
 	signal(SIGQUIT, handle_sigquit);
-	if (g_pid == 0)
+	if (g_global.pid == 0)
 	{
 		dup2(cmd->io.in, STDIN_FILENO);
 		dup2(cmd->io.out, STDOUT_FILENO);
@@ -65,8 +65,8 @@ static int	not_builtin(t_config *c, t_cmd *cmd, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	if (WIFEXITED(status))
 	{
-		g_return = WEXITSTATUS(status);
-		return (g_return);
+		g_global.ret = WEXITSTATUS(status);
+		return (g_global.ret);
 	}
 	return (SUCCESS);
 }

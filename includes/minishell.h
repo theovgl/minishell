@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 16:30:20 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:12:27 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@
 # include <fcntl.h>
 # include <errno.h>
 
-extern u_int8_t			g_return;
-extern int				g_child;
-extern int				g_pid;
-
 enum {
 	SUCCESS = 0,
 	FAILURE,
@@ -57,6 +53,15 @@ enum {
 };
 
 typedef struct s_list	t_list;
+
+typedef struct s_global
+{
+	u_int8_t	ret;
+	int			pid;
+	int			child;
+}	t_global;
+
+extern t_global			g_global;
 
 struct	s_list
 {

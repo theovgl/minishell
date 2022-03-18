@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:06:16 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 18:24:39 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ static int	check_id(char *id)
 	i = 0;
 	if (!id)
 	{
-		g_return = 0;
+		g_global.ret = 0;
 		return (0);
 	}
 	if (!ft_isvariable(id))
 	{
 		printf("unset: '%s': not a valid identifier\n", id);
-		g_return = 1;
+		g_global.ret = 1;
 		return (1);
 	}
-	g_return = 0;
+	g_global.ret = 0;
 	return (0);
 }
 

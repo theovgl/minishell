@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 16:36:15 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:22:17 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	childhood(t_config *c, t_cmd *content, char **envp)
 	if (content->builtin)
 	{
 		exec_builtin(c, content);
-		exit(g_return);
+		exit(g_global.ret);
 	}
 	else
 	{
@@ -71,8 +71,8 @@ static int	wait_for_children(int last_pid)
 	waitpid(last_pid, &status, 1);
 	if (WIFEXITED(status))
 	{
-		g_return = WEXITSTATUS(status);
-		return (g_return);
+		g_global.ret = WEXITSTATUS(status);
+		return (g_global.ret);
 	}
 	while (ret_wait != -1)
 		ret_wait = wait(NULL);
@@ -84,22 +84,21 @@ int	exec_pipes(t_config *c, char *envp[])
 {
 	t_list	*current;
 	t_io	io;
-	int		last_pid;
 
 	io.in = 0;
 	io.out = 1;
 	current = c->cmd_list;
 	while (current)
 	{
-		last_pid = fork();
-		g_child = 1;
-		if (last_pid < 0)
+		g_global.pid = fork();
+		g_global.child = 1;
+		if (g_global.pid < 0)
 			exit_failure(c, "", 1);
 		signal(SIGQUIT, handle_sigquit);
-		if (last_pid == 0)
+		if (g_global.pid == 0)
 			childhood(c, ((t_cmd *)(current->content)), envp);
 		current = current->next;
 	}
 	closer(c, io);
-	return (wait_for_children(last_pid));
+	return (wait_for_children(g_global.pid));
 }

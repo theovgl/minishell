@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:16:12 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 15:50:41 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	print_env(t_config *c, t_cmd *cmd, int export)
 		ft_putchar_fd('\n', 1);
 		current = current->next;
 	}
-	g_return = 0;
+	g_global.ret = 0;
 }
 
 char	*getpath(t_config *c)
@@ -106,7 +106,7 @@ char	*getpath(t_config *c)
 			return (get_def(current->content, def, i + 1));
 		current = current->next;
 	}
-	g_return = 0;
+	g_global.ret = 0;
 	return (NULL);
 }
 

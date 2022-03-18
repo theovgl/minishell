@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:03:02 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/15 15:40:40 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_exit(t_config *c, t_cmd *cmd)
 	}
 	if (exit_status == 1)
 	{
-		g_return = 1;
+		g_global.ret = 1;
 		return ;
 	}
 	if (exit_status == 0)
@@ -59,7 +59,7 @@ void	ft_exit(t_config *c, t_cmd *cmd)
 		if (cmd->cmd[1])
 			exit_status = ft_atoi(cmd->cmd[1]);
 		else
-			exit_status = g_return;
+			exit_status = g_global.ret;
 	}
 	clean(c);
 	ft_lstclear(&c->env, free);

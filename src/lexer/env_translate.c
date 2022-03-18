@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_translate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 14:27:47 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*is_var(t_config *c, char *line)
 	}
 	if (line[0] == '?')
 	{
-		return (ft_itoa(g_return));
+		return (ft_itoa(g_global.ret));
 	}
 	return (NULL);
 }

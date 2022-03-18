@@ -6,15 +6,13 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:45:04 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 16:52:45 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 17:13:42 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-u_int8_t	g_return;
-int			g_pid;
-int			g_child;
+t_global	g_global;
 
 int	main(int argc __attribute__((unused)),
 	char **argv __attribute__((unused)), char **envp)
@@ -26,7 +24,7 @@ int	main(int argc __attribute__((unused)),
 	handle_signal();
 	while (1)
 	{
-		g_child = 0;
+		g_global.child = 0;
 		c.command_line = readline("minimichel$> ");
 		if (c.command_line == NULL)
 			break ;
@@ -43,5 +41,5 @@ int	main(int argc __attribute__((unused)),
 	printf("exit\n");
 	ft_lstclear(&c.env, free);
 	free(c.command_line);
-	return (g_return);
+	return (g_global.ret);
 }
