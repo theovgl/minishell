@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:26:44 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 18:23:07 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 16:35:45 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handle_sigquit(int sig)
+{
+	if (g_pid != 0)
+	{
+		ft_putstr_fd("\n", 1);
+		g_return = 131;
+	}
+}
 
 int	exec_builtin(t_config *c, t_cmd *cmd)
 {
@@ -36,11 +45,13 @@ int	exec_builtin(t_config *c, t_cmd *cmd)
 static int	not_builtin(t_config *c, t_cmd *cmd, char **envp)
 {
 	int	status;
+	int	pid;
 
 	g_pid = fork();
 	g_child = 1;
 	if (g_pid < 0)
 		exit_failure(c, "Fork", 1);
+	signal(SIGQUIT, handle_sigquit);
 	if (g_pid == 0)
 	{
 		dup2(cmd->io.in, STDIN_FILENO);
@@ -51,6 +62,7 @@ static int	not_builtin(t_config *c, t_cmd *cmd, char **envp)
 		exit_failure(c, cmd->cmd[0], 1);
 	}
 	wait(&status);
+	signal(SIGQUIT, SIG_IGN);
 	if (WIFEXITED(status))
 	{
 		g_return = WEXITSTATUS(status);

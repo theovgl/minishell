@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 12:47:23 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 16:30:20 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 extern u_int8_t			g_return;
 extern int				g_child;
+extern int				g_pid;
 
 enum {
 	SUCCESS = 0,
@@ -93,6 +94,7 @@ typedef struct s_config
 // SIGNAL
 void	handle_signal(void);
 void	handle_sigint(int sig);
+void	handle_sigquit(int sig);
 
 // SRC
 void	clean(t_config *c);
