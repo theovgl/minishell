@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 19:10:14 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 22:17:07 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_cmd	*init_cmd(void)
 	new_cmd->io.in = STDIN_FILENO;
 	new_cmd->io.out = STDOUT_FILENO;
 	new_cmd->path = NULL;
+	new_cmd->builtin = 0;
 	return (new_cmd);
 }
 

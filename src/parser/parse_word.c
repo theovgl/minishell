@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 23:47:36 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 22:17:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,28 @@ int	get_cmd_size(t_list *node)
 
 	i = 0;
 	current = node;
-	while (current != NULL && current->type == WORD)
+	while (current)
 	{
-		i++;
+		if (current->type == LLESS)
+			current = current->next;
+		else
+			i++;
 		current = current->next;
 	}
 	return (i);
+}
+
+void	fill_rest_cmd(t_cmd *to_fill, t_list **list)
+{
+	int	i;
+
+	i = 1;
+	while (*list && (*list)->type == WORD)
+	{
+		to_fill->cmd[i++] = ft_strdup((*list)->content);
+		*list = (*list)->next;
+	}
+	to_fill->cmd[i] = NULL;
 }
 
 /**
@@ -67,25 +83,26 @@ int	parse_word(t_config *c, t_list **list, t_cmd *to_fill)
 	int		size;
 
 	i = 0;
-	size = get_cmd_size(*list);
-	if ((*list)->type != WORD)
-		return (FAILURE);
-	if (is_builtin((*list)->content))
-		to_fill->builtin = 1;
+	if (to_fill->cmd && to_fill->cmd[0] != NULL)
+		fill_rest_cmd(to_fill, list);
 	else
-		to_fill->builtin = 0;
-	to_fill->cmd = malloc(sizeof(char *) * (size + 1));
-	if (!to_fill->cmd)
-		exit_failure(c, "Malloc failed", 1);
-	while (*list && (*list)->type == WORD && (*list)->content)
 	{
-		to_fill->cmd[i++] = ft_strdup((*list)->content);
-		*list = (*list)->next;
+		size = get_cmd_size(*list);
+		if (is_builtin((*list)->content))
+			to_fill->builtin = 1;
+		to_fill->cmd = malloc(sizeof(char *) * (size + 1));
+		if (!to_fill->cmd)
+			exit_failure(c, "Malloc failed", 1);
+		while (*list && (*list)->type == WORD && (*list)->content)
+		{
+			to_fill->cmd[i++] = ft_strdup((*list)->content);
+			*list = (*list)->next;
+		}
+		to_fill->cmd[i] = NULL;
+		if (ft_strchr(to_fill->cmd[0], '/') == NULL)
+			get_cmd_path(c, to_fill, to_fill->cmd[0]);
+		else
+			to_fill->path = ft_strdup(to_fill->cmd[0]);
 	}
-	to_fill->cmd[i] = NULL;
-	if (ft_strchr(to_fill->cmd[0], '/') == NULL)
-		get_cmd_path(c, to_fill, to_fill->cmd[0]);
-	else
-		to_fill->path = ft_strdup(to_fill->cmd[0]);
 	return (SUCCESS);
 }
