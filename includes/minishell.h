@@ -153,7 +153,7 @@ int		parse_env(t_config *c);
 int		parse_tokens(t_config *c, t_list *tokens_list);
 int		parse_pipe(t_config *c, t_list **list, t_cmd *cmd, int pipe_input);
 int		get_cmd_size(t_list *node);
-void	parse_word(t_config *c, t_list **list, t_cmd *to_fill);
+int		parse_word(t_config *c, t_list **list, t_cmd *to_fill);
 void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 int		parse_redirect(t_config *c, t_list **list, t_cmd *cmd);
 int		is_builtin(char *to_check);
