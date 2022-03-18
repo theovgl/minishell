@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 17:22:17 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 21:04:24 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,12 @@ static int	wait_for_children(int last_pid)
 	int	ret_wait;
 
 	ret_wait = 0;
-	waitpid(last_pid, &status, 1);
+	waitpid(last_pid, &status, 0);
 	if (WIFEXITED(status))
 	{
 		g_global.ret = WEXITSTATUS(status);
+		while (ret_wait != -1)
+			ret_wait = wait(NULL);
 		return (g_global.ret);
 	}
 	while (ret_wait != -1)
