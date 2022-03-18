@@ -6,31 +6,40 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:21:55 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 22:39:19 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 23:06:51 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	check_delimiter(char *line, char *delimiter)
+{
+	if (ft_strlen(line) > ft_strlen(delimiter))
+		return (0);
+	else if (ft_strncmp(delimiter, line, ft_strlen(delimiter)) == 0)
+		return (1);
+	return (0);
+}
+
 void	parse_here_doc(t_config *c, t_list **list, int fd[2])
 {
-	char	*readline_buf;
+	char	*buff;
 	char	*tmp;
 	char	*limit;
 
 	g_global.ret = 0;
 	limit = ft_strdup((*list)->content);
-	readline_buf = readline("> ");
-	while (readline_buf && ft_strncmp(readline_buf, limit, ft_strlen(limit)))
+	buff = readline("> ");
+	while (buff && check_delimiter(buff, limit) == 0)
 	{
-		if (readline_buf == NULL)
+		if (buff == NULL)
 			break ;
-		tmp = translator(c, readline_buf);
-		readline_buf = ft_strjoin(tmp, "\n");
+		tmp = translator(c, buff);
+		buff = ft_strjoin(tmp, "\n");
 		free(tmp);
-		write(fd[1], readline_buf, ft_strlen(readline_buf));
-		free(readline_buf);
-		readline_buf = readline("> ");
+		write(fd[1], buff, ft_strlen(buff));
+		free(buff);
+		buff = readline("> ");
 	}
 	close(fd[1]);
 	free(limit);
