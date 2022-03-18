@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 17:12:27 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 19:10:30 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int		is_builtin(char *to_check);
 int		create_here_doc(t_config *c, t_list **list, t_cmd *cmd);
 void	handle_tokens_errors(t_cmd *cmd);
 void	free_path(t_config *c);
+int		check_tokens(t_list *list);
+int		isredir(int type);
 
 // BUILTINS
 int		ft_env(t_config *c, char *ep[]);

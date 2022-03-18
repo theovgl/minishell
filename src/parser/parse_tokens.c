@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 18:37:36 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 19:10:14 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ void	handle_tokens_errors(t_cmd *cmd)
 	}
 }
 
-static	int	isredir(int type)
-{
-	if (type == LESS || type == GREAT
-		|| type == LLESS || type == GGREAT)
-	{
-		return (1);
-	}
-	else
-		return (0);
-}
-
 static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
 {
 	while (current)
@@ -89,30 +78,6 @@ static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
 	return (SUCCESS);
 }
 
-int	check_token(t_list *list)
-{
-	t_list	*current;
-
-	current = list;
-	while (current)
-	{
-		if (isredir(current->type) || current->type == PIPE)
-		{
-			if (!current->next || current->next->type != WORD)
-			{
-				ft_putstr_fd("Syntax error near unexpected token '",
-					STDERR_FILENO);
-				ft_putstr_fd(current->content, STDERR_FILENO);
-				ft_putstr_fd("'\n", STDERR_FILENO);
-				g_global.ret = 2;
-				return (FAILURE);
-			}
-		}
-		current = current->next;
-	}
-	return (SUCCESS);
-}
-
 /**
  * @brief Parse each token comming from the lexer
  */
@@ -125,7 +90,7 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 	current = tokens_list;
 	cmd = init_cmd();
 	pipe_input = 0;
-	if (check_token(current) == FAILURE)
+	if (check_tokens(current) == FAILURE)
 		return (FAILURE);
 	if (!cmd)
 		return (FAILURE);
