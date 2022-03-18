@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:02:16 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 14:24:10 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_token(t_list *list)
 	t_list	*current;
 
 	current = list;
-	if (!current->next)
+	if (!current->next || current->next->type != WORD)
 	{
 		ft_putstr_fd("Syntax error near unexpected token '", STDERR_FILENO);
 		ft_putstr_fd(current->content, STDERR_FILENO);
