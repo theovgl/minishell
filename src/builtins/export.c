@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/17 14:17:59 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 17:03:36 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_word(char *s, char *word, int i)
 			word[j] = s[j];
 			j++;
 		}
-	word[i] = '\0';
+		word[i] = '\0';
 	}
 	if ((word && !ft_isvariable(word)) || i == -1)
 	{
