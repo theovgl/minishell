@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/17 20:02:16 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 00:59:26 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,44 @@ int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 	(*list) = (*list)->next;
 	return (SUCCESS);
 }
+
+/**
+ * @brief Add command and arguments to the commands list
+ */
+void	add_cmd_to_list(t_config *c, t_cmd *cmd)
+{
+	t_list	*to_add;
+
+	if (c->cmd_list == NULL)
+		c->cmd_list = ft_lstnew(cmd);
+	else
+	{
+		to_add = ft_lstnew(cmd);
+		ft_lstadd_back(&c->cmd_list, to_add);
+	}
+}
+/*
+void	print_cmd(t_config *c)
+{
+	int		i;
+	int		j;
+	t_list	*current;
+
+	j = 0;
+	i = 0;
+	current = c->cmd_list;
+	while (current && ((t_cmd *)(current->content))->cmd)
+	{
+		i = 0;
+		while (((t_cmd *)(current->content))->cmd[i])
+		{
+			printf("%s\n", ((t_cmd *)(current->content))->cmd[i]);
+			i++;
+		}
+		printf("input: %i\n", ((t_cmd *)current->content)->io.in);
+		printf("output: %i\n", ((t_cmd *)current->content)->io.out);
+		j++;
+		current = current->next;
+	}
+}
+*/

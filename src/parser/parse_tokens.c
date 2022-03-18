@@ -6,51 +6,11 @@
 /*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/16 18:16:31 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/18 01:04:12 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief Add command and arguments to the commands list
- */
-void	add_cmd_to_list(t_config *c, t_cmd *cmd)
-{
-	t_list	*to_add;
-
-	if (c->cmd_list == NULL)
-		c->cmd_list = ft_lstnew(cmd);
-	else
-	{
-		to_add = ft_lstnew(cmd);
-		ft_lstadd_back(&c->cmd_list, to_add);
-	}
-}
-
-void	print_cmd(t_config *c)
-{
-	int		i;
-	int		j;
-	t_list	*current;
-
-	j = 0;
-	i = 0;
-	current = c->cmd_list;
-	while (current && ((t_cmd *)(current->content))->cmd)
-	{
-		i = 0;
-		while (((t_cmd *)(current->content))->cmd[i])
-		{
-			printf("%s\n", ((t_cmd *)(current->content))->cmd[i]);
-			i++;
-		}
-		printf("input: %i\n", ((t_cmd *)current->content)->io.in);
-		printf("output: %i\n", ((t_cmd *)current->content)->io.out);
-		j++;
-		current = current->next;
-	}
-}
 
 static t_cmd	*init_cmd(void)
 {
@@ -89,6 +49,46 @@ void	handle_tokens_errors(t_cmd *cmd)
 	}
 }
 
+static	int	isredir(int type)
+{
+	if (type == LESS || type == GREAT
+		|| type == LLESS || type == GGREAT)
+	{
+		return (1);
+	}
+	else
+		return (0);
+}
+
+static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
+{
+	while (current)
+	{
+		if (current->type == WORD)
+			parse_word(c, &current, cmd);
+		else if (isredir(current->type))
+		{
+			if (parse_redirect(c, &current, cmd) == FAILURE)
+			{
+				handle_tokens_errors(cmd);
+				return (FAILURE);
+			}
+		}
+		else if (current && current->type == PIPE)
+		{
+			p_input = parse_pipe(c, &current, cmd, p_input);
+			add_cmd_to_list(c, cmd);
+			cmd = init_cmd();
+		}
+		else
+			current = current->next;
+	}
+	if (p_input)
+		cmd->io.in = p_input;
+	add_cmd_to_list(c, cmd);
+	return (SUCCESS);
+}
+
 /**
  * @brief Parse each token comming from the lexer
  */
@@ -103,31 +103,7 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 	pipe_input = 0;
 	if (!cmd)
 		return (FAILURE);
-	while (current)
-	{
-		if (current->type == WORD)
-			parse_word(c, &current, cmd);
-		else if (current->type == LESS || current->type == GREAT
-			|| current->type == LLESS || current->type == GGREAT)
-		{
-			if (parse_redirect(c, &current, cmd) == FAILURE)
-			{
-				handle_tokens_errors(cmd);
-				return (FAILURE);
-			}
-		}
-		else if (current && current->type == PIPE)
-		{
-			pipe_input = parse_pipe(c, &current, cmd, pipe_input);
-			add_cmd_to_list(c, cmd);
-			cmd = init_cmd();
-		}
-		else
-			current = current->next;
-	}
-	if (pipe_input)
-		cmd->io.in = pipe_input;
-	add_cmd_to_list(c, cmd);
-	// print_cmd(c);
+	if (do_the_trick(c, current, cmd, pipe_input) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
