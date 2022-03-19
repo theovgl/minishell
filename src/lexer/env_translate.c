@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_translate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 20:50:03 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/19 00:10:11 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:53:44 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*is_var(t_config *c, char *line)
 		while (line[i] && ((char *)(current->content))[i] \
 		&& line[i] == ((char *)(current->content))[i]
 		&& line[i] != '=')
-				i++;
+			i++;
 		if (!ft_isalnum(line[i]) && ((char *)(current->content))[i] == '=')
 			return (current->content);
 		current = current->next;
