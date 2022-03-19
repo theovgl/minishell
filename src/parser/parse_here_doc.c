@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:21:55 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 23:06:51 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/19 01:29:21 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	create_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 
 	if (pipe(fd) < 0)
 		exit_failure(c, "Pipe", 1);
+	dup2(fd[0], cmd->io.in);
 	signal(SIGINT, SIG_IGN);
 	cmd->io.in = fd[0];
 	pid = fork();
@@ -87,5 +88,6 @@ int	create_here_doc(t_config *c, t_list **list, t_cmd *cmd)
 		close(fd[0]);
 		return (FAILURE);
 	}
+	close(fd[0]);
 	return (SUCCESS);
 }
