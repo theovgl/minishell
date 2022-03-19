@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 01:04:12 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:16:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_cmd	*init_cmd(void)
 	new_cmd->io.in = STDIN_FILENO;
 	new_cmd->io.out = STDOUT_FILENO;
 	new_cmd->path = NULL;
+	new_cmd->builtin = 0;
 	return (new_cmd);
 }
 
@@ -49,17 +50,6 @@ void	handle_tokens_errors(t_cmd *cmd)
 	}
 }
 
-static	int	isredir(int type)
-{
-	if (type == LESS || type == GREAT
-		|| type == LLESS || type == GGREAT)
-	{
-		return (1);
-	}
-	else
-		return (0);
-}
-
 static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
 {
 	while (current)
@@ -79,12 +69,11 @@ static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
 			p_input = parse_pipe(c, &current, cmd, p_input);
 			add_cmd_to_list(c, cmd);
 			cmd = init_cmd();
+			cmd->io.in = p_input;
 		}
 		else
 			current = current->next;
 	}
-	if (p_input)
-		cmd->io.in = p_input;
 	add_cmd_to_list(c, cmd);
 	return (SUCCESS);
 }
@@ -101,6 +90,8 @@ int	parse_tokens(t_config *c, t_list *tokens_list)
 	current = tokens_list;
 	cmd = init_cmd();
 	pipe_input = 0;
+	if (check_tokens(current) == FAILURE)
+		return (FAILURE);
 	if (!cmd)
 		return (FAILURE);
 	if (do_the_trick(c, current, cmd, pipe_input) == FAILURE)

@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:20:25 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 17:13:21 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/18 22:38:58 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	ft_export(t_config *c, t_cmd *cmd)
 	tmp = cmd->cmd;
 	if (!tmp[i])
 	{
-		print_env(c, cmd, 1);
+		print_env(c, 1);
 		return (SUCCESS);
 	}
 	while (tmp[i])
