@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:08:37 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 23:26:29 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/19 16:46:49 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_tokens(t_list *list)
 	while (current)
 	{
 		if ((isredir(current->type)
-			&& (!current->next || current->next->type != WORD))
+				&& (!current->next || current->next->type != WORD))
 			|| (current->type == PIPE && !current->next))
 		{
 			ft_putstr_fd("Syntax error near unexpected token '",
