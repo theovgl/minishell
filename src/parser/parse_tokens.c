@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 15:05:59 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/19 01:30:11 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/19 16:16:55 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ static	int	do_the_trick(t_config *c, t_list *current, t_cmd *cmd, int p_input)
 		else
 			current = current->next;
 	}
-	if (p_input)
-		cmd->io.in = p_input;
 	add_cmd_to_list(c, cmd);
 	return (SUCCESS);
 }

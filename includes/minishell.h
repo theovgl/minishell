@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:44:27 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 22:40:25 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/19 16:43:16 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ void	add_cmd_to_list(t_config *c, t_cmd *cmd);
 int		parse_redirect(t_config *c, t_list **list, t_cmd *cmd);
 int		is_builtin(char *to_check);
 int		create_here_doc(t_config *c, t_list **list, t_cmd *cmd);
+void	heredoc_fd_manager(t_cmd *cmd, int fd[2]);
 void	handle_tokens_errors(t_cmd *cmd);
 void	free_path(t_config *c);
 int		check_tokens(t_list *list);
