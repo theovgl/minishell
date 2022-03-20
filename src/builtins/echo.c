@@ -52,13 +52,13 @@ int	echo(t_cmd *cmd)
 	nl = check_option(av, &i);
 	while (av[i])
 	{
-		ft_putstr_fd(av[i], cmd->io.out);
+		ft_putstr_fd(av[i], STDOUT_FILENO);
 		i++;
 		if (av[i])
-			ft_putchar_fd(' ', cmd->io.out);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (nl == 0)
-		ft_putchar_fd('\n', cmd->io.out);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_global.ret = 0;
 	return (SUCCESS);
 }
