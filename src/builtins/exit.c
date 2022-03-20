@@ -43,7 +43,8 @@ void	ft_exit(t_config *c, t_cmd *cmd)
 {
 	u_int8_t	exit_status;
 
-	printf("exit\n");
+	if (!cmd->io.in)
+		printf("exit\n");
 	exit_status = 0;
 	if (cmd->cmd[1])
 	{
@@ -63,7 +64,5 @@ void	ft_exit(t_config *c, t_cmd *cmd)
 	}
 	clean(c);
 	ft_lstclear(&c->env, free);
-	if (exit_status != 0)
-		exit(exit_status);
-	exit(0);
+	exit(exit_status);
 }
