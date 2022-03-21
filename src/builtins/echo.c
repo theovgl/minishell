@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:55:22 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 23:02:04 by abiju-du         ###   ########.fr       */
+/*   Updated: 2022/03/21 09:35:43 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	echo(t_cmd *cmd)
 	nl = check_option(av, &i);
 	while (av[i])
 	{
-		ft_putstr_fd(av[i], STDOUT_FILENO);
+		ft_putstr_fd(av[i], cmd->io.out);
 		i++;
 		if (av[i])
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			ft_putchar_fd(' ', cmd->io.out);
 	}
 	if (nl == 0)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putchar_fd('\n', cmd->io.out);
 	g_global.ret = 0;
 	return (SUCCESS);
 }
