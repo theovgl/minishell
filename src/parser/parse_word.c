@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 14:37:41 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 22:55:49 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/21 12:43:26 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	get_cmd_size(t_list *node)
 	current = node;
 	while (current)
 	{
-		if (current->type == LLESS)
+		if (current->type == LLESS || current->type == LESS
+			|| current->type == GREAT || current->type == GGREAT)
 			current = current->next;
 		else
 			i++;
@@ -65,7 +66,9 @@ static void	fill_remaining_cmd(t_cmd *to_fill, t_list **list)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
+	while (to_fill->cmd[i] != NULL)
+		i++;
 	while (*list && (*list)->type == WORD)
 	{
 		to_fill->cmd[i++] = ft_strdup((*list)->content);
