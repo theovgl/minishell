@@ -6,7 +6,7 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 16:13:52 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/18 19:03:45 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/21 10:21:53 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,15 @@ int	parse_single_chevron(t_list **list, t_cmd *cmd)
 	if ((*list)->type == LESS)
 	{
 		(*list) = (*list)->next;
+		if (cmd->io.in != STDIN_FILENO)
+			close(cmd->io.in);
 		cmd->io.in = open((char *)(*list)->content, O_RDONLY);
 	}
 	else if ((*list)->type == GREAT)
 	{
 		(*list) = (*list)->next;
+		if (cmd->io.out != STDOUT_FILENO)
+			close(cmd->io.out);
 		cmd->io.out = open((char *)(*list)->content,
 				O_TRUNC | O_RDWR | O_CREAT, 00777);
 	}
@@ -69,22 +73,6 @@ int	parse_redirect(t_config *c, t_list **list, t_cmd *cmd)
 	}
 	(*list) = (*list)->next;
 	return (SUCCESS);
-}
-
-/**
- * @brief Add command and arguments to the commands list
- */
-void	add_cmd_to_list(t_config *c, t_cmd *cmd)
-{
-	t_list	*to_add;
-
-	if (c->cmd_list == NULL)
-		c->cmd_list = ft_lstnew(cmd);
-	else
-	{
-		to_add = ft_lstnew(cmd);
-		ft_lstadd_back(&c->cmd_list, to_add);
-	}
 }
 /*
 void	print_cmd(t_config *c)

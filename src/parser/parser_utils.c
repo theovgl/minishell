@@ -6,11 +6,27 @@
 /*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 19:08:37 by tvogel            #+#    #+#             */
-/*   Updated: 2022/03/21 10:14:20 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/21 10:22:30 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief Add command and arguments to the commands list
+ */
+void	add_cmd_to_list(t_config *c, t_cmd *cmd)
+{
+	t_list	*to_add;
+
+	if (c->cmd_list == NULL)
+		c->cmd_list = ft_lstnew(cmd);
+	else
+	{
+		to_add = ft_lstnew(cmd);
+		ft_lstadd_back(&c->cmd_list, to_add);
+	}
+}
 
 int	check_tokens(t_list *list)
 {
