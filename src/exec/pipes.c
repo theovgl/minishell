@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/21 11:30:20 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/21 12:34:43 by abiju-du         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ static void	closer(t_config *c, t_io io)
 	}
 }
 
+static void	non_builitin(t_config *c, t_cmd *content, char **envp)
+{
+	execve(content->path, content->cmd, envp);
+	check_cmd_not_found(c, content->path);
+	check_permission_denied(c, content);
+	close(content->io.in);
+	close(content->io.out);
+	exit_failure(c, content->cmd[0], 1);
+}
+
 static void	childhood(t_config *c, t_cmd *content, char **envp)
 {
 	closer(c, content->io);
@@ -53,14 +63,7 @@ static void	childhood(t_config *c, t_cmd *content, char **envp)
 		exit(g_global.ret);
 	}
 	else if (content->cmd[0] != NULL)
-	{
-		execve(content->path, content->cmd, envp);
-		check_cmd_not_found(c, content->path);
-		check_permission_denied(c, content);
-		close(content->io.in);
-		close(content->io.out);
-		exit_failure(c, content->cmd[0], 1);
-	}
+		non_builitin(c, content, envp);
 }
 
 static int	wait_for_children(int last_pid)
