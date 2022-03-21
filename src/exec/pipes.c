@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abiju-du <abiju-du@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tvogel <tvogel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:53 by abiju-du          #+#    #+#             */
-/*   Updated: 2022/03/18 20:56:53 by tvogel           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:30:20 by tvogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ static void	childhood(t_config *c, t_cmd *content, char **envp)
 	{
 		dup2(content->io.out, STDOUT_FILENO);
 		close(content->io.out);
+		content->io.out = STDOUT_FILENO;
 	}
 	if (content->builtin)
 	{
 		exec_builtin(c, content);
 		exit(g_global.ret);
 	}
-	else
+	else if (content->cmd[0] != NULL)
 	{
 		execve(content->path, content->cmd, envp);
 		check_cmd_not_found(c, content->path);
