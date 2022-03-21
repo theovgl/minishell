@@ -14,7 +14,7 @@ OBJS	= $(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 OBJSDIR	= objs
 INCL	= -I includes
 CC		= clang
-CFLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 LIBS	= -lreadline
 RM		= rm -f
 
